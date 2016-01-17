@@ -11,6 +11,7 @@
 
 namespace ICanBoogie\Validate\Validator;
 
+use ICanBoogie\Validate\Context;
 use ICanBoogie\Validate\Validator;
 
 class TypeTest extends ValidatorTestCase
@@ -122,7 +123,7 @@ class TypeTest extends ValidatorTestCase
 
 		try
 		{
-			$validator->normalize_options([ ]);
+			$validator->validate(uniqid(), function() {}, new Context);
 		}
 		catch (ParameterIsMissing $e)
 		{

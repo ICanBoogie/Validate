@@ -11,6 +11,8 @@
 
 namespace ICanBoogie\Validate\Validator;
 
+use ICanBoogie\Validate\Context;
+
 /**
  * States that a value is required. When the value is not present the validator issues an error
  * and stops validation of the value, that is on error no other validator is run.
@@ -35,7 +37,7 @@ class Required extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, array $options, callable $error)
+	public function validate($value, callable $error, Context $context)
 	{
 		if ($value === null || (is_array($value) && !count($value)) || (is_scalar($value) && trim($value) === ''))
 		{

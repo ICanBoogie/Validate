@@ -11,6 +11,8 @@
 
 namespace ICanBoogie\Validate\Validator;
 
+use ICanBoogie\Validate\Context;
+
 /**
  * Abstract for classes implementing value comparison.
  */
@@ -30,20 +32,15 @@ abstract class AbstractComparisonValidator extends AbstractValidator
 			$options[self::PARAM_REFERENCE] = $options[0];
 		}
 
-		if (!isset($options[self::PARAM_REFERENCE]))
-		{
-			throw new ParameterIsMissing(get_class($this) . '::PARAM_REFERENCE');
-		}
-
 		return $options;
 	}
 
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, array $options, callable $error)
+	public function validate($value, callable $error, Context $context)
 	{
-		$reference = $options[self::PARAM_REFERENCE];
+		$reference = $context->param(self::PARAM_REFERENCE);
 
 		if (!$this->compare($value, $reference))
 		{

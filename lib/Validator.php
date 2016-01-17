@@ -11,8 +11,16 @@
 
 namespace ICanBoogie\Validate;
 
+/**
+ * An interface for validator classes.
+ */
 interface Validator extends ValidatorOptions
 {
+	/**
+	 * Validator alias.
+	 */
+	const ALIAS = null;
+
 	/**
 	 * Default error message.
 	 */
@@ -28,9 +36,13 @@ interface Validator extends ValidatorOptions
 	public function normalize_options(array $options);
 
 	/**
+	 * Validate a value.
+	 *
 	 * @param mixed $value
-	 * @param array $options
 	 * @param callable $error
+	 * @param Context $context
+	 *
+	 * @return void
 	 */
-	public function validate($value, array $options, callable $error);
+	public function validate($value, callable $error, Context $context);
 }

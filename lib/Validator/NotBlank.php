@@ -11,6 +11,8 @@
 
 namespace ICanBoogie\Validate\Validator;
 
+use ICanBoogie\Validate\Context;
+
 /**
  * Validates that a value is blank.
  */
@@ -22,7 +24,7 @@ class NotBlank extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, array $options, callable $error)
+	public function validate($value, callable $error, Context $context)
 	{
 		if ((is_array($value) && !count($value)) || trim($value) === '')
 		{

@@ -11,6 +11,8 @@
 
 namespace ICanBoogie\Validate\Validator;
 
+use ICanBoogie\Validate\Context;
+
 /**
  * Validates that a value is null.
  */
@@ -31,20 +33,15 @@ class Type extends AbstractValidator
 			$options[self::PARAM_TYPE] = $options[0];
 		}
 
-		if (empty($options[self::PARAM_TYPE]))
-		{
-			throw new ParameterIsMissing(get_class($this) . '::PARAM_TYPE');
-		}
-
 		return $options;
 	}
 
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, array $options, callable $error)
+	public function validate($value, callable $error, Context $context)
 	{
-		$original_type = $options[self::PARAM_TYPE];
+		$original_type = $context->param(self::PARAM_TYPE);
 		$type = strtolower($original_type);
 
 		if ($type == 'boolean')

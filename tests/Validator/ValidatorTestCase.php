@@ -11,6 +11,7 @@
 
 namespace ICanBoogie\Validate\Validator;
 
+use ICanBoogie\Validate\Context;
 use ICanBoogie\Validate\Validator;
 
 abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
@@ -23,6 +24,11 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	private $validator;
 
 	/**
+	 * @var Context
+	 */
+	private $context;
+
+	/**
 	 * @var callable
 	 */
 	private $error;
@@ -32,6 +38,7 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	{
 		$class = static::VALIDATOR_CLASS;
 		$this->validator = new $class;
+		$this->context = new Context;
 		$this->error_was_invoked = false;
 		$this->error = function() {
 
@@ -48,8 +55,8 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_valid_values($value, $options = [])
 	{
-		$options = $this->validator->normalize_options($options);
-		$this->validator->validate($value, $options, $this->error);
+		$this->context->options = $this->validator->normalize_options($options);
+		$this->validator->validate($value, $this->error, $this->context);
 		$this->assertFalse($this->error_was_invoked);
 	}
 
@@ -63,8 +70,8 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_invalid_values($value, $options = [])
 	{
-		$options = $this->validator->normalize_options($options);
-		$this->validator->validate($value, $options, $this->error);
+		$this->context->options = $this->validator->normalize_options($options);
+		$this->validator->validate($value, $this->error, $this->context);
 		$this->assertTrue($this->error_was_invoked);
 	}
 

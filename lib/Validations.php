@@ -79,21 +79,27 @@ class Validations implements ValidatorOptions
 	public function validate(ValueReader $reader)
 	{
 		$errors = [];
-		$field = null;
+		$attribute = null;
 		$value = null;
 		$validator = null;
 		$options = [];
 
-		$error = function($message = null, $args = []) use (&$field, &$value, &$validator, &$options, &$errors) {
+		$context = new Context($attribute, $reader);
+		$context->attribute = &$attribute;
+		$context->value = &$value;
+		$context->validator = &$validator;
+		$context->errors = &$errors;
 
-			$errors[$field][] = $this->format_message(
-				$message ?: $message = $this->resolve_message($options, $validator),
-				$args + [ 'value' => $value, 'field' => $field ]
+		$error = function($message = null, $args = []) use ($context) {
+
+			$context->errors[$context->attribute][] = $this->format_message(
+				$message ?: $message = $this->resolve_message($context->options, $context->validator),
+				$args + [ 'value' => $context->value, 'attribute' => $context->attribute ]
 			);
 
 		};
 
-		foreach ($this->validations as $field => $validators)
+		foreach ($this->validations as $attribute => $validators)
 		{
 			foreach ($validators as $validator_name => $options)
 			{
@@ -102,12 +108,12 @@ class Validations implements ValidatorOptions
 					continue;
 				}
 
-				$value = $reader->read($field);
+				$value = $reader->read($attribute);
 				$validator = $this->resolve_validator($validator_name);
-				$options = $this->normalize_options($validator, $options);
-				$validator->validate($value, $options, $error);
+				$context->options = $this->normalize_options($validator, $options);
+				$validator->validate($value, $error, $context);
 
-				if ($this->should_stop($field, $options, $errors))
+				if ($this->should_stop($context))
 				{
 					break;
 				}
@@ -148,20 +154,18 @@ class Validations implements ValidatorOptions
 	/**
 	 * Whether validations for a field should stop.
 	 *
-	 * @param string $field
-	 * @param array $options
-	 * @param array $errors
+	 * @param Context $context
 	 *
 	 * @return bool
 	 */
-	protected function should_stop($field, array $options, array $errors)
+	protected function should_stop(Context $context)
 	{
-		if (empty($options[self::OPTION_STOP_ON_ERROR]))
+		if (empty($context->options[self::OPTION_STOP_ON_ERROR]))
 		{
 			return false;
 		}
 
-		return !empty($errors[$field]);
+		return !empty($context->errors[$context->attribute]);
 	}
 
 	/**

@@ -11,6 +11,7 @@
 
 namespace ICanBoogie\Validate\Validator;
 
+use ICanBoogie\Validate\Context;
 use ICanBoogie\Validate\Validator;
 
 /**
@@ -29,5 +30,5 @@ abstract class AbstractValidator implements Validator
 	/**
 	 * @inheritdoc
 	 */
-	abstract public function validate($value, array $options, callable $error);
+	abstract public function validate($value, callable $error, Context $context);
 }

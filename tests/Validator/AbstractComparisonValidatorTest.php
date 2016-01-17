@@ -11,6 +11,8 @@
 
 namespace ICanBoogie\Validate\Validator;
 
+use ICanBoogie\Validate\Context;
+
 class AbstractComparisonValidatorTest extends \PHPUnit_Framework_TestCase
 {
 	public function test_missing_param()
@@ -23,7 +25,7 @@ class AbstractComparisonValidatorTest extends \PHPUnit_Framework_TestCase
 
 		try
 		{
-			$validator->normalize_options([ ]);
+			$validator->validate(uniqid(), function() {}, new Context);
 		}
 		catch (ParameterIsMissing $e)
 		{

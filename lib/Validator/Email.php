@@ -11,6 +11,8 @@
 
 namespace ICanBoogie\Validate\Validator;
 
+use ICanBoogie\Validate\Context;
+
 /**
  * Validates that a value is a valid email.
  */
@@ -22,7 +24,7 @@ class Email extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, array $options, callable $error)
+	public function validate($value, callable $error, Context $context)
 	{
 		if (!filter_var($value, FILTER_VALIDATE_EMAIL))
 		{

@@ -2,7 +2,7 @@
 
 namespace ICanBoogie\Validate\Validator;
 
-use ICanBoogie\Validate\Validator\AbstractValidator;
+use ICanBoogie\Validate\Context;
 
 class SampleValidator extends AbstractValidator
 {
@@ -12,7 +12,7 @@ class SampleValidator extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, array $options, callable $error)
+	public function validate($value, callable $error, Context $context)
 	{
 		if ($value !== 'sample')
 		{
