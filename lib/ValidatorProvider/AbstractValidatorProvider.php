@@ -1,7 +1,22 @@
 <?php
 
-namespace ICanBoogie\Validate;
+/*
+ * This file is part of the ICanBoogie package.
+ *
+ * (c) Olivier Laviale <olivier.laviale@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
+namespace ICanBoogie\Validate\ValidatorProvider;
+
+use ICanBoogie\Validate\Validator;
+use ICanBoogie\Validate\ValidatorProvider;
+
+/**
+ * Abstract class for validator provider.
+ */
 abstract class AbstractValidatorProvider implements ValidatorProvider
 {
 	/**

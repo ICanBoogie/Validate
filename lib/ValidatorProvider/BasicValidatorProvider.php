@@ -11,7 +11,6 @@
 
 namespace ICanBoogie\Validate\ValidatorProvider;
 
-use ICanBoogie\Validate\AbstractValidatorProvider;
 use ICanBoogie\Validate\Validator;
 use ICanBoogie\Validate\ValidatorProvider;
 
