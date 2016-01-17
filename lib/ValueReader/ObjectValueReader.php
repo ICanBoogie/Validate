@@ -11,8 +11,6 @@
 
 namespace ICanBoogie\Validate\ValueReader;
 
-use ICanBoogie\Validate\AbstractValueReader;
-
 class ObjectValueReader extends AbstractValueReader
 {
 	/**
