@@ -78,17 +78,14 @@ class Validations implements ValidatorOptions
 	 */
 	public function validate(ValueReader $reader)
 	{
-		$errors = [];
 		$attribute = null;
 		$value = null;
 		$validator = null;
 
-		$context = new Context($attribute, $reader);
+		$context = $this->create_context($reader);
 		$context->attribute = &$attribute;
 		$context->value = &$value;
-		$context->values = $reader;
 		$context->validator = &$validator;
-		$context->errors = &$errors;
 
 		$error = function() use ($context) {
 
@@ -132,7 +129,22 @@ class Validations implements ValidatorOptions
 			}
 		}
 
-		return $errors;
+		return $context->errors;
+	}
+
+	/**
+	 * Creates a validations context.
+	 *
+	 * @param ValueReader $reader
+	 *
+	 * @return Context
+	 */
+	protected function create_context(ValueReader $reader)
+	{
+		$context = new Context;
+		$context->values = $reader;
+
+		return $context;
 	}
 
 	/**
