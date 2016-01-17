@@ -13,26 +13,23 @@ namespace ICanBoogie\Validate\Validator;
 
 use ICanBoogie\Validate\Validator;
 
-class BlankTest extends ValidatorTestCase
+class MaxLengthTest extends ValidatorTestCase
 {
-	const VALIDATOR_CLASS = Blank::class;
+	const VALIDATOR_CLASS = MaxLength::class;
 
 	public function provide_test_valid_values()
 	{
 		return [
-			[ null ],
-			[ '' ],
-			[ [] ]
+			[ "abcd", [ MaxLength::PARAM_REFERENCE => 10 ] ],
+			[ "abcd", [ MaxLength::PARAM_REFERENCE => 4 ] ]
 		];
 	}
 
 	public function provide_test_invalid_values()
 	{
 		return [
-			[ 'foobar' ],
-			[ 0 ],
-			[ false ],
-			[ 1234 ]
+			[ "abcd", [ MaxLength::PARAM_REFERENCE => 2 ] ],
+			[ "abcd", [ MaxLength::PARAM_REFERENCE => 3 ] ]
 		];
 	}
 }

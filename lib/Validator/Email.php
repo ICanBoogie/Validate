@@ -24,11 +24,8 @@ class Email extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, callable $error, Context $context)
+	public function validate($value, Context $context)
 	{
-		if (!filter_var($value, FILTER_VALIDATE_EMAIL))
-		{
-			$error();
-		}
+		return !!filter_var($value, FILTER_VALIDATE_EMAIL);
 	}
 }

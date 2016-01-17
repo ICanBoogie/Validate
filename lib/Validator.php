@@ -39,10 +39,9 @@ interface Validator extends ValidatorOptions
 	 * Validate a value.
 	 *
 	 * @param mixed $value
-	 * @param callable $error
 	 * @param Context $context
 	 *
-	 * @return void
+	 * @return bool
 	 */
-	public function validate($value, callable $error, Context $context);
+	public function validate($value, Context $context);
 }

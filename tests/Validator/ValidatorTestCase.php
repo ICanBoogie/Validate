@@ -28,23 +28,11 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	 */
 	private $context;
 
-	/**
-	 * @var callable
-	 */
-	private $error;
-	private $error_was_invoked = false;
-
 	public function setUp()
 	{
 		$class = static::VALIDATOR_CLASS;
 		$this->validator = new $class;
 		$this->context = new Context;
-		$this->error_was_invoked = false;
-		$this->error = function() {
-
-			$this->error_was_invoked = true;
-
-		};
 	}
 
 	/**
@@ -56,8 +44,7 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	public function test_valid_values($value, $options = [])
 	{
 		$this->context->options = $this->validator->normalize_options($options);
-		$this->validator->validate($value, $this->error, $this->context);
-		$this->assertFalse($this->error_was_invoked);
+		$this->assertTrue($this->validator->validate($value, $this->context));
 	}
 
 	abstract public function provide_test_valid_values();
@@ -71,8 +58,7 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	public function test_invalid_values($value, $options = [])
 	{
 		$this->context->options = $this->validator->normalize_options($options);
-		$this->validator->validate($value, $this->error, $this->context);
-		$this->assertTrue($this->error_was_invoked);
+		$this->assertFalse($this->validator->validate($value, $this->context));
 	}
 
 	abstract public function provide_test_invalid_values();

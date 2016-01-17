@@ -27,6 +27,7 @@ class TypeTest extends ValidatorTestCase
 	public function test_valid_values($value, $type = [])
 	{
 		parent::test_valid_values($value, [ Type::PARAM_TYPE => $type ]);
+		parent::test_valid_values($value, [ $type ]);
 	}
 
 	public function provide_test_valid_values()
@@ -78,6 +79,7 @@ class TypeTest extends ValidatorTestCase
 	public function test_invalid_values($value, $type = [])
 	{
 		parent::test_invalid_values($value, [ Type::PARAM_TYPE => $type ]);
+		parent::test_invalid_values($value, [ $type ]);
 	}
 
 	public function provide_test_invalid_values()
@@ -123,7 +125,7 @@ class TypeTest extends ValidatorTestCase
 
 		try
 		{
-			$validator->validate(uniqid(), function() {}, new Context);
+			$validator->validate(uniqid(), new Context);
 		}
 		catch (ParameterIsMissing $e)
 		{

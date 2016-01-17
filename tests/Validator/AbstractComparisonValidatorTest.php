@@ -25,7 +25,7 @@ class AbstractComparisonValidatorTest extends \PHPUnit_Framework_TestCase
 
 		try
 		{
-			$validator->validate(uniqid(), function() {}, new Context);
+			$validator->validate(uniqid(), new Context);
 		}
 		catch (ParameterIsMissing $e)
 		{

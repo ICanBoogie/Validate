@@ -30,5 +30,5 @@ abstract class AbstractValidator implements Validator
 	/**
 	 * @inheritdoc
 	 */
-	abstract public function validate($value, callable $error, Context $context);
+	abstract public function validate($value, Context $context);
 }

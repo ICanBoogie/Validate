@@ -24,11 +24,13 @@ class NotBlank extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, callable $error, Context $context)
+	public function validate($value, Context $context)
 	{
-		if ((is_array($value) && !count($value)) || trim($value) === '')
+		if (is_array($value))
 		{
-			$error();
+			return !!count($value);
 		}
+
+		return trim($value) !== '';
 	}
 }

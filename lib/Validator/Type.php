@@ -39,9 +39,10 @@ class Type extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, callable $error, Context $context)
+	public function validate($value, Context $context)
 	{
-		$original_type = $context->param(self::PARAM_TYPE);
+		$context->message_args[self::PARAM_TYPE] = $original_type = $context->param(self::PARAM_TYPE);
+
 		$type = strtolower($original_type);
 
 		if ($type == 'boolean')
@@ -50,25 +51,24 @@ class Type extends AbstractValidator
 		}
 
 		$is_function = 'is_' . $type;
-		$ctype_function = 'ctype_' . $type;
 
 		if (function_exists($is_function) && $is_function($value))
 		{
-			return;
+			return true;
 		}
-		elseif (function_exists($ctype_function) && $ctype_function($value))
+
+		$ctype_function = 'ctype_' . $type;
+
+		if (function_exists($ctype_function) && $ctype_function($value))
 		{
-			return;
+			return true;
 		}
-		elseif ($value instanceof $original_type)
+
+		if ($value instanceof $original_type)
 		{
-			return;
+			return true;
 		}
 
-		$error(null, [
-
-			self::PARAM_TYPE => $original_type
-
-		]);
+		return false;
 	}
 }

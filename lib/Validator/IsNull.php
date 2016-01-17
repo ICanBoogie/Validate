@@ -24,11 +24,8 @@ class IsNull extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, callable $error, Context $context)
+	public function validate($value, Context $context)
 	{
-		if ($value !== null)
-		{
-			$error();
-		}
+		return $value === null;
 	}
 }

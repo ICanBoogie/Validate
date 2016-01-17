@@ -37,11 +37,8 @@ class Required extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, callable $error, Context $context)
+	public function validate($value, Context $context)
 	{
-		if ($value === null || (is_array($value) && !count($value)) || (is_scalar($value) && trim($value) === ''))
-		{
-			$error();
-		}
+		return $value !== null || (is_array($value) && count($value)) || (is_scalar($value) && trim($value) !== '');
 	}
 }

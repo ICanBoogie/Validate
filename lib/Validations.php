@@ -82,7 +82,6 @@ class Validations implements ValidatorOptions
 		$attribute = null;
 		$value = null;
 		$validator = null;
-		$options = [];
 
 		$context = new Context($attribute, $reader);
 		$context->attribute = &$attribute;
@@ -90,11 +89,11 @@ class Validations implements ValidatorOptions
 		$context->validator = &$validator;
 		$context->errors = &$errors;
 
-		$error = function($message = null, $args = []) use ($context) {
+		$error = function() use ($context) {
 
 			$context->errors[$context->attribute][] = $this->format_message(
-				$message ?: $message = $this->resolve_message($context->options, $context->validator),
-				$args + [ 'value' => $context->value, 'attribute' => $context->attribute ]
+				$context->option(self::OPTION_MESSAGE) ?: $context->message,
+				$context->message_args
 			);
 
 		};
@@ -110,8 +109,20 @@ class Validations implements ValidatorOptions
 
 				$value = $reader->read($attribute);
 				$validator = $this->resolve_validator($validator_name);
+
 				$context->options = $this->normalize_options($validator, $options);
-				$validator->validate($value, $error, $context);
+				$context->message = $validator::DEFAULT_MESSAGE;
+				$context->message_args = [
+
+					'value' => $value,
+					'attribute' => $attribute
+
+				];
+
+				if (!$validator->validate($value, $context))
+				{
+					$error();
+				}
 
 				if ($this->should_stop($context))
 				{
@@ -215,21 +226,6 @@ class Validations implements ValidatorOptions
 	protected function normalize_options(Validator $validator, $options)
 	{
 		return $validator->normalize_options($options);
-	}
-
-	/**
-	 * Resolves error message from options or validator.
-	 *
-	 * @param array $options
-	 * @param Validator $validator
-	 *
-	 * @return string
-	 */
-	protected function resolve_message(array $options, Validator $validator)
-	{
-		return empty($options[self::OPTION_MESSAGE])
-			? $validator::DEFAULT_MESSAGE
-			: $options[self::OPTION_MESSAGE];
 	}
 
 	/**

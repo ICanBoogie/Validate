@@ -26,11 +26,8 @@ class IsTrue extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, callable $error, Context $context)
+	public function validate($value, Context $context)
 	{
-		if (!filter_var($value, FILTER_VALIDATE_BOOLEAN))
-		{
-			$error();
-		}
+		return filter_var($value, FILTER_VALIDATE_BOOLEAN);
 	}
 }

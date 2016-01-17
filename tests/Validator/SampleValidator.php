@@ -12,11 +12,8 @@ class SampleValidator extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, callable $error, Context $context)
+	public function validate($value, Context $context)
 	{
-		if ($value !== 'sample')
-		{
-			$error();
-		}
+		return $value === 'sample';
 	}
 }

@@ -38,18 +38,12 @@ abstract class AbstractComparisonValidator extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, callable $error, Context $context)
+	public function validate($value, Context $context)
 	{
 		$reference = $context->param(self::PARAM_REFERENCE);
+		$context->message_args[self::PARAM_REFERENCE] = $reference;
 
-		if (!$this->compare($value, $reference))
-		{
-			$error(null, [
-
-				self::PARAM_REFERENCE => $reference
-
-			]);
-		}
+		return $this->compare($value, $reference);
 	}
 
 	/**

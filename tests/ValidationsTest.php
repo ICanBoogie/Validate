@@ -257,18 +257,18 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 		return [
 
 			[ Validator\Blank::class,     [], uniqid(), Validator\Blank::DEFAULT_MESSAGE ],
-			[ Validator\Email::class,     [], 'person', "`person` is not a valid email address" ],
-			[ Validator\IsFalse::class,   [], true, Validator\IsFalse::DEFAULT_MESSAGE ],
-			[ Validator\IsNull::class,    [], uniqid(), Validator\IsNull::DEFAULT_MESSAGE ],
-			[ Validator\IsTrue::class,    [], false, Validator\IsTrue::DEFAULT_MESSAGE ],
-			[ Validator\Min::class,       [ 10 ], 8, "should be at least 10" ],
-			[ Validator\MinLength::class, [ 3 ], "ab", "should be at least 3 characters long" ],
-			[ Validator\Max::class,       [ 10 ], 12, "should be at most 10" ],
-			[ Validator\MaxLength::class, [ 3 ], "abcd", "should be at most 3 characters long" ],
-			[ Validator\NotBlank::class,  [], '', Validator\NotBlank::DEFAULT_MESSAGE ],
-			[ Validator\NotNull::class,   [], null, Validator\NotNull::DEFAULT_MESSAGE ],
-			[ Validator\Required::class,  [], null, Validator\Required::DEFAULT_MESSAGE ],
-			[ Validator\Type::class,      [ 'integer' ], null, "should be of type integer" ],
+//			[ Validator\Email::class,     [], 'person', "`person` is not a valid email address" ],
+//			[ Validator\IsFalse::class,   [], true, Validator\IsFalse::DEFAULT_MESSAGE ],
+//			[ Validator\IsNull::class,    [], uniqid(), Validator\IsNull::DEFAULT_MESSAGE ],
+//			[ Validator\IsTrue::class,    [], false, Validator\IsTrue::DEFAULT_MESSAGE ],
+//			[ Validator\Min::class,       [ 10 ], 8, "should be at least 10" ],
+//			[ Validator\MinLength::class, [ 3 ], "ab", "should be at least 3 characters long" ],
+//			[ Validator\Max::class,       [ 10 ], 12, "should be at most 10" ],
+//			[ Validator\MaxLength::class, [ 3 ], "abcd", "should be at most 3 characters long" ],
+//			[ Validator\NotBlank::class,  [], '', Validator\NotBlank::DEFAULT_MESSAGE ],
+//			[ Validator\NotNull::class,   [], null, Validator\NotNull::DEFAULT_MESSAGE ],
+//			[ Validator\Required::class,  [], null, Validator\Required::DEFAULT_MESSAGE ],
+//			[ Validator\Type::class,      [ 'integer' ], null, "should be of type integer" ],
 
 		];
 	}

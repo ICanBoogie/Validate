@@ -24,11 +24,18 @@ class Blank extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function validate($value, callable $error, Context $context)
+	public function validate($value, Context $context)
 	{
-		if ((is_array($value) && count($value)) || $value === false || trim($value) !== '')
+		if (is_array($value))
 		{
-			$error();
+			return !count($value);
 		}
+
+		if ($value === false)
+		{
+			return false;
+		}
+
+		return trim($value) === '';
 	}
 }

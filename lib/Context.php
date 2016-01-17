@@ -50,6 +50,18 @@ class Context
 	public $values;
 
 	/**
+	 * Possible error message.
+	 *
+	 * @var string
+	 */
+	public $message;
+
+	/**
+	 * Arguments for the possible error message.
+	 */
+	public $message_args = [];
+
+	/**
 	 * The collected errors.
 	 *
 	 * @var
