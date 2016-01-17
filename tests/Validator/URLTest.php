@@ -22,7 +22,6 @@ class URLTest extends ValidatorTestCase
 		return [
 			[ 'http://a.pl' ],
 			[ 'http://www.icanboogie.org' ],
-			[ 'http://www.icanboogie.org.' ],
 			[ 'http://www.google.museum' ],
 			[ 'https://icanboogie.org/' ],
 			[ 'https://icanboogie.org:80/' ],
