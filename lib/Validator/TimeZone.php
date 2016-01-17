@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\Validator;
 use ICanBoogie\Validate\Context;
 
 /**
- * Validates a time zone.
+ * Validates that a value is a valid time zone.
  *
  * **Note:** This class validates _time zone_ such as "Europe/Pairs" **NOT** _time zone offsets_
  * such as "+02:00".
@@ -22,7 +22,7 @@ use ICanBoogie\Validate\Context;
 class TimeZone extends AbstractValidator
 {
 	const ALIAS = 'timezone';
-	const DEFAULT_MESSAGE = "`{value}` is not a valid time zone identifier, did you mean `{suggestion}`?";
+	const DEFAULT_MESSAGE = "`{value}` is not a valid time zone, did you mean `{suggestion}`?";
 
 	/**
 	 * @inheritdoc

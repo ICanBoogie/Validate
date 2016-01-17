@@ -12,7 +12,7 @@
 namespace ICanBoogie\Validate\Validator;
 
 /**
- * Validates that a value has a minimum value.
+ * Validates that a value has a maximum value.
  */
 class Max extends AbstractComparisonValidator
 {

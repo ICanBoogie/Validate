@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\Validator;
 use ICanBoogie\Validate\Context;
 
 /**
- * Validates that a value is not null.
+ * Validates that a value is not `null`.
  */
 class NotNull extends AbstractValidator
 {

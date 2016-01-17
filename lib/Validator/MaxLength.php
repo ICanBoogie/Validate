@@ -12,7 +12,7 @@
 namespace ICanBoogie\Validate\Validator;
 
 /**
- * Validates that a value has a minimum length.
+ * Validates that a value has a maximum length.
  */
 class MaxLength extends AbstractComparisonValidator
 {

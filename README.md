@@ -1,13 +1,29 @@
 # Validate
 
 [![Release](https://img.shields.io/packagist/v/icanboogie/validate.svg)](https://packagist.org/packages/icanboogie/validate)
-[![Build Status](https://img.shields.io/travis/ICanBoogie/validate/master.svg)](http://travis-ci.org/ICanBoogie/validate)
+[![Build Status](https://img.shields.io/travis/ICanBoogie/Validate/master.svg)](http://travis-ci.org/ICanBoogie/Validate)
 [![HHVM](https://img.shields.io/hhvm/icanboogie/validate.svg)](http://hhvm.h4cc.de/package/icanboogie/validate)
-[![Code Quality](https://img.shields.io/scrutinizer/g/icanboogie/validate.svg)](https://scrutinizer-ci.com/g/ICanBoogie/validate)
-[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/validate.svg)](https://coveralls.io/r/ICanBoogie/validate)
+[![Code Quality](https://img.shields.io/scrutinizer/g/icanboogie/validate.svg)](https://scrutinizer-ci.com/g/ICanBoogie/Validate)
+[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Validate.svg)](https://coveralls.io/r/ICanBoogie/Validate)
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/validate.svg)](https://packagist.org/packages/icanboogie/validate)
 
 The **icanboogie/validate** offers a simple API to validate data.
+
+The following validators are available:
+
+- [Blank][], `blank`: Validates that a value is blank.
+- [Email][], `email`: Validates that a value is a valid email.
+- [IsFalse][], `is-false`: Validates that a value is false.
+- [IsNull][], `is-null`: Validates that a value is `null`.
+- [IsTrue][], `is-true`: Validates that a value is true.
+- [Max][], `max`: Validates that a value has a maximum value.
+- [MaxLength][], `max-length`: Validates that a value has a maximum length.
+- [Min][], `min`: Validates that a value has a minimum value.
+- [MinLength][], `min-length`: Validates that a value has a minimum length.
+- [NotBlank][], `not-blank`: Validates that a value is blank.
+- [NotNull][], `not-null`: Validates that a value is not `null`.
+- [Required][], `required`: States that a value is required.
+- [TimeZone][], `timezone`: Validates that a value is a valid time zone.
 
 ```php
 <?php
@@ -257,4 +273,17 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 [documentation]:                http://api.icanboogie.org/validate/latest/
+[Blank]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Blank.html
+[Email]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Email.html
+[IsFalse]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsFalse.html
+[IsNull]:                       http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsNull.html
+[IsTrue]:                       http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsTrue.html
+[Max]:                          http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Max.html
+[MaxLength]:                    http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.MaxLength.html
+[Min]:                          http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Min.html
+[MinLength]:                    http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.MinLength.html
+[NotBlank]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotBlank.html
+[NotNull]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotNull.html
 [Required]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Required.html
+[TimeZone]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.TimeZone.html
+[Type]:                         http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Type.html
