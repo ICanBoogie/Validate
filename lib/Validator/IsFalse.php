@@ -11,8 +11,6 @@
 
 namespace ICanBoogie\Validate\Validator;
 
-use ICanBoogie\Validate\Validator\AbstractValidator;
-
 /**
  * Validates that a value is false.
  */

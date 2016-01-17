@@ -11,15 +11,13 @@
 
 namespace ICanBoogie\Validate\Validator;
 
-use ICanBoogie\Validate\Validator\AbstractValidator;
-
 /**
  * Validates that a value is blank.
  */
 class Blank extends AbstractValidator
 {
 	const ALIAS = 'blank';
-	const DEFAULT_MESSAGE = "should not be blank";
+	const DEFAULT_MESSAGE = "should be blank";
 
 	/**
 	 * @inheritdoc

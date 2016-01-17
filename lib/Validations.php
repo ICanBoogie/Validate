@@ -82,7 +82,7 @@ class Validations implements ValidatorOptions
 		$field = null;
 		$value = null;
 		$validator = null;
-		$options = null;
+		$options = [];
 
 		$error = function($message = null, $args = []) use (&$field, &$value, &$validator, &$options, &$errors) {
 
