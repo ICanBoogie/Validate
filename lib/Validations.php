@@ -86,6 +86,7 @@ class Validations implements ValidatorOptions
 		$context = new Context($attribute, $reader);
 		$context->attribute = &$attribute;
 		$context->value = &$value;
+		$context->values = $reader;
 		$context->validator = &$validator;
 		$context->errors = &$errors;
 
