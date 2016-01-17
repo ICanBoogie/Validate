@@ -28,7 +28,6 @@ doc: vendor
 	@mkdir -p build/docs
 	@apigen generate \
 	--source lib \
-	--source helpers.php \
 	--destination build/docs/ \
 	--title "$(PACKAGE_NAME) v$(PACKAGE_VERSION)" \
 	--template-theme "bootstrap"
@@ -37,4 +36,3 @@ clean:
 	@rm -fR build
 	@rm -fR vendor
 	@rm -f composer.lock
-	@rm tests/sandbox/bytes-*
