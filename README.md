@@ -24,6 +24,8 @@ The following validators are available:
 - [NotNull][], `not-null`: Validates that a value is not `null`.
 - [Required][], `required`: States that a value is required.
 - [TimeZone][], `timezone`: Validates that a value is a valid time zone.
+- [Type][], `type`: Validates that a value is of a specified type.
+- [URL][], `url`: Validates that a value is a valid URL.
 
 ```php
 <?php
@@ -257,8 +259,8 @@ the `make clean` command.
 
 The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
-[![Build Status](https://img.shields.io/travis/ICanBoogie/validate/master.svg)](https://travis-ci.org/ICanBoogie/validate)
-[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/validate.svg)](https://coveralls.io/r/ICanBoogie/validate)
+[![Build Status](https://img.shields.io/travis/ICanBoogie/Validate/master.svg)](https://travis-ci.org/ICanBoogie/Validate)
+[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Validate.svg)](https://coveralls.io/r/ICanBoogie/Validate)
 
 
 
@@ -287,3 +289,4 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [Required]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Required.html
 [TimeZone]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.TimeZone.html
 [Type]:                         http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Type.html
+[URL]:                          http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.URL.html

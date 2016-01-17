@@ -43,6 +43,7 @@ class BasicValidatorProvider extends AbstractValidatorProvider
 		'required'   => Validator\Required::class,
 		'timezone'   => Validator\TimeZone::class,
 		'type'       => Validator\Type::class,
+		'url'        => Validator\URL::class,
 
 	];
 

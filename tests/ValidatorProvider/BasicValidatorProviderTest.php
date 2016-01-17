@@ -48,6 +48,7 @@ class BasicValidatorProviderTest extends \PHPUnit_Framework_TestCase
 			[ Validator\Required::class,  Validator\Required::ALIAS ],
 			[ Validator\TimeZone::class,  Validator\TimeZone::ALIAS ],
 			[ Validator\Type::class,      Validator\Type::ALIAS ],
+			[ Validator\URL::class,       Validator\URL::ALIAS ],
 
 		];
 	}

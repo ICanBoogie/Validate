@@ -271,6 +271,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 			[ Validator\Required::class,  [], null, Validator\Required::DEFAULT_MESSAGE ],
 			[ Validator\TimeZone::class,  [], 'Europe/Pas', "`Europe/Pas` is not a valid time zone, did you mean `Europe/Paris`?" ],
 			[ Validator\Type::class,      [ 'integer' ], null, "should be of type integer" ],
+			[ Validator\URL::class,       [], 'icanboogie.org', "`icanboogie.org` is not a valid URL" ],
 
 		];
 	}
