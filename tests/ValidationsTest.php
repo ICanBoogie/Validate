@@ -269,6 +269,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 			[ Validator\NotBlank::class,  [], '', Validator\NotBlank::DEFAULT_MESSAGE ],
 			[ Validator\NotNull::class,   [], null, Validator\NotNull::DEFAULT_MESSAGE ],
 			[ Validator\Required::class,  [], null, Validator\Required::DEFAULT_MESSAGE ],
+			[ Validator\TimeZone::class,  [], 'Europe/Pas', "`Europe/Pas` is not a valid time zone identifier, did you mean `Europe/Paris`?" ],
 			[ Validator\Type::class,      [ 'integer' ], null, "should be of type integer" ],
 
 		];

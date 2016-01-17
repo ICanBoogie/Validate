@@ -41,6 +41,7 @@ class BasicValidatorProvider extends AbstractValidatorProvider
 		'not-blank'  => Validator\NotBlank::class,
 		'not-null'   => Validator\NotNull::class,
 		'required'   => Validator\Required::class,
+		'timezone'   => Validator\TimeZone::class,
 		'type'       => Validator\Type::class,
 
 	];
