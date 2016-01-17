@@ -11,6 +11,7 @@
 
 namespace ICanBoogie\Validate;
 
+use ICanBoogie\Validate\Message;
 use ICanBoogie\Validate\Validator\Email;
 use ICanBoogie\Validate\Validator\IsFalse;
 use ICanBoogie\Validate\Validator\IsTrue;
@@ -249,7 +250,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 		$validations = new Validations([ 'field' => [ $validator_name => $options ]]);
 		$errors = $validations->validate(new ArrayValueReader([ 'field' => $value ]));
 		$this->assertArrayHasKey('field', $errors);
-		$this->assertSame($expected, reset($errors['field']));
+		$this->assertSame($expected, (string) reset($errors['field']));
 	}
 
 	public function provide_test_message()
@@ -257,18 +258,18 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 		return [
 
 			[ Validator\Blank::class,     [], uniqid(), Validator\Blank::DEFAULT_MESSAGE ],
-//			[ Validator\Email::class,     [], 'person', "`person` is not a valid email address" ],
-//			[ Validator\IsFalse::class,   [], true, Validator\IsFalse::DEFAULT_MESSAGE ],
-//			[ Validator\IsNull::class,    [], uniqid(), Validator\IsNull::DEFAULT_MESSAGE ],
-//			[ Validator\IsTrue::class,    [], false, Validator\IsTrue::DEFAULT_MESSAGE ],
-//			[ Validator\Min::class,       [ 10 ], 8, "should be at least 10" ],
-//			[ Validator\MinLength::class, [ 3 ], "ab", "should be at least 3 characters long" ],
-//			[ Validator\Max::class,       [ 10 ], 12, "should be at most 10" ],
-//			[ Validator\MaxLength::class, [ 3 ], "abcd", "should be at most 3 characters long" ],
-//			[ Validator\NotBlank::class,  [], '', Validator\NotBlank::DEFAULT_MESSAGE ],
-//			[ Validator\NotNull::class,   [], null, Validator\NotNull::DEFAULT_MESSAGE ],
-//			[ Validator\Required::class,  [], null, Validator\Required::DEFAULT_MESSAGE ],
-//			[ Validator\Type::class,      [ 'integer' ], null, "should be of type integer" ],
+			[ Validator\Email::class,     [], 'person', "`person` is not a valid email address" ],
+			[ Validator\IsFalse::class,   [], true, Validator\IsFalse::DEFAULT_MESSAGE ],
+			[ Validator\IsNull::class,    [], uniqid(), Validator\IsNull::DEFAULT_MESSAGE ],
+			[ Validator\IsTrue::class,    [], false, Validator\IsTrue::DEFAULT_MESSAGE ],
+			[ Validator\Min::class,       [ 10 ], 8, "should be at least 10" ],
+			[ Validator\MinLength::class, [ 3 ], "ab", "should be at least 3 characters long" ],
+			[ Validator\Max::class,       [ 10 ], 12, "should be at most 10" ],
+			[ Validator\MaxLength::class, [ 3 ], "abcd", "should be at most 3 characters long" ],
+			[ Validator\NotBlank::class,  [], '', Validator\NotBlank::DEFAULT_MESSAGE ],
+			[ Validator\NotNull::class,   [], null, Validator\NotNull::DEFAULT_MESSAGE ],
+			[ Validator\Required::class,  [], null, Validator\Required::DEFAULT_MESSAGE ],
+			[ Validator\Type::class,      [ 'integer' ], null, "should be of type integer" ],
 
 		];
 	}
@@ -299,6 +300,17 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 			'password' => [ "should be at least 6 characters long" ],
 			'consent' => [ "is required" ]
 
-		], $errors);
+		], $this->stringify_errors($errors));
+	}
+
+	private function stringify_errors(array $errors)
+	{
+		array_walk_recursive($errors, function(Message &$message) {
+
+			$message = (string) $message;
+
+		});
+
+		return $errors;
 	}
 }

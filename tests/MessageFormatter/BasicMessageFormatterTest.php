@@ -11,6 +11,8 @@
 
 namespace ICanBoogie\Validate\MessageFormatter;
 
+use ICanBoogie\Validate\Message;
+
 class BasicMessageFormatterTest extends \PHPUnit_Framework_TestCase
 {
 	/**
@@ -24,7 +26,9 @@ class BasicMessageFormatterTest extends \PHPUnit_Framework_TestCase
 	{
 		$formatter = new BasicMessageFormatter;
 
-		$this->assertSame($expected, $formatter($message, [ 'value' => $value ]));
+		$message = $formatter($message, [ 'value' => $value ]);
+		$this->assertInstanceOf(Message::class, $message);
+		$this->assertSame($expected, (string) $message);
 	}
 
 	public function provide_test_format()
