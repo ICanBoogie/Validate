@@ -16,6 +16,8 @@ use ICanBoogie\Validate\ValidatorProvider\BasicValidatorProvider;
 
 class Validations implements ValidatorOptions
 {
+	const PREFIX_STOP_ON_ERROR = '!';
+
 	/**
 	 * @var array
 	 */
@@ -208,7 +210,15 @@ class Validations implements ValidatorOptions
 		{
 			list($validator_name, $options) = explode(':', $encoded_validator, 2) + [ 1 => null ];
 
-			$validators[$validator_name] = $options === null ? [] : explode(',', $options);
+			$options = $options === null ? [] : explode(',', $options);
+
+			if (substr($validator_name, -1) === self::PREFIX_STOP_ON_ERROR)
+			{
+				$options[self::OPTION_STOP_ON_ERROR] = true;
+				$validator_name = substr($validator_name, 0, -1);
+			}
+
+			$validators[$validator_name] = $options;
 		}
 
 		return $validators;

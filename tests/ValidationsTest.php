@@ -281,7 +281,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 		$validations = new Validations([
 
 			'name' => 'required|min-length:3',
-			'email' => 'required|email',
+			'email' => 'required|email!|max-length:3',
 			'password' => 'required|min-length:6',
 			'consent' => 'required'
 
