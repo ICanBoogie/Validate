@@ -36,7 +36,7 @@ use ICanBoogie\Validate\ValueReader\ArrayValueReader;
 $validations = new Validations([
 
 	'name' => 'required|min-length:3',
-	'email' => 'required|email',
+	'email' => 'required|email!|unique',
 	'password' => 'required|min-length:6',
 	'consent' => 'required'
 
@@ -152,7 +152,7 @@ The following validation options may be defined:
 
 - `ValidatorOptions::OPTION_UNLESS`: The validator is skipped if the callable defined by this option returns `true`.
 
-- `ValidatorOptions::OPTION_STOP_ON_ERROR`: If `true`, the validation of a value stops after an error. This option is always `true` for the [Require][] validator.
+- `ValidatorOptions::OPTION_STOP_ON_ERROR`: If `true`, the validation of a value stops after an error. This option is always `true` for the [Required][] validator.
 
 ```php
 <?php

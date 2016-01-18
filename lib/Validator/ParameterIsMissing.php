@@ -18,8 +18,15 @@ namespace ICanBoogie\Validate\Validator;
  */
 class ParameterIsMissing extends \LogicException
 {
+	/**
+	 * @var string
+	 */
 	public $parameter;
 
+	/**
+	 * @param string $parameter
+	 * @param \Exception|null $previous
+	 */
 	public function __construct($parameter, \Exception $previous = null)
 	{
 		$this->parameter = $parameter;

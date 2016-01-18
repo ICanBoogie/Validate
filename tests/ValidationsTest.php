@@ -11,7 +11,6 @@
 
 namespace ICanBoogie\Validate;
 
-use ICanBoogie\Validate\Message;
 use ICanBoogie\Validate\Validator\Email;
 use ICanBoogie\Validate\Validator\IsFalse;
 use ICanBoogie\Validate\Validator\IsTrue;
@@ -118,7 +117,14 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 				Email::class => [
 
-					Email::OPTION_IF => function() { return true; }
+					Email::OPTION_IF => function(Context $context) {
+
+						$this->assertEquals('email', $context->attribute);
+						$this->assertInstanceOf(Context::class, $context);
+
+						return true;
+
+					}
 
 				]
 
@@ -143,7 +149,13 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 				Email::class => [
 
-					Email::OPTION_IF => function() { return false; }
+					Email::OPTION_IF => function($context) {
+
+						$this->assertInstanceOf(Context::class, $context);
+
+						return false;
+
+					}
 
 				]
 
@@ -168,7 +180,13 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 				Email::class => [
 
-					Email::OPTION_UNLESS => function() { return false; }
+					Email::OPTION_UNLESS => function(Context $context) {
+
+						$this->assertEquals('email', $context->attribute);
+
+						return false;
+
+					}
 
 				]
 

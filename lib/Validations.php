@@ -102,11 +102,6 @@ class Validations implements ValidatorOptions
 		{
 			foreach ($validators as $validator_name => $options)
 			{
-				if ($this->should_skip($options))
-				{
-					continue;
-				}
-
 				$value = $reader->read($attribute);
 				$validator = $this->resolve_validator($validator_name);
 
@@ -118,6 +113,11 @@ class Validations implements ValidatorOptions
 					'attribute' => $attribute
 
 				];
+
+				if ($this->should_skip($context))
+				{
+					continue;
+				}
 
 				if (!$validator->validate($value, $context))
 				{
@@ -152,24 +152,24 @@ class Validations implements ValidatorOptions
 	/**
 	 * Whether the validator should be skipped.
 	 *
-	 * @param array $options
+	 * @param Context $context
 	 *
 	 * @return bool
 	 */
-	protected function should_skip(array $options)
+	protected function should_skip(Context $context)
 	{
 		/* @var $if callable */
-		$if = empty($options[self::OPTION_IF]) ? null : $options[self::OPTION_IF];
+		$if = $context->option(self::OPTION_IF);
 
-		if ($if && !$if())
+		if ($if && !$if($context))
 		{
 			return true;
 		}
 
 		/* @var $unless callable */
-		$unless = empty($options[self::OPTION_UNLESS]) ? null : $options[self::OPTION_UNLESS];
+		$unless = $context->option(self::OPTION_UNLESS);
 
-		if ($unless && $unless())
+		if ($unless && $unless($context))
 		{
 			return true;
 		}

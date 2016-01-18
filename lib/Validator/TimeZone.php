@@ -16,7 +16,7 @@ use ICanBoogie\Validate\Context;
 /**
  * Validates that a value is a valid time zone.
  *
- * **Note:** This class validates _time zone_ such as "Europe/Pairs" **NOT** _time zone offsets_
+ * **Note:** This class validates _time zone_ such as "Europe/Paris" **NOT** _time zone offsets_
  * such as "+02:00".
  */
 class TimeZone extends AbstractValidator
