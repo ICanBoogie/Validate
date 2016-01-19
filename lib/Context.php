@@ -67,6 +67,18 @@ class Context
 	public $errors = [];
 
 	/**
+	 * Retrieves a value from the value reader.
+	 *
+	 * @param string $name
+	 *
+	 * @return mixed|null The value or `null` if it is not defined.
+	 */
+	public function value($name)
+	{
+		return $this->values->read($name);
+	}
+
+	/**
 	 * Retrieves a parameter from the validator parameters.
 	 *
 	 * @param string $name

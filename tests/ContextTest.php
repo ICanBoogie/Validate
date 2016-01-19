@@ -2,16 +2,28 @@
 
 namespace ICanBoogie\Validate;
 
+use ICanBoogie\Validate\ValueReader\ArrayValueReader;
+
 class ContextTest extends \PHPUnit_Framework_TestCase
 {
-	public function test_param()
+	public function test_value()
 	{
-		$param = uniqid();
+		$name = uniqid();
 		$value = uniqid();
 		$context = new Context;
-		$context->validator_params = [ $param => $value ];
+		$context->values = new ArrayValueReader([ $name => $value ]);
 
-		$this->assertSame($value, $context->param($param));
+		$this->assertSame($value, $context->value($name));
+	}
+
+	public function test_param()
+	{
+		$name = uniqid();
+		$value = uniqid();
+		$context = new Context;
+		$context->validator_params = [ $name => $value ];
+
+		$this->assertSame($value, $context->param($name));
 	}
 
 	/**
@@ -25,17 +37,24 @@ class ContextTest extends \PHPUnit_Framework_TestCase
 
 	public function test_option()
 	{
-		$option = uniqid();
+		$name = uniqid();
 		$value = uniqid();
 		$context = new Context;
-		$context->validator_params = [ $option => $value ];
+		$context->validator_params = [ $name => $value ];
 
-		$this->assertSame($value, $context->option($option));
+		$this->assertSame($value, $context->option($name));
 	}
 
 	public function test_option_undefined()
 	{
 		$context = new Context;
 		$this->assertNull($context->option(uniqid()));
+	}
+
+	public function test_option_undefined_with_default()
+	{
+		$default = uniqid();
+		$context = new Context;
+		$this->assertSame($default, $context->option(uniqid(), $default));
 	}
 }

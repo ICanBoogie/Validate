@@ -218,7 +218,7 @@ The validation context provides the following information:
 
 The validation context is represented by a [Context][] instance and is passed along with the value to validate to the validator. The validator may used the context to retrieve parameters and options, and when required get a complete picture of the ongoing validation.
 
-The following example demonstrates how a validator may retrieve its parameters and options from the context:
+The following example demonstrates how a validator may retrieve its parameters and options from the context, and a value from the value reader:
 
 ```php
 <?php
@@ -237,6 +237,7 @@ use ICanBoogie\Validate\Context
 	{
 		$reference = $context->param(self::PARAM_REFERENCE);
 		$strict = $context->option(self::OPTION_STRICT, false);
+		$other_value = $context->value('some_other_value');
 	}
 
 // …
