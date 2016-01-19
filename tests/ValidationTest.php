@@ -17,11 +17,11 @@ use ICanBoogie\Validate\Validator\IsTrue;
 use ICanBoogie\Validate\Validator\Required;
 use ICanBoogie\Validate\ValueReader\ArrayValueReader;
 
-class ValidationsTest extends \PHPUnit_Framework_TestCase
+class ValidationTest extends \PHPUnit_Framework_TestCase
 {
 	public function test_invalid()
 	{
-		$validations = new Validations([
+		$validation = new Validation([
 
 			'true' => [
 
@@ -59,7 +59,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validations->validate(new ArrayValueReader([
+		$errors = $validation->validate(new ArrayValueReader([
 
 			'true' => false,
 			'yes' => 'no',
@@ -82,7 +82,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 	public function test_custom_message()
 	{
-		$validations = new Validations([
+		$validation = new Validation([
 
 			'email' => [
 
@@ -96,7 +96,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validations->validate(new ArrayValueReader([
+		$errors = $validation->validate(new ArrayValueReader([
 
 			'email' => 'person'
 
@@ -111,7 +111,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 	public function test_if()
 	{
-		$validations = new Validations([
+		$validation = new Validation([
 
 			'email' => [
 
@@ -132,7 +132,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validations->validate(new ArrayValueReader([
+		$errors = $validation->validate(new ArrayValueReader([
 
 			'email' => 'person'
 
@@ -143,7 +143,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 	public function test_not_if()
 	{
-		$validations = new Validations([
+		$validation = new Validation([
 
 			'email' => [
 
@@ -163,7 +163,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validations->validate(new ArrayValueReader([
+		$errors = $validation->validate(new ArrayValueReader([
 
 			'email' => 'person'
 
@@ -174,7 +174,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 	public function test_unless()
 	{
-		$validations = new Validations([
+		$validation = new Validation([
 
 			'email' => [
 
@@ -194,7 +194,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validations->validate(new ArrayValueReader([
+		$errors = $validation->validate(new ArrayValueReader([
 
 			'email' => 'person'
 
@@ -205,7 +205,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 	public function test_not_unless()
 	{
-		$validations = new Validations([
+		$validation = new Validation([
 
 			'email' => [
 
@@ -219,7 +219,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validations->validate(new ArrayValueReader([
+		$errors = $validation->validate(new ArrayValueReader([
 
 			'email' => 'person'
 
@@ -230,7 +230,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 	public function test_required()
 	{
-		$validations = new Validations([
+		$validation = new Validation([
 
 			'email' => [
 
@@ -246,7 +246,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validations->validate(new ArrayValueReader([]));
+		$errors = $validation->validate(new ArrayValueReader([]));
 
 		$this->assertEquals([
 
@@ -265,8 +265,8 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_message($validator_name, $params, $value, $expected)
 	{
-		$validations = new Validations([ 'field' => [ $validator_name => $params ]]);
-		$errors = $validations->validate(new ArrayValueReader([ 'field' => $value ]));
+		$validation = new Validation([ 'field' => [ $validator_name => $params ]]);
+		$errors = $validation->validate(new ArrayValueReader([ 'field' => $value ]));
 		$this->assertArrayHasKey('field', $errors);
 		$this->assertSame($expected, (string) reset($errors['field']));
 	}
@@ -296,7 +296,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 	public function test_encoded_validators()
 	{
-		$validations = new Validations([
+		$validation = new Validation([
 
 			'name' => 'required|min-length:3',
 			'email' => 'required|email!|max-length:3',
@@ -305,7 +305,7 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validations->validate(new ArrayValueReader([
+		$errors = $validation->validate(new ArrayValueReader([
 
 			'name' => "Ol",
 			'email' => "olivier",

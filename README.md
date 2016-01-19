@@ -30,10 +30,10 @@ The following validators are available:
 ```php
 <?php
 
-use ICanBoogie\Validate\Validations;
+use ICanBoogie\Validate\Validation;
 use ICanBoogie\Validate\ValueReader\ArrayValueReader;
 
-$validations = new Validations([
+$validation = new Validation([
 
 	'name' => 'required|min-length:3',
 	'email' => 'required|email!|unique',
@@ -42,7 +42,7 @@ $validations = new Validations([
 
 ]);
 
-$errors = $validations->validate(new ArrayValueReader([
+$errors = $validation->validate(new ArrayValueReader([
 
 	'name' => "Ol",
 	'email' => "olivier",
@@ -82,16 +82,18 @@ array(4) {
 
 
 
-## Validations
+## Validation
 
-Validations are defined using an array of key/value pairs where _key_ is an attribute to validate and _key_ is the rules. Rules may be defined as a string or an array of key/value pairs where _key_ is a validator class, or alias, and _value_ an array of parameters and options.
+A validation is defined using an array of key/value pairs where _key_ is an attribute to validate and _key_ is the rules. Rules may be defined as a string or an array of key/value pairs where _key_ is a validator class, or alias, and _value_ an array of parameters and options. Optionally you may provide a validator provider and a message formatter.
+
+A validation is represented by a [Validation][] instance.
 
 ```php
 <?php
 
-use ICanBoogie\Validate\Validations;
+use ICanBoogie\Validate\Validation;
 
-$validations = new Validations([
+$validation = new Validation([
 
 	'name' => 'required|min-length:3',
 
@@ -99,7 +101,7 @@ $validations = new Validations([
 
 # or
 
-$validations = new Validations([
+$validation = new Validation([
 
 	'name' => [
 	
@@ -113,7 +115,7 @@ $validations = new Validations([
 
 use ICanBoogie\Validate\Validator;
 
-$validations = new Validations([
+$validation = new Validation([
 
 	'name' => [
 	
@@ -127,7 +129,7 @@ $validations = new Validations([
 
 use ICanBoogie\Validate\Validator;
 
-$validations = new Validations([
+$validation = new Validation([
 
 	'name' => [
 	
@@ -158,27 +160,27 @@ The following validation options may be defined:
 <?php
 
 use ICanBoogie\Validate\Context;
-use ICanBoogie\Validate\Validations;
+use ICanBoogie\Validate\Validation;
 use ICanBoogie\Validate\Validator\Required;
 use ICanBoogie\Validate\Validator\Email;
 
-$validations = new Validations([
+$validation = new Validation([
 
 	'email' => [
 	
 		Required::class => [
 	
-			Required::OPTION_MESSAGE => "The field E-Mail is required if your wish to register.",
+			Required::OPTION_MESSAGE => "An email address must be supplied if your wish to register.",
 
-			Required::OPTION_IF => function(Context $context) use (&$values) {
+			Required::OPTION_IF => function(Context $context) {
 			
-				return isset($values['name'])
+				return $context->values->read('name')
 			
 			},
 			
-			Required::OPTION_UNLESS => function(Context $context) use (&$values) {
+			Required::OPTION_UNLESS => function(Context $context) {
 			
-				return empty($values['register'])
+				return !$context->values->read('register')
 			
 			},
 			
@@ -188,7 +190,7 @@ $validations = new Validations([
 		
 		Email::class => [
 	
-			Email::OPTION_MESSAGE => "{value} is an invalid email address for the field E-Mail.",
+			Email::OPTION_MESSAGE => "`{value}` is an invalid email address for the field E-Mail.",
 
 		]
 	
@@ -216,7 +218,7 @@ The validation context provides the following information:
 
 The validation context is represented by a [Context][] instance and is passed along with the value to validate to the validator. The validator may used the context to retrieve parameters and options, and when required get a complete picture of the ongoing validation.
 
-The following example demonstrates how a validator may retrieve its parameter and options from the context:
+The following example demonstrates how a validator may retrieve its parameters and options from the context:
 
 ```php
 <?php
@@ -321,8 +323,9 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 [documentation]:                http://api.icanboogie.org/validate/latest/
 [Context]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Context.html
-[IfCallable]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validations.IfCallable.html
-[UnlessCallable]:               http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validations.UnlessCallable.html
+[Validation]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.html
+[IfCallable]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.IfCallable.html
+[UnlessCallable]:               http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.UnlessCallable.html
 [Blank]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Blank.html
 [Email]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Email.html
 [IsFalse]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsFalse.html

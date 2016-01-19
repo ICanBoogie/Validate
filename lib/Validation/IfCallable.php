@@ -9,21 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Validate\Validations;
+namespace ICanBoogie\Validate\Validation;
 
 use ICanBoogie\Validate\Context;
 
 /**
- * Callable interface for the {@link ValidatorOptions::OPTION_UNLESS} option.
+ * Callable interface for the {@link ValidatorOptions::OPTION_IF} option.
  */
-interface UnlessCallable
+interface IfCallable
 {
 	/**
-	 * Whether the validator should be skipped.
+	 * Whether the validator should be used.
 	 *
 	 * @param Context $context
 	 *
-	 * @return bool `true` if the validator should be skipped, `false` otherwise.
+	 * @return bool `true` if the validator should be used, `false` otherwise.
 	 */
 	public function __invoke(Context $context);
 }

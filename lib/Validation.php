@@ -12,11 +12,9 @@
 namespace ICanBoogie\Validate;
 
 use ICanBoogie\Validate\MessageFormatter\BasicMessageFormatter;
-use ICanBoogie\Validate\Validations\IfCallable;
-use ICanBoogie\Validate\Validations\UnlessCallable;
 use ICanBoogie\Validate\ValidatorProvider\BasicValidatorProvider;
 
-class Validations implements ValidatorOptions
+class Validation implements ValidatorOptions
 {
 	const PREFIX_STOP_ON_ERROR = '!';
 
@@ -176,7 +174,7 @@ class Validations implements ValidatorOptions
 	 */
 	protected function should_skip(Context $context)
 	{
-		/* @var $if IfCallable|callable */
+		/* @var $if Validation\IfCallable|callable */
 
 		$if = $context->option(self::OPTION_IF);
 
@@ -185,7 +183,7 @@ class Validations implements ValidatorOptions
 			return true;
 		}
 
-		/* @var $unless UnlessCallable|callable */
+		/* @var $unless Validation\UnlessCallable|callable */
 
 		$unless = $context->option(self::OPTION_UNLESS);
 
@@ -206,7 +204,7 @@ class Validations implements ValidatorOptions
 	 */
 	protected function should_stop(Context $context)
 	{
-		if ($context->option(self::OPTION_STOP_ON_ERROR))
+		if (!$context->option(self::OPTION_STOP_ON_ERROR))
 		{
 			return false;
 		}
