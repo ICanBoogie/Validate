@@ -98,7 +98,7 @@ class Message
 			return $this->render_other($value);
 		}
 
-		return $value;
+		return (string) $value;
 	}
 
 	/**

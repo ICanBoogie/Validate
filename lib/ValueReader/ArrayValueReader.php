@@ -18,6 +18,6 @@ class ArrayValueReader extends AbstractValueReader
 	 */
 	protected function raw_read($name)
 	{
-		return isset($this->source[$name]) ? $this->source[$name]: null;
+		return isset($this->source[$name]) ? $this->source[$name] : null;
 	}
 }
