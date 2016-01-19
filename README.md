@@ -140,7 +140,13 @@ $validation = new Validation([
 ]);
 ```
 
-Use the `validate()` method and an appropriate value reader from the source of data. The method returns a [ValidationErrors][] instance if the validation failed, an empty array otherwise.
+
+
+
+
+### Validating data
+
+The `validate()` method is used to validate data. The method returns a [ValidationErrors][] instance if the validation failed, an empty array otherwise.
 
 ```php
 <?php
@@ -155,6 +161,29 @@ if (!$errors)
 foreach ($errors as $attribute => $messages)
 {
 	// …
+}
+```
+
+
+
+
+
+### Asserting that data is valid
+
+The `assert()` method may be used to assert that data is valid. Instead of returning a [ValidationErrors][] instance like `validate()`, the method throws a [ValidationFailed][] exception when the validation fails. The validation errors may be retrieved from the exception.
+
+```php
+<?php
+
+use ICanBoogie\Validate\ValidationFailed;
+
+try
+{
+	$validation->assert(new ArrayValueReader($_POST));
+}
+catch (ValidationFailed $e)
+{
+	$errors = $e->errors;
 }
 ```
 
@@ -344,6 +373,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [Context]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Context.html
 [Validation]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.html
 [ValidationErrors]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidationErrors.html
+[ValidationFailed]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidationFailed.html
 [IfCallable]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.IfCallable.html
 [UnlessCallable]:               http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.UnlessCallable.html
 [Blank]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Blank.html

@@ -323,6 +323,31 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 		], $this->stringify_errors($errors));
 	}
 
+	public function test_assert_no_error()
+	{
+		$validation = new Validation([
+
+			'email' => 'required|email'
+
+		]);
+
+		$validation->assert(new ArrayValueReader([ 'email' => 'person@domain.tld' ]));
+	}
+
+	/**
+	 * @expectedException \ICanBoogie\Validate\ValidationFailed
+	 */
+	public function test_assert()
+	{
+		$validation = new Validation([
+
+			'email' => 'required|email'
+
+		]);
+
+		$validation->assert(new ArrayValueReader([]));
+	}
+
 	/**
 	 * @param ValidationErrors|array $errors
 	 *

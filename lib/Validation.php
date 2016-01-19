@@ -142,6 +142,23 @@ class Validation implements ValidatorOptions
 	}
 
 	/**
+	 * @param ValueReader $reader
+	 *
+	 * @throws ValidationFailed if the validation failed.
+	 */
+	public function assert(ValueReader $reader)
+	{
+		$errors = $this->validate($reader);
+
+		if (!$errors)
+		{
+			return;
+		}
+
+		throw new ValidationFailed($errors);
+	}
+
+	/**
 	 * Creates a validations context.
 	 *
 	 * @param ValueReader $reader
