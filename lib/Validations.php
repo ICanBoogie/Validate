@@ -12,6 +12,8 @@
 namespace ICanBoogie\Validate;
 
 use ICanBoogie\Validate\MessageFormatter\BasicMessageFormatter;
+use ICanBoogie\Validate\Validations\IfCallable;
+use ICanBoogie\Validate\Validations\UnlessCallable;
 use ICanBoogie\Validate\ValidatorProvider\BasicValidatorProvider;
 
 class Validations implements ValidatorOptions
@@ -158,7 +160,8 @@ class Validations implements ValidatorOptions
 	 */
 	protected function should_skip(Context $context)
 	{
-		/* @var $if callable */
+		/* @var $if IfCallable|callable */
+
 		$if = $context->option(self::OPTION_IF);
 
 		if ($if && !$if($context))
@@ -166,7 +169,8 @@ class Validations implements ValidatorOptions
 			return true;
 		}
 
-		/* @var $unless callable */
+		/* @var $unless UnlessCallable|callable */
+
 		$unless = $context->option(self::OPTION_UNLESS);
 
 		if ($unless && $unless($context))

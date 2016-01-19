@@ -84,7 +84,7 @@ array(4) {
 
 ## Validations
 
-Validations may be defined as a validation string or as an array of key/value pairs where _key_ is a validator class or validator alias, and _value_ is validator options.
+Validations are defined using an array of key/value pairs where _key_ is an attribute to validate and _key_ is the rules. Rules may be defined as a string or an array of key/value pairs where _key_ is a validator class, or alias, and _value_ an array of parameters and options.
 
 ```php
 <?php
@@ -148,15 +148,16 @@ The following validation options may be defined:
 
 - `ValidatorOptions::OPTION_MESSAGE`: A custom error message, which overrides the validator default message.
 
-- `ValidatorOptions::OPTION_IF`: The validator is used only if the callable defined by this option returns `true`.
+- `ValidatorOptions::OPTION_IF`: The validator is used only if the callable defined by this option returns `true`. The callable may be a closure or an instance implementing the [IfCallable][] interface.
 
-- `ValidatorOptions::OPTION_UNLESS`: The validator is skipped if the callable defined by this option returns `true`.
+- `ValidatorOptions::OPTION_UNLESS`: The validator is skipped if the callable defined by this option returns `true`. The callable may be a closure or an instance implementing the [UnlessCallable][] interface.
 
 - `ValidatorOptions::OPTION_STOP_ON_ERROR`: If `true`, the validation of a value stops after an error. This option is always `true` for the [Required][] validator.
 
 ```php
 <?php
 
+use ICanBoogie\Validate\Context;
 use ICanBoogie\Validate\Validations;
 use ICanBoogie\Validate\Validator\Required;
 use ICanBoogie\Validate\Validator\Email;
@@ -169,13 +170,13 @@ $validations = new Validations([
 	
 			Required::OPTION_MESSAGE => "The field E-Mail is required if your wish to register.",
 
-			Required::OPTION_IF => function() use (&$values) {
+			Required::OPTION_IF => function(Context $context) use (&$values) {
 			
 				return isset($values['name'])
 			
 			},
 			
-			Required::OPTION_UNLESS => function() use (&$values) {
+			Required::OPTION_UNLESS => function(Context $context) use (&$values) {
 			
 				return empty($values['register'])
 			
@@ -275,6 +276,8 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 [documentation]:                http://api.icanboogie.org/validate/latest/
+[IfCallable]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validations.IfCallable.html
+[UnlessCallable]:               http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validations.UnlessCallable.html
 [Blank]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Blank.html
 [Email]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Email.html
 [IsFalse]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsFalse.html
