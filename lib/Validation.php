@@ -138,7 +138,7 @@ class Validation implements ValidatorOptions
 			}
 		}
 
-		return $context->errors;
+		return $context->errors ? new ValidationErrors($context->errors) : [];
 	}
 
 	/**

@@ -140,6 +140,24 @@ $validation = new Validation([
 ]);
 ```
 
+Use the `validate()` method and an appropriate value reader from the source of data. The method returns a [ValidationErrors][] instance if the validation failed, an empty array otherwise.
+
+```php
+<?php
+
+$errors = $validation->validate(new ArrayValueReader($_POST));
+
+if (!$errors)
+{
+	// because `$errors` is an empty array we can check if it is empty with `!`.
+}
+
+foreach ($errors as $attribute => $messages)
+{
+	// …
+}
+```
+
 
 
 
@@ -325,6 +343,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [documentation]:                http://api.icanboogie.org/validate/latest/
 [Context]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Context.html
 [Validation]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.html
+[ValidationErrors]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidationErrors.html
 [IfCallable]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.IfCallable.html
 [UnlessCallable]:               http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.UnlessCallable.html
 [Blank]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Blank.html

@@ -77,7 +77,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 			'no' => [ "should be false" ],
 			'email' => [ "`person@domain` is not a valid email address." ]
 
-		], $errors);
+		], $this->stringify_errors($errors));
 	}
 
 	public function test_custom_message()
@@ -106,7 +106,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 			'email' => [ "person is not a valid email address." ]
 
-		], $errors);
+		], $this->stringify_errors($errors));
 	}
 
 	public function test_if()
@@ -252,7 +252,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 			'email' => [ Required::DEFAULT_MESSAGE ]
 
-		], $errors);
+		], $this->stringify_errors($errors));
 	}
 
 	/**
@@ -323,7 +323,12 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 		], $this->stringify_errors($errors));
 	}
 
-	private function stringify_errors(array $errors)
+	/**
+	 * @param ValidationErrors|array $errors
+	 *
+	 * @return ValidationErrors|array
+	 */
+	private function stringify_errors($errors)
 	{
 		array_walk_recursive($errors, function(Message &$message) {
 
@@ -331,6 +336,6 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 		});
 
-		return $errors;
+		return $errors instanceof ValidationErrors ? $errors->to_array() : [];
 	}
 }
