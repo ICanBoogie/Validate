@@ -150,12 +150,10 @@ class Validation implements ValidatorOptions
 	{
 		$errors = $this->validate($reader);
 
-		if (!$errors)
+		if ($errors instanceof ValidationErrors)
 		{
-			return;
+			throw new ValidationFailed($errors);
 		}
-
-		throw new ValidationFailed($errors);
 	}
 
 	/**
