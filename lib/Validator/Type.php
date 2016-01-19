@@ -24,6 +24,21 @@ class Type extends AbstractValidator
 	const PARAM_TYPE = 'type';
 
 	/**
+	 * Mapping for `is_*` and `ctype_*` functions.
+	 *
+	 * @var array
+	 */
+	static private $mapping = [
+
+		'is' => [ 'array', 'bool', 'double', 'float', 'int', 'integer', 'long',
+			'null', 'numeric', 'object', 'real', 'resource', 'scalar', 'string' ],
+
+		'ctype' => [ 'alnum', 'alpha', 'cntrl', 'digit', 'graph', 'lower',
+			'print', 'punct', 'space', 'upper', 'xdigit' ]
+
+	];
+
+	/**
 	 * @inheritdoc
 	 */
 	public function normalize_params(array $params)
@@ -41,34 +56,53 @@ class Type extends AbstractValidator
 	 */
 	public function validate($value, Context $context)
 	{
-		$context->message_args[self::PARAM_TYPE] = $original_type = $context->param(self::PARAM_TYPE);
+		$context->message_args[self::PARAM_TYPE] = $type = $context->param(self::PARAM_TYPE);
+		$callable = $this->resolve_callable($this->normalize_type($type));
 
-		$type = strtolower($original_type);
+		if ($callable)
+		{
+			return $callable($value);
+		}
+
+		return $value instanceof $type;
+	}
+
+	/**
+	 * Normalizes type.
+	 *
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	protected function normalize_type($type)
+	{
+		$type = strtolower($type);
 
 		if ($type == 'boolean')
 		{
 			$type = 'bool';
 		}
 
-		$is_function = 'is_' . $type;
+		return $type;
+	}
 
-		if (function_exists($is_function) && $is_function($value))
+	/**
+	 * Resolves callable to validate type.
+	 *
+	 * @param string $type
+	 *
+	 * @return string|null
+	 */
+	protected function resolve_callable($type)
+	{
+		foreach (self::$mapping as $prefix => $types)
 		{
-			return true;
+			if (in_array($type, $types))
+			{
+				return "{$prefix}_{$type}";
+			}
 		}
 
-		$ctype_function = 'ctype_' . $type;
-
-		if (function_exists($ctype_function) && $ctype_function($value))
-		{
-			return true;
-		}
-
-		if ($value instanceof $original_type)
-		{
-			return true;
-		}
-
-		return false;
+		return null;
 	}
 }
