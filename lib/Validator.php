@@ -27,13 +27,13 @@ interface Validator extends ValidatorOptions
 	const DEFAULT_MESSAGE = "is not valid";
 
 	/**
-	 * Normalize options.
+	 * Normalize parameters and options.
 	 *
-	 * @param array $options
+	 * @param array $params
 	 *
-	 * @return array Normalized options.
+	 * @return array
 	 */
-	public function normalize_options(array $options);
+	public function normalize_params(array $params);
 
 	/**
 	 * Validate a value.

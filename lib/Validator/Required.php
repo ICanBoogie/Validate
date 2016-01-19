@@ -25,13 +25,13 @@ class Required extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function normalize_options(array $options)
+	public function normalize_params(array $params)
 	{
 		return array_merge([
 
 			self::OPTION_STOP_ON_ERROR => true
 
-		], parent::normalize_options($options));
+		], parent::normalize_params($params));
 	}
 
 	/**

@@ -12,6 +12,7 @@
 namespace ICanBoogie\Validate\Validator;
 
 use ICanBoogie\Validate\Context;
+use ICanBoogie\Validate\ParameterIsMissing;
 
 class AbstractComparisonValidatorTest extends \PHPUnit_Framework_TestCase
 {

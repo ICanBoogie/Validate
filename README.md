@@ -201,6 +201,50 @@ $validations = new Validations([
 
 
 
+## Validation context
+
+The validation context provides the following information:
+
+- `attribute`: The attribute being validated.
+- `value`: The value of the attribute being validated.
+- `validator`: The current validator.
+- `validator_params`: The parameters and options for the current validator.
+- `values`: The adapter giving access to the values being validated.
+- `message`: The possible error message for the current validator.
+- `message_args`: The arguments for the possible error message.
+- `errors`: The collected errors.
+
+The validation context is represented by a [Context][] instance and is passed along with the value to validate to the validator. The validator may used the context to retrieve parameters and options, and when required get a complete picture of the ongoing validation.
+
+The following example demonstrates how a validator may retrieve its parameter and options from the context:
+
+```php
+<?php
+
+use ICanBoogie\Validate\Context
+
+// …
+
+	const PARAM_REFERENCE = 'reference';
+	const OPTION_STRICT = 'strict;
+
+	/**
+	 * @inheritdoc
+	 */
+	public function validate($value, Context $context)
+	{
+		$reference = $context->param(self::PARAM_REFERENCE);
+		$strict = $context->option(self::OPTION_STRICT, false);
+	}
+
+// …
+
+```
+
+
+
+
+
 ----------
 
 
@@ -276,8 +320,9 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 [documentation]:                http://api.icanboogie.org/validate/latest/
-[IfCallable]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validations.IfCallable.html
-[UnlessCallable]:               http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validations.UnlessCallable.html
+[Context]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Context.html
+[IfCallable]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validations.IfCallable.html
+[UnlessCallable]:               http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validations.UnlessCallable.html
 [Blank]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Blank.html
 [Email]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Email.html
 [IsFalse]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsFalse.html

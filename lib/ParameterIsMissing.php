@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Validate\Validator;
+namespace ICanBoogie\Validate;
 
 /**
  * Exception thrown when a required validator parameter is missing.

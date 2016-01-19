@@ -12,6 +12,7 @@
 namespace ICanBoogie\Validate\Validator;
 
 use ICanBoogie\Validate\Context;
+use ICanBoogie\Validate\ParameterIsMissing;
 use ICanBoogie\Validate\Validator;
 
 class TypeTest extends ValidatorTestCase

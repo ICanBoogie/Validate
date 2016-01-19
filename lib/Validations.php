@@ -36,41 +36,57 @@ class Validations implements ValidatorOptions
 	private $message_formatter;
 
 	/**
-	 * @param array $validations
+	 * @param array $rules Validation rules.
 	 * @param callable|ValidatorProvider $validator_provider
 	 * @param callable|MessageFormatter $message_formatter
 	 */
-	public function __construct(array $validations, callable $validator_provider = null, callable $message_formatter = null)
+	public function __construct(array $rules, callable $validator_provider = null, callable $message_formatter = null)
 	{
 		$this->validator_provider = $validator_provider ?: new BasicValidatorProvider;
 		$this->message_formatter = $message_formatter ?: new BasicMessageFormatter;
 
-		foreach ($validations as $field => $validators)
-		{
-			if (is_string($validators))
-			{
-				$validators = $this->resolve_validators($validators);
-			}
-
-			foreach ($validators as $validator_name => $options)
-			{
-				$this->validates_with($field, $validator_name, $options);
-			}
-		}
+		$this->validates($rules);
 	}
 
 	/**
-	 * Defines a validation type for a field.
+	 * Defines validation rules.
 	 *
-	 * @param string $field
-	 * @param string $validator_name
-	 * @param array $options
+	 * **Note:** The specified rules may override previously defined rules for a same attribute.
+	 *
+	 * @param array $rules
 	 *
 	 * @return $this
 	 */
-	public function validates_with($field, $validator_name, array $options)
+	public function validates(array $rules)
 	{
-		$this->validations[$field][$validator_name] = $options;
+		foreach ($rules as $attribute => $validations)
+		{
+			if (is_string($validations))
+			{
+				$validations = $this->resolve_validations_from_string($validations);
+			}
+
+			foreach ($validations as $class_or_alias => $params)
+			{
+				$this->validates_with($attribute, $class_or_alias, $params);
+			}
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Defines validation for an attribute.
+	 *
+	 * @param string $attribute The attribute to validate.
+	 * @param string $class_or_alias The class name or alias of the validator.
+	 * @param array $params The validator parameters and options.
+	 *
+	 * @return $this
+	 */
+	public function validates_with($attribute, $class_or_alias, array $params)
+	{
+		$this->validations[$attribute][$class_or_alias] = $params;
 
 		return $this;
 	}
@@ -102,12 +118,12 @@ class Validations implements ValidatorOptions
 
 		foreach ($this->validations as $attribute => $validators)
 		{
-			foreach ($validators as $validator_name => $options)
+			foreach ($validators as $validator_name => $validator_params)
 			{
 				$value = $reader->read($attribute);
 				$validator = $this->resolve_validator($validator_name);
 
-				$context->options = $this->normalize_options($validator, $options);
+				$context->validator_params = $this->normalize_validator_params($validator, $validator_params);
 				$context->message = $validator::DEFAULT_MESSAGE;
 				$context->message_args = [
 
@@ -190,7 +206,7 @@ class Validations implements ValidatorOptions
 	 */
 	protected function should_stop(Context $context)
 	{
-		if (empty($context->options[self::OPTION_STOP_ON_ERROR]))
+		if ($context->option(self::OPTION_STOP_ON_ERROR))
 		{
 			return false;
 		}
@@ -203,26 +219,26 @@ class Validations implements ValidatorOptions
 	 *
 	 * @param string $encoded_validators
 	 *
-	 * @return array An array of key/value pairs where _key_ if the name of a validator and
-	 * _value_ its validation options.
+	 * @return array An array of key/value pairs where _key_ if the alias of a validator and
+	 * _value_ its parameters and options.
 	 */
-	protected function resolve_validators($encoded_validators)
+	protected function resolve_validations_from_string($encoded_validators)
 	{
 		$validators = [];
 
 		foreach (explode('|', $encoded_validators) as $encoded_validator)
 		{
-			list($validator_name, $options) = explode(':', $encoded_validator, 2) + [ 1 => null ];
+			list($alias, $params) = explode(':', $encoded_validator, 2) + [ 1 => null ];
 
-			$options = $options === null ? [] : explode(',', $options);
+			$params = $params === null ? [] : explode(',', $params);
 
-			if (substr($validator_name, -1) === self::PREFIX_STOP_ON_ERROR)
+			if (substr($alias, -1) === self::PREFIX_STOP_ON_ERROR)
 			{
-				$options[self::OPTION_STOP_ON_ERROR] = true;
-				$validator_name = substr($validator_name, 0, -1);
+				$params[self::OPTION_STOP_ON_ERROR] = true;
+				$alias = substr($alias, 0, -1);
 			}
 
-			$validators[$validator_name] = $options;
+			$validators[$alias] = $params;
 		}
 
 		return $validators;
@@ -243,16 +259,16 @@ class Validations implements ValidatorOptions
 	}
 
 	/**
-	 * Normalizes validator options.
+	 * Normalizes validator params.
 	 *
 	 * @param Validator $validator
-	 * @param array $options
+	 * @param array $params
 	 *
 	 * @return array
 	 */
-	protected function normalize_options(Validator $validator, $options)
+	protected function normalize_validator_params(Validator $validator, $params)
 	{
-		return $validator->normalize_options($options);
+		return $validator->normalize_params($params);
 	}
 
 	/**

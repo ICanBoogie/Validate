@@ -22,17 +22,15 @@ abstract class AbstractComparisonValidator extends AbstractValidator
 
 	/**
 	 * @inheritdoc
-	 *
-	 * @throws ParameterIsMissing if {@link PARAM_REFERENCE} is missing.
 	 */
-	public function normalize_options(array $options)
+	public function normalize_params(array $params)
 	{
-		if (isset($options[0]))
+		if (isset($params[0]))
 		{
-			$options[self::PARAM_REFERENCE] = $options[0];
+			$params[self::PARAM_REFERENCE] = $params[0];
 		}
 
-		return $options;
+		return $params;
 	}
 
 	/**

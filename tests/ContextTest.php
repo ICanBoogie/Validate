@@ -9,13 +9,13 @@ class ContextTest extends \PHPUnit_Framework_TestCase
 		$param = uniqid();
 		$value = uniqid();
 		$context = new Context;
-		$context->options = [ $param => $value ];
+		$context->validator_params = [ $param => $value ];
 
 		$this->assertSame($value, $context->param($param));
 	}
 
 	/**
-	 * @expectedException \ICanBoogie\Validate\Validator\ParameterIsMissing
+	 * @expectedException \ICanBoogie\Validate\ParameterIsMissing
 	 */
 	public function test_param_undefined()
 	{
@@ -28,7 +28,7 @@ class ContextTest extends \PHPUnit_Framework_TestCase
 		$option = uniqid();
 		$value = uniqid();
 		$context = new Context;
-		$context->options = [ $option => $value ];
+		$context->validator_params = [ $option => $value ];
 
 		$this->assertSame($value, $context->option($option));
 	}

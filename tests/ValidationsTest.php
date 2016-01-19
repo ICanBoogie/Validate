@@ -259,13 +259,13 @@ class ValidationsTest extends \PHPUnit_Framework_TestCase
 	 * @dataProvider provide_test_message
 	 *
 	 * @param string $validator_name
-	 * @param array $options
+	 * @param array $params
 	 * @param mixed $value
 	 * @param string $expected
 	 */
-	public function test_message($validator_name, $options, $value, $expected)
+	public function test_message($validator_name, $params, $value, $expected)
 	{
-		$validations = new Validations([ 'field' => [ $validator_name => $options ]]);
+		$validations = new Validations([ 'field' => [ $validator_name => $params ]]);
 		$errors = $validations->validate(new ArrayValueReader([ 'field' => $value ]));
 		$this->assertArrayHasKey('field', $errors);
 		$this->assertSame($expected, (string) reset($errors['field']));

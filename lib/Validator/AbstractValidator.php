@@ -22,9 +22,9 @@ abstract class AbstractValidator implements Validator
 	/**
 	 * @inheritdoc
 	 */
-	public function normalize_options(array $options)
+	public function normalize_params(array $params)
 	{
-		return $options;
+		return $params;
 	}
 
 	/**

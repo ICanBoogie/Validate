@@ -26,14 +26,14 @@ class Type extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function normalize_options(array $options)
+	public function normalize_params(array $params)
 	{
-		if (isset($options[0]))
+		if (isset($params[0]))
 		{
-			$options[self::PARAM_TYPE] = $options[0];
+			$params[self::PARAM_TYPE] = $params[0];
 		}
 
-		return $options;
+		return $params;
 	}
 
 	/**

@@ -11,8 +11,6 @@
 
 namespace ICanBoogie\Validate;
 
-use ICanBoogie\Validate\Validator\ParameterIsMissing;
-
 /**
  * Representation of a validation context.
  */
@@ -26,23 +24,11 @@ class Context
 	public $attribute;
 
 	/**
-	 * The value being validated.
+	 * The value of the attribute being validated.
 	 *
 	 * @var mixed
 	 */
 	public $value;
-
-	/**
-	 * The current validator.
-	 */
-	public $validator;
-
-	/**
-	 * The validator options.
-	 *
-	 * @var array
-	 */
-	public $options = [];
 
 	/**
 	 * @var ValueReader
@@ -50,14 +36,26 @@ class Context
 	public $values;
 
 	/**
-	 * Possible error message.
+	 * The current validator.
+	 */
+	public $validator;
+
+	/**
+	 * The validator parameters.
+	 *
+	 * @var array
+	 */
+	public $validator_params = [];
+
+	/**
+	 * The possible error message for the current validator.
 	 *
 	 * @var string
 	 */
 	public $message;
 
 	/**
-	 * Arguments for the possible error message.
+	 * The arguments for the possible error message.
 	 */
 	public $message_args = [];
 
@@ -69,7 +67,7 @@ class Context
 	public $errors = [];
 
 	/**
-	 * Retrieves a parameter from the options.
+	 * Retrieves a parameter from the validator parameters.
 	 *
 	 * @param string $name
 	 *
@@ -79,16 +77,16 @@ class Context
 	 */
 	public function param($name)
 	{
-		if (!isset($this->options[$name]))
+		if (!isset($this->validator_params[$name]))
 		{
 			throw new ParameterIsMissing(get_class($this->validator) . '::PARAM_' . strtoupper($name));
 		}
 
-		return $this->options[$name];
+		return $this->validator_params[$name];
 	}
 
 	/**
-	 * Retrieves an options from the options.
+	 * Retrieves an options from the validator parameters.
 	 *
 	 * @param string $name
 	 * @param mixed|null $default
@@ -97,11 +95,6 @@ class Context
 	 */
 	public function option($name, $default = null)
 	{
-		if (!isset($this->options[$name]))
-		{
-			return $default;
-		}
-
-		return $this->options[$name];
+		return isset($this->validator_params[$name]) ? $this->validator_params[$name] : $default;
 	}
 }

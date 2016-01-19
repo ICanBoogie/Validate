@@ -39,11 +39,11 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	 * @dataProvider provide_test_valid_values
 	 *
 	 * @param mixed $value
-	 * @param array $options
+	 * @param array $params
 	 */
-	public function test_valid_values($value, $options = [])
+	public function test_valid_values($value, $params = [])
 	{
-		$this->context->options = $this->validator->normalize_options($options);
+		$this->context->validator_params = $this->validator->normalize_params($params);
 		$this->assertTrue($this->validator->validate($value, $this->context));
 	}
 
@@ -53,11 +53,11 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	 * @dataProvider provide_test_invalid_values
 	 *
 	 * @param mixed $value
-	 * @param array $options
+	 * @param array $params
 	 */
-	public function test_invalid_values($value, $options = [])
+	public function test_invalid_values($value, $params = [])
 	{
-		$this->context->options = $this->validator->normalize_options($options);
+		$this->context->validator_params = $this->validator->normalize_params($params);
 		$this->assertFalse($this->validator->validate($value, $this->context));
 	}
 
