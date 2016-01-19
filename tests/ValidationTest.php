@@ -355,12 +355,23 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 	 */
 	private function stringify_errors($errors)
 	{
+		if (!$errors)
+		{
+			return [];
+		}
+
+		#
+		# HHVM's array_walk_recursive() doesn't work with ArrayObject :(
+		#
+
+		$errors = $errors->to_array();
+
 		array_walk_recursive($errors, function(Message &$message) {
 
 			$message = (string) $message;
 
 		});
 
-		return $errors instanceof ValidationErrors ? $errors->to_array() : [];
+		return $errors;
 	}
 }
