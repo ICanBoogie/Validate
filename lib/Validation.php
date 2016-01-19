@@ -105,15 +105,6 @@ class Validation implements ValidatorOptions
 		$context->value = &$value;
 		$context->validator = &$validator;
 
-		$error = function() use ($context) {
-
-			$context->errors[$context->attribute][] = $this->format_message(
-				$context->option(self::OPTION_MESSAGE) ?: $context->message,
-				$context->message_args
-			);
-
-		};
-
 		foreach ($this->validations as $attribute => $validators)
 		{
 			foreach ($validators as $validator_name => $validator_params)
@@ -137,7 +128,7 @@ class Validation implements ValidatorOptions
 
 				if (!$validator->validate($value, $context))
 				{
-					$error();
+					$this->push_error($context);
 				}
 
 				if ($this->should_stop($context))
@@ -213,20 +204,20 @@ class Validation implements ValidatorOptions
 	}
 
 	/**
-	 * Resolves encoded validators into an array of validators.
+	 * Resolves validations from a string.
 	 *
-	 * @param string $encoded_validators
+	 * @param string $serialized_validations
 	 *
 	 * @return array An array of key/value pairs where _key_ if the alias of a validator and
 	 * _value_ its parameters and options.
 	 */
-	protected function resolve_validations_from_string($encoded_validators)
+	protected function resolve_validations_from_string($serialized_validations)
 	{
-		$validators = [];
+		$validations = [];
 
-		foreach (explode('|', $encoded_validators) as $encoded_validator)
+		foreach (explode('|', $serialized_validations) as $serialized_alias_and_params)
 		{
-			list($alias, $params) = explode(':', $encoded_validator, 2) + [ 1 => null ];
+			list($alias, $params) = explode(':', $serialized_alias_and_params, 2) + [ 1 => null ];
 
 			$params = $params === null ? [] : explode(',', $params);
 
@@ -236,10 +227,10 @@ class Validation implements ValidatorOptions
 				$alias = substr($alias, 0, -1);
 			}
 
-			$validators[$alias] = $params;
+			$validations[$alias] = $params;
 		}
 
-		return $validators;
+		return $validations;
 	}
 
 	/**
@@ -267,6 +258,18 @@ class Validation implements ValidatorOptions
 	protected function normalize_validator_params(Validator $validator, $params)
 	{
 		return $validator->normalize_params($params);
+	}
+
+	/**
+	 * Pushes an error to the collection.
+	 *
+	 * @param Context $context
+	 */
+	protected function push_error(Context $context)
+	{
+		$context->errors[$context->attribute][] = $this->format_message(
+			$context->option(self::OPTION_MESSAGE) ?: $context->message,
+			$context->message_args);
 	}
 
 	/**
