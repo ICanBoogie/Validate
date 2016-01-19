@@ -16,6 +16,15 @@ namespace ICanBoogie\Validate;
  */
 class Message
 {
+	static private $render_mapping = [
+
+		'NULL' => 'render_null',
+		'boolean' => 'render_boolean',
+		'array' => 'render_array',
+		'object' => 'render_object',
+
+	];
+
 	/**
 	 * Message pattern.
 	 *
@@ -76,36 +85,77 @@ class Message
 	 */
 	protected function stringify_value($value)
 	{
-		if ($value === null)
-		{
-			return 'null';
-		}
+		$mapping = self::$render_mapping;
+		$type = gettype($value);
 
-		if ($value === false)
+		if (isset($mapping[$type]))
 		{
-			return 'false';
-		}
-
-		if ($value === true)
-		{
-			return 'true';
-		}
-
-		if (is_array($value))
-		{
-			return 'array{' . implode(', ', array_keys($value)) . '}';
-		}
-
-		if (is_object($value))
-		{
-			return 'instance ' . get_class($value);
+			return $this->{ $mapping[$type] }($value);
 		}
 
 		if (!is_scalar($value))
 		{
-			return 'type{' . gettype($value) . '}';
+			return $this->render_other($value);
 		}
 
 		return $value;
+	}
+
+	/**
+	 * Renders `null`.
+	 *
+	 * @return string
+	 */
+	protected function render_null()
+	{
+		return 'null';
+	}
+
+	/**
+	 * Renders a boolean.
+	 *
+	 * @param bool $value
+	 *
+	 * @return string
+	 */
+	protected function render_boolean($value)
+	{
+		return $value === false ? 'false' : 'true';
+	}
+
+	/**
+	 * Renders an array.
+	 *
+	 * @param array $value
+	 *
+	 * @return string
+	 */
+	protected function render_array(array $value)
+	{
+		return 'array{' . implode(', ', array_keys($value)) . '}';
+	}
+
+	/**
+	 * Renders an object.
+	 *
+	 * @param mixed $value
+	 *
+	 * @return string
+	 */
+	protected function render_object($value)
+	{
+		return 'instance ' . get_class($value);
+	}
+
+	/**
+	 * Renders other types.
+	 *
+	 * @param mixed $value
+	 *
+	 * @return string
+	 */
+	protected function render_other($value)
+	{
+		return 'type{' . gettype($value) . '}';
 	}
 }

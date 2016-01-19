@@ -15,33 +15,14 @@ use ICanBoogie\Validate\Message;
 
 class BasicMessageFormatterTest extends \PHPUnit_Framework_TestCase
 {
-	/**
-	 * @dataProvider provide_test_format
-	 *
-	 * @param string $message
-	 * @param mixed $value
-	 * @param string $expected
-	 */
-	public function test_format($message, $value, $expected)
+	public function test_format()
 	{
 		$formatter = new BasicMessageFormatter;
+		$pattern = "pattern {value}";
+		$value = uniqid();
 
-		$message = $formatter($message, [ 'value' => $value ]);
+		$message = $formatter($pattern, [ 'value' => $value ]);
 		$this->assertInstanceOf(Message::class, $message);
-		$this->assertSame($expected, (string) $message);
-	}
-
-	public function provide_test_format()
-	{
-		return [
-
-			[ '`{value}` is invalid', 1, '`1` is invalid' ],
-			[ '`{value}` is invalid', true, '`true` is invalid' ],
-			[ '`{value}` is invalid', false, '`false` is invalid' ],
-			[ '`{value}` is invalid', new \stdClass(), '`instance stdClass` is invalid' ],
-			[ '`{value}` is invalid', [ 'one' => 1, 'two' => 2 ], '`array{one, two}` is invalid' ],
-			[ '`{value}` is invalid', fopen(__FILE__, 'r'), '`type{resource}` is invalid' ],
-
-		];
+		$this->assertSame("pattern $value", (string) $message);
 	}
 }
