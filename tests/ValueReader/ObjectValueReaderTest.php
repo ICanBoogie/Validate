@@ -28,9 +28,9 @@ class ObjectValueReaderTest extends ValueReaderTestCase
 			[ (object) [ $p1 => $v1 ], $p1, $v1 ],
 			[ (object) [ $p1 => '0' ], $p1, '0' ],
 			[ (object) [ $p1 => false ], $p1, false ],
-			[ (object) [ $p1 => '' ], $p1, null ],
-			[ (object) [ $p1 => '   ' ], $p1, null ],
-			[ (object) [ $p1 => [] ], $p1, null ],
+			[ (object) [ $p1 => '' ], $p1, '' ],
+			[ (object) [ $p1 => ' ' ], $p1, ' ' ],
+			[ (object) [ $p1 => [] ], $p1, [] ],
 			[ (object) [ ], $p1, null ],
 
 		];

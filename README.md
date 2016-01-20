@@ -147,7 +147,9 @@ The `validate()` method is used to validate data. The method returns a [Validati
 ```php
 <?php
 
-$errors = $validation->validate(new ArrayValueReader($_POST));
+use ICanBoogie\Validate\ValueReader\RequestValueReader;
+
+$errors = $validation->validate(new RequestValueReader($_POST));
 
 if (!$errors)
 {
@@ -172,10 +174,11 @@ The `assert()` method may be used to assert that data is valid. Instead of retur
 <?php
 
 use ICanBoogie\Validate\ValidationFailed;
+use ICanBoogie\Validate\ValueReader\RequestValueReader;
 
 try
 {
-	$validation->assert(new ArrayValueReader($_POST));
+	$validation->assert(new RequestValueReader($_POST));
 }
 catch (ValidationFailed $e)
 {

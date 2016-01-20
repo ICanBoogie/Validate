@@ -14,9 +14,9 @@ namespace ICanBoogie\Validate\ValueReader;
 /**
  * @small
  */
-class ArrayValueReaderTest extends ValueReaderTestCase
+class RequestValueReaderTest extends ValueReaderTestCase
 {
-	const READER_CLASS = ArrayValueReader::class;
+	const READER_CLASS = RequestValueReader::class;
 
 	public function provide_test_read()
 	{
@@ -28,8 +28,8 @@ class ArrayValueReaderTest extends ValueReaderTestCase
 			[ [ $p1 => $v1 ], $p1, $v1 ],
 			[ [ $p1 => '0' ], $p1, '0' ],
 			[ [ $p1 => false ], $p1, false ],
-			[ [ $p1 => '' ], $p1, '' ],
-			[ [ $p1 => ' ' ], $p1, ' ' ],
+			[ [ $p1 => '' ], $p1, null ],
+			[ [ $p1 => ' ' ], $p1, null ],
 			[ [ $p1 => [] ], $p1, [] ],
 			[ [ ], $p1, null ],
 

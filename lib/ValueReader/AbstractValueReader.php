@@ -30,29 +30,4 @@ abstract class AbstractValueReader implements ValueReader
 	{
 		$this->source = $source;
 	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public function read($name)
-	{
-		$value = $this->raw_read($name);
-
-		if ((is_string($value) && trim($value) === '')
-		|| (is_array($value) && !count($value)))
-		{
-			return null;
-		}
-
-		return $value;
-	}
-
-	/**
-	 * Returns a value from the source.
-	 *
-	 * @param string $name
-	 *
-	 * @return mixed
-	 */
-	abstract protected function raw_read($name);
 }

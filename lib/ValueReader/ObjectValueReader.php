@@ -11,12 +11,17 @@
 
 namespace ICanBoogie\Validate\ValueReader;
 
+/**
+ * Value reader for an object.
+ */
 class ObjectValueReader extends AbstractValueReader
 {
 	/**
+	 * If the property is not set `null` is returned.
+	 *
 	 * @inheritdoc
 	 */
-	protected function raw_read($name)
+	public function read($name)
 	{
 		return isset($this->source->$name) ? $this->source->$name : null;
 	}

@@ -12,17 +12,24 @@
 namespace ICanBoogie\Validate\ValueReader;
 
 /**
- * Value reader for an array or an instance of {@link ArrayAccess}.
+ * Value reader for `$_GET`, `$_POST`, or `$_REQUEST`.
  */
-class ArrayValueReader extends AbstractValueReader
+class RequestValueReader extends ArrayValueReader
 {
 	/**
-	 * If the offset does not exists `null` is returned.
+	 * If a value is a string and once trimed is empty `null` is returned.
 	 *
 	 * @inheritdoc
 	 */
 	public function read($name)
 	{
-		return isset($this->source[$name]) ? $this->source[$name] : null;
+		$value = parent::read($name);
+
+		if (is_string($value) && trim($value) === '')
+		{
+			return null;
+		}
+
+		return $value;
 	}
 }
