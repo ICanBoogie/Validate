@@ -187,24 +187,12 @@ class Validation implements ValidatorOptions
 	protected function should_skip(Context $context)
 	{
 		/* @var $if Validation\IfCallable|callable */
-
-		$if = $context->option(self::OPTION_IF);
-
-		if ($if && !$if($context))
-		{
-			return true;
-		}
-
 		/* @var $unless Validation\UnlessCallable|callable */
 
+		$if = $context->option(self::OPTION_IF);
 		$unless = $context->option(self::OPTION_UNLESS);
 
-		if ($unless && $unless($context))
-		{
-			return true;
-		}
-
-		return false;
+		return ($if && !$if($context)) || ($unless && $unless($context));
 	}
 
 	/**
