@@ -213,33 +213,33 @@ use ICanBoogie\Validate\Validator\Email;
 $validation = new Validation([
 
 	'email' => [
-	
+
 		Required::class => [
-	
+
 			Required::OPTION_MESSAGE => "An email address must be supplied if your wish to register.",
 
 			Required::OPTION_IF => function(Context $context) {
-			
-				return $context->values->read('name')
-			
+
+				return $context->value('name')
+
 			},
-			
+
 			Required::OPTION_UNLESS => function(Context $context) {
-			
-				return !$context->values->read('register')
-			
+
+				return !$context->value('register')
+
 			},
-			
+
 			Required::OPTION_STOP_ON_ERROR => true // already defined by Require
-		
+
 		],
-		
+
 		Email::class => [
-	
+
 			Email::OPTION_MESSAGE => "`{value}` is an invalid email address for the field E-Mail.",
 
 		]
-	
+
 	]
 
 ]);
@@ -257,7 +257,7 @@ The validation context provides the following information:
 - `value`: The value of the attribute being validated.
 - `validator`: The current validator.
 - `validator_params`: The parameters and options for the current validator.
-- `values`: The adapter giving access to the values being validated.
+- `reader`: A [Reader][] adapter giving access the values being validated.
 - `message`: The possible error message for the current validator.
 - `message_args`: The arguments for the possible error message.
 - `errors`: The collected errors.
@@ -370,11 +370,12 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 [documentation]:                http://api.icanboogie.org/validate/latest/
 [Context]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Context.html
+[Reader]:                       http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Reader.html
 [Validation]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.html
-[ValidationErrors]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidationErrors.html
-[ValidationFailed]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidationFailed.html
 [IfCallable]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.IfCallable.html
 [UnlessCallable]:               http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.UnlessCallable.html
+[ValidationErrors]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidationErrors.html
+[ValidationFailed]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidationFailed.html
 [Blank]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Blank.html
 [Email]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Email.html
 [IsFalse]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsFalse.html

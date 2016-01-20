@@ -167,7 +167,7 @@ class Validation implements ValidatorOptions
 	protected function create_context(Reader $reader)
 	{
 		$context = new Context;
-		$context->values = $reader;
+		$context->reader = $reader;
 
 		return $context;
 	}

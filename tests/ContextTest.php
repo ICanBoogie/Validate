@@ -14,7 +14,7 @@ class ContextTest extends \PHPUnit_Framework_TestCase
 		$name = uniqid();
 		$value = uniqid();
 		$context = new Context;
-		$context->values = new ArrayAdapter([ $name => $value ]);
+		$context->reader = new ArrayAdapter([ $name => $value ]);
 
 		$this->assertSame($value, $context->value($name));
 	}

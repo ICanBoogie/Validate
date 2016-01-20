@@ -33,7 +33,7 @@ class Context
 	/**
 	 * @var Reader
 	 */
-	public $values;
+	public $reader;
 
 	/**
 	 * The current validator.
@@ -77,7 +77,7 @@ class Context
 	 */
 	public function value($name)
 	{
-		return $this->values->read($name);
+		return $this->reader->read($name);
 	}
 
 	/**
