@@ -16,7 +16,10 @@ use ICanBoogie\Validate\ValidatorProvider\BuiltinValidatorProvider;
 
 class Validation implements ValidatorOptions
 {
-	const PREFIX_STOP_ON_ERROR = '!';
+	const SERIALIZED_STOP_ON_ERROR_SUFFIX = '!';
+	const SERIALIZED_VALIDATION_SEPARATOR = '|';
+	const SERIALIZED_ALIAS_SEPARATOR = ':';
+	const SERIALIZED_PARAM_SEPARATOR = ',';
 
 	/**
 	 * @var array
@@ -61,7 +64,7 @@ class Validation implements ValidatorOptions
 		{
 			if (is_string($validations))
 			{
-				$validations = $this->resolve_validations_from_string($validations);
+				$validations = $this->unserialize_validations($validations);
 			}
 
 			foreach ($validations as $class_or_alias => $params)
@@ -220,17 +223,17 @@ class Validation implements ValidatorOptions
 	 * @return array An array of key/value pairs where _key_ if the alias of a validator and
 	 * _value_ its parameters and options.
 	 */
-	protected function resolve_validations_from_string($serialized_validations)
+	protected function unserialize_validations($serialized_validations)
 	{
 		$validations = [];
 
-		foreach (explode('|', $serialized_validations) as $serialized_alias_and_params)
+		foreach (explode(self::SERIALIZED_VALIDATION_SEPARATOR, $serialized_validations) as $serialized_alias_and_params)
 		{
-			list($alias, $params) = explode(':', $serialized_alias_and_params, 2) + [ 1 => null ];
+			list($alias, $params) = explode(self::SERIALIZED_ALIAS_SEPARATOR, $serialized_alias_and_params, 2) + [ 1 => null ];
 
 			$params = $params === null ? [] : explode(',', $params);
 
-			if (substr($alias, -1) === self::PREFIX_STOP_ON_ERROR)
+			if (substr($alias, -1) === self::SERIALIZED_STOP_ON_ERROR_SUFFIX)
 			{
 				$params[self::OPTION_STOP_ON_ERROR] = true;
 				$alias = substr($alias, 0, -1);
