@@ -15,6 +15,9 @@ use ICanBoogie\Validate\Context;
 use ICanBoogie\Validate\ParameterIsMissing;
 use ICanBoogie\Validate\Validator;
 
+/**
+ * @small
+ */
 class TypeTest extends ValidatorTestCase
 {
 	const VALIDATOR_CLASS = Type::class;

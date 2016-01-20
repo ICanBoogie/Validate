@@ -14,6 +14,9 @@ namespace ICanBoogie\Validate\Validator;
 use ICanBoogie\Validate\Context;
 use ICanBoogie\Validate\Validator;
 
+/**
+ * @small
+ */
 abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 {
 	const VALIDATOR_CLASS = "";

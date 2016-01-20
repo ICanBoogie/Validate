@@ -13,6 +13,9 @@ namespace ICanBoogie\Validate\Validator;
 
 use ICanBoogie\Validate\Context;
 
+/**
+ * @small
+ */
 class SampleValidator extends AbstractValidator
 {
 	const ALIAS = 'sample';

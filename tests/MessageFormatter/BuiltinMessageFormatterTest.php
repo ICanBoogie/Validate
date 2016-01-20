@@ -13,6 +13,9 @@ namespace ICanBoogie\Validate\MessageFormatter;
 
 use ICanBoogie\Validate\Message;
 
+/**
+ * @medium
+ */
 class BuiltinMessageFormatterTest extends \PHPUnit_Framework_TestCase
 {
 	public function test_format()

@@ -14,6 +14,9 @@ namespace ICanBoogie\Validate\ValidatorProvider;
 use ICanBoogie\Validate\Validator;
 use ICanBoogie\Validate\Validator\SampleValidator;
 
+/**
+ * @medium
+ */
 class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 {
 	/**

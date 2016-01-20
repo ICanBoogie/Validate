@@ -11,6 +11,9 @@
 
 namespace ICanBoogie\Validate;
 
+/**
+ * @small
+ */
 class ValidationErrorsTest extends \PHPUnit_Framework_TestCase
 {
 	public function test_from()

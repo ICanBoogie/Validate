@@ -17,6 +17,9 @@ use ICanBoogie\Validate\Validator\IsTrue;
 use ICanBoogie\Validate\Validator\Required;
 use ICanBoogie\Validate\ValueReader\ArrayValueReader;
 
+/**
+ * @large
+ */
 class ValidationTest extends \PHPUnit_Framework_TestCase
 {
 	public function test_invalid()

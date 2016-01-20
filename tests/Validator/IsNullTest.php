@@ -13,6 +13,9 @@ namespace ICanBoogie\Validate\Validator;
 
 use ICanBoogie\Validate\Validator;
 
+/**
+ * @small
+ */
 class IsNullTest extends ValidatorTestCase
 {
 	const VALIDATOR_CLASS = IsNull::class;

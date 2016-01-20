@@ -13,6 +13,9 @@ namespace ICanBoogie\Validate\Validator;
 
 use ICanBoogie\Validate\Validator;
 
+/**
+ * @small
+ */
 class EmailTest extends ValidatorTestCase
 {
 	const VALIDATOR_CLASS = Email::class;

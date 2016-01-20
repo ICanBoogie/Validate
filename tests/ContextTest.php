@@ -4,6 +4,9 @@ namespace ICanBoogie\Validate;
 
 use ICanBoogie\Validate\ValueReader\ArrayValueReader;
 
+/**
+ * @small
+ */
 class ContextTest extends \PHPUnit_Framework_TestCase
 {
 	public function test_value()

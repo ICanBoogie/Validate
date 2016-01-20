@@ -11,6 +11,9 @@
 
 namespace ICanBoogie\Validate\ValueReader;
 
+/**
+ * @small
+ */
 abstract class ValueReaderTestCase extends \PHPUnit_Framework_TestCase
 {
 	const READER_CLASS = null;

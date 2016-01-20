@@ -14,6 +14,9 @@ namespace ICanBoogie\Validate\Validator;
 use ICanBoogie\Validate\Context;
 use ICanBoogie\Validate\Validator;
 
+/**
+ * @small
+ */
 class TimeZoneTest extends ValidatorTestCase
 {
 	const VALIDATOR_CLASS = TimeZone::class;
