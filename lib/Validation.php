@@ -95,15 +95,9 @@ class Validation implements ValidatorOptions
 
 		foreach ($this->validations as $attribute => $validators)
 		{
-			foreach ($validators as $class_or_alias => $validator_params)
-			{
-				$this->validate_attribute($context, $attribute, $class_or_alias, $validator_params);
+			$context->attribute = $attribute;
 
-				if ($this->should_stop($context))
-				{
-					break;
-				}
-			}
+			$this->validate_attribute($attribute, $validators, $context);
 		}
 
 		return $context->errors ? new ValidationErrors($context->errors) : [];
@@ -112,33 +106,40 @@ class Validation implements ValidatorOptions
 	/**
 	 * Validates an attribute.
 	 *
-	 * @param Context $context Validation context.
-	 * @param string $attribute The attribute to validate.
-	 * @param string $class_or_alias Validator class or alias.
-	 * @param array $params Validator params.
+	 * @param string $attribute
+	 * @param array $validators
+	 * @param Context $context
 	 */
-	protected function validate_attribute(Context $context, $attribute, $class_or_alias, array $params)
+	protected function validate_attribute($attribute, array $validators, Context $context)
 	{
-		$context->attribute = $attribute;
-		$context->value = $value = $context->value($attribute);
-		$context->validator = $validator = $this->resolve_validator($class_or_alias);
-		$context->validator_params = $this->normalize_validator_params($validator, $params);
-		$context->message = $validator::DEFAULT_MESSAGE;
-		$context->message_args = [
-
-			'value' => $value,
-			'attribute' => $attribute
-
-		];
-
-		if ($this->should_skip($context))
+		foreach ($validators as $class_or_alias => $validator_params)
 		{
-			return;
-		}
+			$context->attribute = $attribute;
+			$context->value = $value = $context->value($attribute);
+			$context->validator = $validator = $this->resolve_validator($class_or_alias);
+			$context->validator_params = $this->normalize_validator_params($validator, $validator_params);
+			$context->message = $validator::DEFAULT_MESSAGE;
+			$context->message_args = [
 
-		if (!$validator->validate($value, $context))
-		{
-			$this->push_error($context);
+				'value' => $value,
+				'attribute' => $attribute
+
+			];
+
+			if ($this->should_skip($context))
+			{
+				return;
+			}
+
+			if (!$validator->validate($value, $context))
+			{
+				$this->push_error($context);
+			}
+
+			if ($this->should_stop($context))
+			{
+				break;
+			}
 		}
 	}
 
