@@ -42,38 +42,38 @@ abstract class AbstractValidatorProvider implements ValidatorProvider
 	/**
 	 * Returns a validator.
 	 *
-	 * @param string $validator_name
+	 * @param string $class_or_alias
 	 *
 	 * @return Validator
 	 */
-	public function __invoke($validator_name)
+	public function __invoke($class_or_alias)
 	{
-		$validator_name = $this->map($validator_name);
-		$validator = &$this->instances[$validator_name];
+		$class_or_alias = $this->map($class_or_alias);
+		$validator = &$this->instances[$class_or_alias];
 
 		if (!$validator)
 		{
-			$validator = $this->instantiate($validator_name);
+			$validator = $this->instantiate($class_or_alias);
 		}
 
 		return $validator;
 	}
 
 	/**
-	 * Tries to map a validator name into a validator class.
+	 * Tries to map an validator alias into a validator class.
 	 *
-	 * @param string $validator_name
+	 * @param string $class_or_alias The class of alias of the validator.
 	 *
 	 * @return string
 	 */
-	protected function map($validator_name)
+	protected function map($class_or_alias)
 	{
-		if (isset($this->mapping[$validator_name]))
+		if (isset($this->mapping[$class_or_alias]))
 		{
-			return $this->mapping[$validator_name];
+			return $this->mapping[$class_or_alias];
 		}
 
-		return $validator_name;
+		return $class_or_alias;
 	}
 
 	/**

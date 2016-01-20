@@ -19,9 +19,9 @@ interface ValidatorProvider
 	/**
 	 * Returns a validator.
 	 *
-	 * @param string $validator_name
+	 * @param string $class_or_alias The class or alias of the validator.
 	 *
 	 * @return Validator
 	 */
-	public function __invoke($validator_name);
+	public function __invoke($class_or_alias);
 }

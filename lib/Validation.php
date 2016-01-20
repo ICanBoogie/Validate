@@ -107,10 +107,10 @@ class Validation implements ValidatorOptions
 
 		foreach ($this->validations as $attribute => $validators)
 		{
-			foreach ($validators as $validator_name => $validator_params)
+			foreach ($validators as $class_or_alias => $validator_params)
 			{
 				$value = $reader->read($attribute);
-				$validator = $this->resolve_validator($validator_name);
+				$validator = $this->resolve_validator($class_or_alias);
 
 				$context->validator_params = $this->normalize_validator_params($validator, $validator_params);
 				$context->message = $validator::DEFAULT_MESSAGE;
@@ -251,15 +251,15 @@ class Validation implements ValidatorOptions
 	/**
 	 * Resolves a validator from its name.
 	 *
-	 * @param string $validator_name
+	 * @param string $class_or_alias
 	 *
 	 * @return Validator
 	 */
-	protected function resolve_validator($validator_name)
+	protected function resolve_validator($class_or_alias)
 	{
 		$provider = $this->validator_provider;
 
-		return $provider($validator_name);
+		return $provider($class_or_alias);
 	}
 
 	/**
