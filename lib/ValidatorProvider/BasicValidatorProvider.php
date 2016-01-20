@@ -12,7 +12,6 @@
 namespace ICanBoogie\Validate\ValidatorProvider;
 
 use ICanBoogie\Validate\Validator;
-use ICanBoogie\Validate\ValidatorProvider;
 
 /**
  * Provides aliases to known validators.
@@ -23,7 +22,8 @@ class BasicValidatorProvider extends AbstractValidatorProvider
 	 * Aliases to validator classes.
 	 *
 	 * **Note:** The array is defined without the help of `Validator::ALIAS` so that we don't
-	 * autoload a bunch of classes for nothing. Tests check that the right aliases are used.
+	 * autoload a bunch of classes for nothing. Unit tests make sure that the right aliases
+	 * are used.
 	 *
 	 * @var array
 	 */

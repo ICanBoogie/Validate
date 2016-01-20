@@ -21,8 +21,6 @@ class IsFalse extends AbstractValidator
 	const ALIAS = 'is-false';
 	const DEFAULT_MESSAGE = "should be false";
 
-	const OPTION_FLEXIBLE = 'flexible';
-
 	/**
 	 * @inheritdoc
 	 */

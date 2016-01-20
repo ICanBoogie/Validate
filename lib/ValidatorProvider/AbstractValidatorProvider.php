@@ -27,7 +27,7 @@ abstract class AbstractValidatorProvider implements ValidatorProvider
 	/**
 	 * @var array
 	 */
-	private $mapping = [];
+	private $aliases = [];
 
 	/**
 	 * @param Validator[] $instances
@@ -36,7 +36,7 @@ abstract class AbstractValidatorProvider implements ValidatorProvider
 	public function __construct(array $instances = [], array $aliases = [])
 	{
 		$this->instances = $instances;
-		$this->mapping = $aliases;
+		$this->aliases = $aliases;
 	}
 
 	/**
@@ -48,43 +48,33 @@ abstract class AbstractValidatorProvider implements ValidatorProvider
 	 */
 	public function __invoke($class_or_alias)
 	{
-		$class_or_alias = $this->map($class_or_alias);
-		$validator = &$this->instances[$class_or_alias];
+		$class = $this->map($class_or_alias);
+		$validator = &$this->instances[$class];
 
-		if (!$validator)
-		{
-			$validator = $this->instantiate($class_or_alias);
-		}
-
-		return $validator;
+		return $validator ?: $validator = $this->instantiate($class);
 	}
 
 	/**
 	 * Tries to map an validator alias into a validator class.
 	 *
-	 * @param string $class_or_alias The class of alias of the validator.
+	 * @param string $class_or_alias The class or alias of a validator.
 	 *
 	 * @return string
 	 */
 	protected function map($class_or_alias)
 	{
-		if (isset($this->mapping[$class_or_alias]))
-		{
-			return $this->mapping[$class_or_alias];
-		}
-
-		return $class_or_alias;
+		return isset($this->aliases[$class_or_alias]) ? $this->aliases[$class_or_alias] : $class_or_alias;
 	}
 
 	/**
 	 * Instantiates a validator.
 	 *
-	 * @param string $validator_class
+	 * @param string $class
 	 *
 	 * @return Validator
 	 */
-	protected function instantiate($validator_class)
+	protected function instantiate($class)
 	{
-		return new $validator_class;
+		return new $class;
 	}
 }

@@ -96,40 +96,13 @@ class Validation implements ValidatorOptions
 	 */
 	public function validate(ValueReader $reader)
 	{
-		$attribute = null;
-		$value = null;
-		$validator = null;
-
 		$context = $this->create_context($reader);
-		$context->attribute = &$attribute;
-		$context->value = &$value;
-		$context->validator = &$validator;
 
 		foreach ($this->validations as $attribute => $validators)
 		{
 			foreach ($validators as $class_or_alias => $validator_params)
 			{
-				$value = $reader->read($attribute);
-				$validator = $this->resolve_validator($class_or_alias);
-
-				$context->validator_params = $this->normalize_validator_params($validator, $validator_params);
-				$context->message = $validator::DEFAULT_MESSAGE;
-				$context->message_args = [
-
-					'value' => $value,
-					'attribute' => $attribute
-
-				];
-
-				if ($this->should_skip($context))
-				{
-					continue;
-				}
-
-				if (!$validator->validate($value, $context))
-				{
-					$this->push_error($context);
-				}
+				$this->validate_attribute($context, $attribute, $class_or_alias, $validator_params);
 
 				if ($this->should_stop($context))
 				{
@@ -139,6 +112,39 @@ class Validation implements ValidatorOptions
 		}
 
 		return $context->errors ? new ValidationErrors($context->errors) : [];
+	}
+
+	/**
+	 * Validates an attribute.
+	 *
+	 * @param Context $context Validation context.
+	 * @param string $attribute The attribute to validate.
+	 * @param string $class_or_alias Validator class or alias.
+	 * @param array $params Validator params.
+	 */
+	protected function validate_attribute(Context $context, $attribute, $class_or_alias, array $params)
+	{
+		$context->attribute = $attribute;
+		$context->value = $value = $context->value($attribute);
+		$context->validator = $validator = $this->resolve_validator($class_or_alias);
+		$context->validator_params = $this->normalize_validator_params($validator, $params);
+		$context->message = $validator::DEFAULT_MESSAGE;
+		$context->message_args = [
+
+			'value' => $value,
+			'attribute' => $attribute
+
+		];
+
+		if ($this->should_skip($context))
+		{
+			return;
+		}
+
+		if (!$validator->validate($value, $context))
+		{
+			$this->push_error($context);
+		}
 	}
 
 	/**

@@ -45,7 +45,7 @@ abstract class AbstractComparisonValidator extends AbstractValidator
 	}
 
 	/**
-	 * Compares two values
+	 * Compares a value to a reference.
 	 *
 	 * @param mixed $value
 	 * @param mixed $reference

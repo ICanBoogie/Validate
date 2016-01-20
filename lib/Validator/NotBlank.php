@@ -26,7 +26,7 @@ class NotBlank extends AbstractValidator
 	 */
 	public function validate($value, Context $context)
 	{
-		if (is_array($value))
+		if (is_array($value) || $value instanceof \Countable)
 		{
 			return !!count($value);
 		}
