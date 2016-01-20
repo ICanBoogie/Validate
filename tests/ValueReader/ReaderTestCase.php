@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\ValueReader;
 /**
  * @small
  */
-abstract class ValueReaderTestCase extends \PHPUnit_Framework_TestCase
+abstract class ReaderTestCase extends \PHPUnit_Framework_TestCase
 {
 	const READER_CLASS = null;
 
@@ -27,7 +27,7 @@ abstract class ValueReaderTestCase extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_read($data, $field, $expected)
 	{
-		/* @var $reader \ICanBoogie\Validate\ValueReader */
+		/* @var $reader \ICanBoogie\Validate\Reader */
 		$class = static::READER_CLASS;
 		$reader = new $class($data);
 		$this->assertSame($expected, $reader->read($field));

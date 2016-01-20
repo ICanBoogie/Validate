@@ -11,10 +11,13 @@
 
 namespace ICanBoogie\Validate;
 
-interface ValueReader
+/**
+ * An interface to read values from a source.
+ */
+interface Reader
 {
 	/**
-	 * Returns a value.
+	 * Reads a value from a source.
 	 *
 	 * @param string $name
 	 *

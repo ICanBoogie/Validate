@@ -11,12 +11,14 @@
 
 namespace ICanBoogie\Validate\ValueReader;
 
+use ICanBoogie\Validate\Reader\ObjectAdapter;
+
 /**
  * @small
  */
-class ObjectValueReaderTest extends ValueReaderTestCase
+class ObjectAdapterTest extends ReaderTestCase
 {
-	const READER_CLASS = ObjectValueReader::class;
+	const READER_CLASS = ObjectAdapter::class;
 
 	public function provide_test_read()
 	{

@@ -31,7 +31,7 @@ class Context
 	public $value;
 
 	/**
-	 * @var ValueReader
+	 * @var Reader
 	 */
 	public $values;
 

@@ -31,7 +31,7 @@ The following validators are available:
 <?php
 
 use ICanBoogie\Validate\Validation;
-use ICanBoogie\Validate\ValueReader\ArrayValueReader;
+use ICanBoogie\Validate\Reader\ArrayAdapter;
 
 $validation = new Validation([
 
@@ -42,7 +42,7 @@ $validation = new Validation([
 
 ]);
 
-$errors = $validation->validate(new ArrayValueReader([
+$errors = $validation->validate(new ArrayAdapter([
 
 	'name' => "Ol",
 	'email' => "olivier",
@@ -147,9 +147,9 @@ The `validate()` method is used to validate data. The method returns a [Validati
 ```php
 <?php
 
-use ICanBoogie\Validate\ValueReader\RequestValueReader;
+use ICanBoogie\Validate\Reader\RequestAdapter;
 
-$errors = $validation->validate(new RequestValueReader($_POST));
+$errors = $validation->validate(new RequestAdapter($_POST));
 
 if (!$errors)
 {
@@ -174,11 +174,11 @@ The `assert()` method may be used to assert that data is valid. Instead of retur
 <?php
 
 use ICanBoogie\Validate\ValidationFailed;
-use ICanBoogie\Validate\ValueReader\RequestValueReader;
+use ICanBoogie\Validate\Reader\RequestAdapter;
 
 try
 {
-	$validation->assert(new RequestValueReader($_POST));
+	$validation->assert(new RequestAdapter($_POST));
 }
 catch (ValidationFailed $e)
 {

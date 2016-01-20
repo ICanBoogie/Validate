@@ -85,11 +85,11 @@ class Validation implements ValidatorOptions
 	}
 
 	/**
-	 * @param ValueReader $reader
+	 * @param Reader $reader
 	 *
 	 * @return array
 	 */
-	public function validate(ValueReader $reader)
+	public function validate(Reader $reader)
 	{
 		$context = $this->create_context($reader);
 
@@ -143,11 +143,11 @@ class Validation implements ValidatorOptions
 	}
 
 	/**
-	 * @param ValueReader $reader
+	 * @param Reader $reader
 	 *
 	 * @throws ValidationFailed if the validation failed.
 	 */
-	public function assert(ValueReader $reader)
+	public function assert(Reader $reader)
 	{
 		$errors = $this->validate($reader);
 
@@ -160,11 +160,11 @@ class Validation implements ValidatorOptions
 	/**
 	 * Creates a validations context.
 	 *
-	 * @param ValueReader $reader
+	 * @param Reader $reader
 	 *
 	 * @return Context
 	 */
-	protected function create_context(ValueReader $reader)
+	protected function create_context(Reader $reader)
 	{
 		$context = new Context;
 		$context->values = $reader;

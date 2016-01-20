@@ -13,7 +13,7 @@ namespace ICanBoogie\Validate;
 
 use ICanBoogie\Validate\Validator\Email;
 use ICanBoogie\Validate\Validator\Required;
-use ICanBoogie\Validate\ValueReader\ArrayValueReader;
+use ICanBoogie\Validate\Reader\ArrayAdapter;
 
 /**
  * @large
@@ -36,7 +36,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validation->validate(new ArrayValueReader([
+		$errors = $validation->validate(new ArrayAdapter([
 
 			'email' => 'person'
 
@@ -74,7 +74,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validation->validate(new ArrayValueReader([
+		$errors = $validation->validate(new ArrayAdapter([
 
 			'email' => $email
 
@@ -99,7 +99,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validation->validate(new ArrayValueReader([
+		$errors = $validation->validate(new ArrayAdapter([
 
 			'email' => 'person'
 
@@ -133,7 +133,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validation->validate(new ArrayValueReader([
+		$errors = $validation->validate(new ArrayAdapter([
 
 			'email' => $email
 
@@ -158,7 +158,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validation->validate(new ArrayValueReader([
+		$errors = $validation->validate(new ArrayAdapter([
 
 			'email' => 'person'
 
@@ -185,7 +185,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validation->validate(new ArrayValueReader([]));
+		$errors = $validation->validate(new ArrayAdapter([]));
 
 		$this->assertEquals([
 
@@ -206,7 +206,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 	{
 		$attribute = uniqid();
 		$validation = new Validation([ $attribute => [ $validator_name => $params ]]);
-		$errors = $validation->validate(new ArrayValueReader([ $attribute => $value ]));
+		$errors = $validation->validate(new ArrayAdapter([ $attribute => $value ]));
 		$this->assertArrayHasKey($attribute, $errors);
 		$this->assertSame($expected, (string) reset($errors[$attribute]));
 	}
@@ -245,7 +245,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$errors = $validation->validate(new ArrayValueReader([
+		$errors = $validation->validate(new ArrayAdapter([
 
 			'name' => "Ol",
 			'email' => "olivier",
@@ -271,7 +271,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$validation->assert(new ArrayValueReader([ 'email' => 'person@domain.tld' ]));
+		$validation->assert(new ArrayAdapter([ 'email' => 'person@domain.tld' ]));
 	}
 
 	/**
@@ -285,7 +285,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
-		$validation->assert(new ArrayValueReader([]));
+		$validation->assert(new ArrayAdapter([]));
 	}
 
 	/**

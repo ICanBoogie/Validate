@@ -2,7 +2,7 @@
 
 namespace ICanBoogie\Validate;
 
-use ICanBoogie\Validate\ValueReader\ArrayValueReader;
+use ICanBoogie\Validate\Reader\ArrayAdapter;
 
 /**
  * @small
@@ -14,7 +14,7 @@ class ContextTest extends \PHPUnit_Framework_TestCase
 		$name = uniqid();
 		$value = uniqid();
 		$context = new Context;
-		$context->values = new ArrayValueReader([ $name => $value ]);
+		$context->values = new ArrayAdapter([ $name => $value ]);
 
 		$this->assertSame($value, $context->value($name));
 	}

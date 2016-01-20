@@ -9,20 +9,20 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Validate\ValueReader;
+namespace ICanBoogie\Validate\Reader;
 
 /**
- * Value reader for an object.
+ * A {@link Reader} adapter for an array or an instance of {@link ArrayAccess}.
  */
-class ObjectValueReader extends AbstractValueReader
+class ArrayAdapter extends AbstractAdapter
 {
 	/**
-	 * If the property is not set `null` is returned.
+	 * If the offset does not exists `null` is returned.
 	 *
 	 * @inheritdoc
 	 */
 	public function read($name)
 	{
-		return isset($this->source->$name) ? $this->source->$name : null;
+		return isset($this->source[$name]) ? $this->source[$name] : null;
 	}
 }

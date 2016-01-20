@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Validate\ValueReader;
+namespace ICanBoogie\Validate\Reader;
 
 /**
- * Value reader for `$_GET`, `$_POST`, or `$_REQUEST`.
+ * A {@link Reader} adapter for `$_GET`, `$_POST`, or `$_REQUEST`.
  */
-class RequestValueReader extends ArrayValueReader
+class RequestAdapter extends ArrayAdapter
 {
 	/**
-	 * If a value is a string and once trimed is empty `null` is returned.
+	 * If a value is a string and once trimmed is empty `null` is returned.
 	 *
 	 * @inheritdoc
 	 */

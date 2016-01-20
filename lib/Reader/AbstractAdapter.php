@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Validate\ValueReader;
+namespace ICanBoogie\Validate\Reader;
 
-use ICanBoogie\Validate\ValueReader;
+use ICanBoogie\Validate\Reader;
 
 /**
- * Abstract class for value readers.
+ * An abstract {@link Reader} adapter.
  */
-abstract class AbstractValueReader implements ValueReader
+abstract class AbstractAdapter implements Reader
 {
 	/**
 	 * @var mixed
