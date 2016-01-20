@@ -13,11 +13,11 @@ namespace ICanBoogie\Validate\MessageFormatter;
 
 use ICanBoogie\Validate\Message;
 
-class BasicMessageFormatterTest extends \PHPUnit_Framework_TestCase
+class BuiltinMessageFormatterTest extends \PHPUnit_Framework_TestCase
 {
 	public function test_format()
 	{
-		$formatter = new BasicMessageFormatter;
+		$formatter = new BuiltinMessageFormatter;
 		$pattern = "pattern {value}";
 		$value = uniqid();
 

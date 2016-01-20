@@ -14,7 +14,10 @@ namespace ICanBoogie\Validate\MessageFormatter;
 use ICanBoogie\Validate\Message;
 use ICanBoogie\Validate\MessageFormatter;
 
-class BasicMessageFormatter implements MessageFormatter
+/**
+ * Builtin message formatter.
+ */
+class BuiltinMessageFormatter implements MessageFormatter
 {
 	/**
 	 * @inheritdoc

@@ -37,6 +37,8 @@ class Context
 
 	/**
 	 * The current validator.
+	 *
+	 * @var Validator
 	 */
 	public $validator;
 

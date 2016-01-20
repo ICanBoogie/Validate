@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\ValidatorProvider;
 use ICanBoogie\Validate\Validator;
 use ICanBoogie\Validate\Validator\SampleValidator;
 
-class BasicValidatorProviderTest extends \PHPUnit_Framework_TestCase
+class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @dataProvider provide_test_builtin_validator
@@ -24,7 +24,7 @@ class BasicValidatorProviderTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_builtin_validator($class, $alias)
 	{
-		$provider = new BasicValidatorProvider;
+		$provider = new BuiltinValidatorProvider;
 		$validator = $provider($class);
 		$this->assertInstanceOf($class, $validator);
 		$this->assertSame($validator, $provider($alias));
@@ -57,7 +57,7 @@ class BasicValidatorProviderTest extends \PHPUnit_Framework_TestCase
 	{
 		$validator = new SampleValidator;
 
-		$provider = new BasicValidatorProvider([
+		$provider = new BuiltinValidatorProvider([
 
 			SampleValidator::class => $validator
 

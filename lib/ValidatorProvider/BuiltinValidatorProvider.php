@@ -14,12 +14,12 @@ namespace ICanBoogie\Validate\ValidatorProvider;
 use ICanBoogie\Validate\Validator;
 
 /**
- * Provides aliases to known validators.
+ * Provides aliases to builtin validators.
  */
-class BasicValidatorProvider extends AbstractValidatorProvider
+class BuiltinValidatorProvider extends AbstractValidatorProvider
 {
 	/**
-	 * Aliases to validator classes.
+	 * Alias mapping to builtin validators.
 	 *
 	 * **Note:** The array is defined without the help of `Validator::ALIAS` so that we don't
 	 * autoload a bunch of classes for nothing. Unit tests make sure that the right aliases
@@ -27,7 +27,7 @@ class BasicValidatorProvider extends AbstractValidatorProvider
 	 *
 	 * @var array
 	 */
-	static private $aliases = [
+	static private $builtin_validators = [
 
 		'blank'      => Validator\Blank::class,
 		'email'      => Validator\Email::class,
@@ -48,12 +48,12 @@ class BasicValidatorProvider extends AbstractValidatorProvider
 	];
 
 	/**
-	 * Adds aliases to known validator classes.
+	 * Adds aliases to builtin validator classes.
 	 *
 	 * @inheritdoc
 	 */
 	public function __construct(array $instances = [], array $aliases = [])
 	{
-		parent::__construct($instances, $aliases + self::$aliases);
+		parent::__construct($instances, $aliases + self::$builtin_validators);
 	}
 }

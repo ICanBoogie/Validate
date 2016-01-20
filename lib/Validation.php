@@ -11,8 +11,8 @@
 
 namespace ICanBoogie\Validate;
 
-use ICanBoogie\Validate\MessageFormatter\BasicMessageFormatter;
-use ICanBoogie\Validate\ValidatorProvider\BasicValidatorProvider;
+use ICanBoogie\Validate\MessageFormatter\BuiltinMessageFormatter;
+use ICanBoogie\Validate\ValidatorProvider\BuiltinValidatorProvider;
 
 class Validation implements ValidatorOptions
 {
@@ -40,8 +40,8 @@ class Validation implements ValidatorOptions
 	 */
 	public function __construct(array $rules, callable $validator_provider = null, callable $message_formatter = null)
 	{
-		$this->validator_provider = $validator_provider ?: new BasicValidatorProvider;
-		$this->message_formatter = $message_formatter ?: new BasicMessageFormatter;
+		$this->validator_provider = $validator_provider ?: new BuiltinValidatorProvider;
+		$this->message_formatter = $message_formatter ?: new BuiltinMessageFormatter;
 
 		$this->validates($rules);
 	}
