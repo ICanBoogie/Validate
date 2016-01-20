@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\ValueReader;
 /**
  * @small
  */
-class ObjectValueReaderTestCase extends ValueReaderTestCase
+class ObjectValueReaderTest extends ValueReaderTestCase
 {
 	const READER_CLASS = ObjectValueReader::class;
 

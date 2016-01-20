@@ -50,32 +50,28 @@ $errors = $validation->validate(new ArrayValueReader([
 
 ]));
 
-var_dump($errors);
+var_dump($errors['name']);
+var_dump((string) reset($errors['name']));
 ```
 
 ```
-array(4) {
-  'name' =>
-  array(1) {
-    [0] =>
-    string(36) "should be at least 3 characters long"
-  }
-  'email' =>
-  array(1) {
-    [0] =>
-    string(38) "`olivier` is not a valid email address"
-  }
-  'password' =>
-  array(1) {
-    [0] =>
-    string(36) "should be at least 6 characters long"
-  }
-  'consent' =>
-  array(1) {
-    [0] =>
-    string(11) "is required"
+array(1) {
+  [0] =>
+  class ICanBoogie\Validate\Message#582 (2) {
+    public $message =>
+    string(46) "should be at least {reference} characters long"
+    public $args =>
+    array(3) {
+      'value' =>
+      string(2) "Ol"
+      'attribute' =>
+      string(4) "name"
+      'reference' =>
+      string(1) "3"
+    }
   }
 }
+string(36) "should be at least 3 characters long"
 ```
 
 
@@ -183,7 +179,7 @@ try
 }
 catch (ValidationFailed $e)
 {
-	$errors = $e->errors;
+	echo get_class($e->errors); // ICanBoogie\Validate\ValidationErrors
 }
 ```
 

@@ -11,7 +11,6 @@
 
 namespace ICanBoogie\Validate;
 
-use ICanBoogie\Validate\MessageFormatter\BuiltinMessageFormatter;
 use ICanBoogie\Validate\ValidatorProvider\BuiltinValidatorProvider;
 
 class Validation implements ValidatorOptions
@@ -32,19 +31,12 @@ class Validation implements ValidatorOptions
 	private $validator_provider;
 
 	/**
-	 * @var callable|MessageFormatter
-	 */
-	private $message_formatter;
-
-	/**
 	 * @param array $rules Validation rules.
 	 * @param callable|ValidatorProvider $validator_provider
-	 * @param callable|MessageFormatter $message_formatter
 	 */
-	public function __construct(array $rules, callable $validator_provider = null, callable $message_formatter = null)
+	public function __construct(array $rules, callable $validator_provider = null)
 	{
 		$this->validator_provider = $validator_provider ?: new BuiltinValidatorProvider;
-		$this->message_formatter = $message_formatter ?: new BuiltinMessageFormatter;
 
 		$this->validates($rules);
 	}
@@ -279,23 +271,21 @@ class Validation implements ValidatorOptions
 	 */
 	protected function push_error(Context $context)
 	{
-		$context->errors[$context->attribute][] = $this->format_message(
+		$context->errors[$context->attribute][] = $this->create_message(
 			$context->option(self::OPTION_MESSAGE) ?: $context->message,
 			$context->message_args);
 	}
 
 	/**
-	 * Formats a message with its arguments.
+	 * Creates a {@link Message} instance.
 	 *
 	 * @param string $message
 	 * @param array $args
 	 *
-	 * @return string|mixed
+	 * @return Message
 	 */
-	protected function format_message($message, array $args)
+	protected function create_message($message, array $args)
 	{
-		$formatter = $this->message_formatter;
-
-		return $formatter($message, $args);
+		return new Message($message, $args);
 	}
 }

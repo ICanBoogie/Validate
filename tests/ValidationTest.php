@@ -12,8 +12,6 @@
 namespace ICanBoogie\Validate;
 
 use ICanBoogie\Validate\Validator\Email;
-use ICanBoogie\Validate\Validator\IsFalse;
-use ICanBoogie\Validate\Validator\IsTrue;
 use ICanBoogie\Validate\Validator\Required;
 use ICanBoogie\Validate\ValueReader\ArrayValueReader;
 
@@ -22,67 +20,6 @@ use ICanBoogie\Validate\ValueReader\ArrayValueReader;
  */
 class ValidationTest extends \PHPUnit_Framework_TestCase
 {
-	public function test_invalid()
-	{
-		$validation = new Validation([
-
-			'true' => [
-
-				IsTrue::class => []
-
-			],
-
-			'yes' => [
-
-				'is-true' => []
-
-			],
-
-			'false' => [
-
-				IsFalse::class => []
-
-			],
-
-			'no' => [
-
-				'is-false' => []
-
-			],
-
-			'email' => [
-
-				Required::class => [],
-				Email::class => [
-
-					Email::OPTION_MESSAGE => "`{value}` is not a valid email address."
-
-				]
-			]
-
-		]);
-
-		$errors = $validation->validate(new ArrayValueReader([
-
-			'true' => false,
-			'yes' => 'no',
-			'false' => true,
-			'no' => 'yes',
-			'email' => 'person@domain'
-
-		]));
-
-		$this->assertEquals([
-
-			'true' => [ "should be true" ],
-			'yes' => [ "should be true" ],
-			'false' => [ "should be false" ],
-			'no' => [ "should be false" ],
-			'email' => [ "`person@domain` is not a valid email address." ]
-
-		], $this->stringify_errors($errors));
-	}
-
 	public function test_custom_message()
 	{
 		$validation = new Validation([
@@ -114,16 +51,18 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 	public function test_if()
 	{
+		$email = uniqid();
+
 		$validation = new Validation([
 
 			'email' => [
 
 				Email::class => [
 
-					Email::OPTION_IF => function(Context $context) {
+					Email::OPTION_IF => function(Context $context) use ($email) {
 
 						$this->assertEquals('email', $context->attribute);
-						$this->assertInstanceOf(Context::class, $context);
+						$this->assertEquals($email, $context->value);
 
 						return true;
 
@@ -137,7 +76,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 		$errors = $validation->validate(new ArrayValueReader([
 
-			'email' => 'person'
+			'email' => $email
 
 		]));
 
@@ -152,13 +91,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 				Email::class => [
 
-					Email::OPTION_IF => function($context) {
-
-						$this->assertInstanceOf(Context::class, $context);
-
-						return false;
-
-					}
+					Email::OPTION_IF => function() { return false; }
 
 				]
 
@@ -177,15 +110,18 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 	public function test_unless()
 	{
+		$email = uniqid();
+
 		$validation = new Validation([
 
 			'email' => [
 
 				Email::class => [
 
-					Email::OPTION_UNLESS => function(Context $context) {
+					Email::OPTION_UNLESS => function(Context $context) use ($email) {
 
 						$this->assertEquals('email', $context->attribute);
+						$this->assertEquals($email, $context->value);
 
 						return false;
 
@@ -199,7 +135,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 		$errors = $validation->validate(new ArrayValueReader([
 
-			'email' => 'person'
+			'email' => $email
 
 		]));
 
@@ -268,10 +204,11 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_message($validator_name, $params, $value, $expected)
 	{
-		$validation = new Validation([ 'field' => [ $validator_name => $params ]]);
-		$errors = $validation->validate(new ArrayValueReader([ 'field' => $value ]));
-		$this->assertArrayHasKey('field', $errors);
-		$this->assertSame($expected, (string) reset($errors['field']));
+		$attribute = uniqid();
+		$validation = new Validation([ $attribute => [ $validator_name => $params ]]);
+		$errors = $validation->validate(new ArrayValueReader([ $attribute => $value ]));
+		$this->assertArrayHasKey($attribute, $errors);
+		$this->assertSame($expected, (string) reset($errors[$attribute]));
 	}
 
 	public function provide_test_message()
