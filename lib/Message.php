@@ -17,11 +17,11 @@ namespace ICanBoogie\Validate;
 class Message
 {
 	/**
-	 * Message pattern.
+	 * Message format.
 	 *
 	 * @var string
 	 */
-	public $message;
+	public $format;
 
 	/**
 	 * Formatting arguments.
@@ -31,12 +31,12 @@ class Message
 	public $args;
 
 	/**
-	 * @param string $message
+	 * @param string $format
 	 * @param array $args
 	 */
-	public function __construct($message, array $args = [])
+	public function __construct($format, array $args = [])
 	{
-		$this->message = $message;
+		$this->format = $format;
 		$this->args = $args;
 	}
 

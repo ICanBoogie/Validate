@@ -58,7 +58,7 @@ var_dump((string) reset($errors['name']));
 array(1) {
   [0] =>
   class ICanBoogie\Validate\Message#582 (2) {
-    public $message =>
+    public $format =>
     string(46) "should be at least {reference} characters long"
     public $args =>
     array(3) {

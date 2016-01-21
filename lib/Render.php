@@ -34,7 +34,7 @@ class Render
 	 */
 	static public function render_message(Message $message)
 	{
-		return strtr($message->message, self::build_replace($message->args));
+		return strtr($message->format, self::build_replace($message->args));
 	}
 
 	/**
