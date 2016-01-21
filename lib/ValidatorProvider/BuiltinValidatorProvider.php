@@ -31,6 +31,7 @@ class BuiltinValidatorProvider extends AbstractValidatorProvider
 
 		'blank'      => Validator\Blank::class,
 		'email'      => Validator\Email::class,
+		'equal'      => Validator\Equal::class,
 		'is-false'   => Validator\IsFalse::class,
 		'is-null'    => Validator\IsNull::class,
 		'is-true'    => Validator\IsTrue::class,
@@ -39,6 +40,7 @@ class BuiltinValidatorProvider extends AbstractValidatorProvider
 		'min'        => Validator\Min::class,
 		'min-length' => Validator\MinLength::class,
 		'not-blank'  => Validator\NotBlank::class,
+		'not-equal'  => Validator\NotEqual::class,
 		'not-null'   => Validator\NotNull::class,
 		'required'   => Validator\Required::class,
 		'timezone'   => Validator\TimeZone::class,

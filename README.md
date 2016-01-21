@@ -13,6 +13,7 @@ The following validators are available:
 
 - [Blank][], `blank`: Validates that a value is blank.
 - [Email][], `email`: Validates that a value is a valid email.
+- [Equal][], `equal`: Validates that two values are equal.
 - [IsFalse][], `is-false`: Validates that a value is false.
 - [IsNull][], `is-null`: Validates that a value is `null`.
 - [IsTrue][], `is-true`: Validates that a value is true.
@@ -21,6 +22,7 @@ The following validators are available:
 - [Min][], `min`: Validates that a value has a minimum value.
 - [MinLength][], `min-length`: Validates that a value has a minimum length.
 - [NotBlank][], `not-blank`: Validates that a value is blank.
+- [NotEqual][], `not-equal`: Validates that two values are not equal.
 - [NotNull][], `not-null`: Validates that a value is not `null`.
 - [Required][], `required`: States that a value is required.
 - [TimeZone][], `timezone`: Validates that a value is a valid time zone.
@@ -378,6 +380,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [ValidationFailed]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidationFailed.html
 [Blank]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Blank.html
 [Email]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Email.html
+[Equal]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Equal.html
 [IsFalse]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsFalse.html
 [IsNull]:                       http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsNull.html
 [IsTrue]:                       http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsTrue.html
@@ -386,6 +389,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [Min]:                          http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Min.html
 [MinLength]:                    http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.MinLength.html
 [NotBlank]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotBlank.html
+[NotEqual]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotEqual.html
 [NotNull]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotNull.html
 [Required]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Required.html
 [TimeZone]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.TimeZone.html

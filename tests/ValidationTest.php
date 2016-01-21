@@ -217,6 +217,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 			[ Validator\Blank::class,     [], uniqid(), Validator\Blank::DEFAULT_MESSAGE ],
 			[ Validator\Email::class,     [], 'person', "`person` is not a valid email address" ],
+			[ Validator\Equal::class,     [ 3 ], 4, "should equal 3" ],
 			[ Validator\IsFalse::class,   [], true, Validator\IsFalse::DEFAULT_MESSAGE ],
 			[ Validator\IsNull::class,    [], uniqid(), Validator\IsNull::DEFAULT_MESSAGE ],
 			[ Validator\IsTrue::class,    [], false, Validator\IsTrue::DEFAULT_MESSAGE ],
@@ -225,6 +226,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 			[ Validator\Min::class,       [ 10 ], 8, "should be at least 10" ],
 			[ Validator\MinLength::class, [ 3 ], "ab", "should be at least 3 characters long" ],
 			[ Validator\NotBlank::class,  [], '', Validator\NotBlank::DEFAULT_MESSAGE ],
+			[ Validator\NotEqual::class,  [ 3 ], 3, "should not equal 3" ],
 			[ Validator\NotNull::class,   [], null, Validator\NotNull::DEFAULT_MESSAGE ],
 			[ Validator\Required::class,  [], null, Validator\Required::DEFAULT_MESSAGE ],
 			[ Validator\TimeZone::class,  [], 'Europe/Pas', "`Europe/Pas` is not a valid time zone, did you mean `Europe/Paris`?" ],

@@ -39,6 +39,7 @@ class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 
 			[ Validator\Blank::class,     Validator\Blank::ALIAS ],
 			[ Validator\Email::class,     Validator\Email::ALIAS ],
+			[ Validator\Equal::class,     Validator\Equal::ALIAS ],
 			[ Validator\IsFalse::class,   Validator\IsFalse::ALIAS ],
 			[ Validator\IsNull::class,    Validator\IsNull::ALIAS ],
 			[ Validator\IsTrue::class,    Validator\IsTrue::ALIAS ],
@@ -47,6 +48,7 @@ class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 			[ Validator\Min::class,       Validator\Min::ALIAS ],
 			[ Validator\MinLength::class, Validator\MinLength::ALIAS ],
 			[ Validator\NotBlank::class,  Validator\NotBlank::ALIAS ],
+			[ Validator\NotEqual::class,  Validator\NotEqual::ALIAS ],
 			[ Validator\NotNull::class,   Validator\NotNull::ALIAS ],
 			[ Validator\Required::class,  Validator\Required::ALIAS ],
 			[ Validator\TimeZone::class,  Validator\TimeZone::ALIAS ],

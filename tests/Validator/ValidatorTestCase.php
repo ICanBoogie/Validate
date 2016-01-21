@@ -24,12 +24,12 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	/**
 	 * @var Validator
 	 */
-	private $validator;
+	protected $validator;
 
 	/**
 	 * @var Context
 	 */
-	private $context;
+	protected $context;
 
 	public function setUp()
 	{
@@ -42,27 +42,33 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	 * @dataProvider provide_test_valid_values
 	 *
 	 * @param mixed $value
-	 * @param array $params
+	 * @param mixed $params
 	 */
-	public function test_valid_values($value, $params = [])
+	public function test_valid_values($value, $params = null)
 	{
-		$this->context->validator_params = $this->validator->normalize_params($params);
+		$this->context->validator_params = $this->validator->normalize_params($params ?: []);
 		$this->assertTrue($this->validator->validate($value, $this->context));
 	}
 
+	/**
+	 * @return array
+	 */
 	abstract public function provide_test_valid_values();
 
 	/**
 	 * @dataProvider provide_test_invalid_values
 	 *
 	 * @param mixed $value
-	 * @param array $params
+	 * @param mixed $params
 	 */
-	public function test_invalid_values($value, $params = [])
+	public function test_invalid_values($value, $params = null)
 	{
-		$this->context->validator_params = $this->validator->normalize_params($params);
+		$this->context->validator_params = $this->validator->normalize_params($params ?: []);
 		$this->assertFalse($this->validator->validate($value, $this->context));
 	}
 
+	/**
+	 * @return array
+	 */
 	abstract public function provide_test_invalid_values();
 }
