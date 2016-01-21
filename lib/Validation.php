@@ -13,6 +13,9 @@ namespace ICanBoogie\Validate;
 
 use ICanBoogie\Validate\ValidatorProvider\BuiltinValidatorProvider;
 
+/**
+ * Validates data against a set of rules.
+ */
 class Validation implements ValidatorOptions
 {
 	const SERIALIZED_STOP_ON_ERROR_SUFFIX = '!';
@@ -26,13 +29,13 @@ class Validation implements ValidatorOptions
 	protected $validations = [];
 
 	/**
-	 * @var callable|ValidatorProvider
+	 * @var ValidatorProvider|callable
 	 */
 	private $validator_provider;
 
 	/**
 	 * @param array $rules Validation rules.
-	 * @param callable|ValidatorProvider $validator_provider
+	 * @param ValidatorProvider|callable $validator_provider
 	 */
 	public function __construct(array $rules, callable $validator_provider = null)
 	{
@@ -44,7 +47,7 @@ class Validation implements ValidatorOptions
 	/**
 	 * Defines validation rules.
 	 *
-	 * **Note:** The specified rules may override previously defined rules for a same attribute.
+	 * **Note:** The specified rules may override previously defined rules for the same attributes.
 	 *
 	 * @param array $rules
 	 *
@@ -85,9 +88,12 @@ class Validation implements ValidatorOptions
 	}
 
 	/**
+	 * Validates data.
+	 *
 	 * @param Reader $reader
 	 *
-	 * @return array
+	 * @return ValidationErrors|array Returns a {@link ValidationErrors} instance if there are
+	 * validation errors, an empty array otherwise.
 	 */
 	public function validate(Reader $reader)
 	{
@@ -95,6 +101,8 @@ class Validation implements ValidatorOptions
 
 		foreach ($this->validations as $attribute => $validators)
 		{
+			/* @var $attribute string */
+
 			$context->attribute = $attribute;
 
 			$this->validate_attribute($attribute, $validators, $context);
@@ -114,10 +122,9 @@ class Validation implements ValidatorOptions
 	{
 		foreach ($validators as $class_or_alias => $validator_params)
 		{
-			$context->attribute = $attribute;
 			$context->value = $value = $context->value($attribute);
-			$context->validator = $validator = $this->resolve_validator($class_or_alias);
-			$context->validator_params = $this->normalize_validator_params($validator, $validator_params);
+			$context->validator = $validator = $this->create_validator($class_or_alias);
+			$context->validator_params = $validator->normalize_params($validator_params);
 			$context->message = $validator::DEFAULT_MESSAGE;
 			$context->message_args = [
 
@@ -133,7 +140,7 @@ class Validation implements ValidatorOptions
 
 			if (!$validator->validate($value, $context))
 			{
-				$this->push_error($context);
+				$this->error($context);
 			}
 
 			if ($this->should_stop($context))
@@ -144,6 +151,8 @@ class Validation implements ValidatorOptions
 	}
 
 	/**
+	 * Asserts that data is valid.
+	 *
 	 * @param Reader $reader
 	 *
 	 * @throws ValidationFailed if the validation failed.
@@ -159,7 +168,7 @@ class Validation implements ValidatorOptions
 	}
 
 	/**
-	 * Creates a validations context.
+	 * Creates a validation context.
 	 *
 	 * @param Reader $reader
 	 *
@@ -192,7 +201,7 @@ class Validation implements ValidatorOptions
 	}
 
 	/**
-	 * Whether validations for a field should stop.
+	 * Whether validation for an attribute should stop.
 	 *
 	 * @param Context $context
 	 *
@@ -239,13 +248,13 @@ class Validation implements ValidatorOptions
 	}
 
 	/**
-	 * Resolves a validator from its name.
+	 * Creates a validator.
 	 *
-	 * @param string $class_or_alias
+	 * @param string $class_or_alias The class or alias of the validator.
 	 *
 	 * @return Validator
 	 */
-	protected function resolve_validator($class_or_alias)
+	protected function create_validator($class_or_alias)
 	{
 		$provider = $this->validator_provider;
 
@@ -253,32 +262,7 @@ class Validation implements ValidatorOptions
 	}
 
 	/**
-	 * Normalizes validator params.
-	 *
-	 * @param Validator $validator
-	 * @param array $params
-	 *
-	 * @return array
-	 */
-	protected function normalize_validator_params(Validator $validator, $params)
-	{
-		return $validator->normalize_params($params);
-	}
-
-	/**
-	 * Pushes an error to the collection.
-	 *
-	 * @param Context $context
-	 */
-	protected function push_error(Context $context)
-	{
-		$context->errors[$context->attribute][] = $this->create_message(
-			$context->option(self::OPTION_MESSAGE) ?: $context->message,
-			$context->message_args);
-	}
-
-	/**
-	 * Creates a {@link Message} instance.
+	 * Creates an error message.
 	 *
 	 * @param string $message
 	 * @param array $args
@@ -288,5 +272,17 @@ class Validation implements ValidatorOptions
 	protected function create_message($message, array $args)
 	{
 		return new Message($message, $args);
+	}
+
+	/**
+	 * Adds an error to the collection.
+	 *
+	 * @param Context $context
+	 */
+	protected function error(Context $context)
+	{
+		$context->errors[$context->attribute][] = $this->create_message(
+			$context->option(self::OPTION_MESSAGE) ?: $context->message,
+			$context->message_args);
 	}
 }

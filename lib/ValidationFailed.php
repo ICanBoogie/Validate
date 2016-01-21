@@ -12,7 +12,7 @@
 namespace ICanBoogie\Validate;
 
 /**
- * Exception throw when an asserting a validation failed.
+ * Exception throw when asserting a validation failed.
  *
  * @property-read ValidationErrors $errors
  */
@@ -45,7 +45,7 @@ class ValidationFailed extends \LogicException
 	 */
 	protected function format_message(ValidationErrors $errors)
 	{
-		$message = self::DEFAULT_MESSAGE . "\n";
+		$message = static::DEFAULT_MESSAGE . "\n";
 
 		foreach ($errors as $attribute => $attribute_errors)
 		{

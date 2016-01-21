@@ -31,6 +31,8 @@ class Context
 	public $value;
 
 	/**
+	 * A reader adapter.
+	 *
 	 * @var Reader
 	 */
 	public $reader;
@@ -58,22 +60,24 @@ class Context
 
 	/**
 	 * The arguments for the possible error message.
+	 *
+	 * @var array
 	 */
 	public $message_args = [];
 
 	/**
 	 * The collected errors.
 	 *
-	 * @var
+	 * @var Message[][]
 	 */
 	public $errors = [];
 
 	/**
-	 * Retrieves a value from the value reader.
+	 * Retrieves a value from the reader adapter.
 	 *
 	 * @param string $name
 	 *
-	 * @return mixed|null The value or `null` if it is not defined.
+	 * @return mixed|null The value, or `null` if it is not defined.
 	 */
 	public function value($name)
 	{
@@ -100,7 +104,7 @@ class Context
 	}
 
 	/**
-	 * Retrieves an options from the validator parameters.
+	 * Retrieves an option from the validator parameters.
 	 *
 	 * @param string $name
 	 * @param mixed|null $default

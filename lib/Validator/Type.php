@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\Validator;
 use ICanBoogie\Validate\Context;
 
 /**
- * Validates that a value is of a specified type.
+ * Validates that a value is of a specific type.
  */
 class Type extends AbstractValidator
 {

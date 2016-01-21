@@ -12,7 +12,7 @@
 namespace ICanBoogie\Validate;
 
 /**
- * An interface for validator classes.
+ * An interface for validators.
  */
 interface Validator extends ValidatorOptions
 {

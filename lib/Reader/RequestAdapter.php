@@ -17,7 +17,7 @@ namespace ICanBoogie\Validate\Reader;
 class RequestAdapter extends ArrayAdapter
 {
 	/**
-	 * If a value is a string and once trimmed is empty `null` is returned.
+	 * If a value is a string, and once trimmed is empty, `null` is returned.
 	 *
 	 * @inheritdoc
 	 */
