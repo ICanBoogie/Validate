@@ -24,6 +24,16 @@ abstract class AbstractValidator implements Validator
 	 */
 	public function normalize_params(array $params)
 	{
+		foreach ($this->get_params_mapping() as $index => $param)
+		{
+			if (isset($params[$index]))
+			{
+				$params[$param] = $params[$index];
+
+				unset($params[$index]);
+			}
+		}
+
 		return $params;
 	}
 
@@ -31,4 +41,14 @@ abstract class AbstractValidator implements Validator
 	 * @inheritdoc
 	 */
 	abstract public function validate($value, Context $context);
+
+	/**
+	 * Returns indexed parameters mapping.
+	 *
+	 * @return array
+	 */
+	protected function get_params_mapping()
+	{
+		return [];
+	}
 }

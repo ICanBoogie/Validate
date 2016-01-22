@@ -27,19 +27,6 @@ abstract class AbstractComparisonValidator extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function normalize_params(array $params)
-	{
-		if (isset($params[0]))
-		{
-			$params[self::PARAM_REFERENCE] = $params[0];
-		}
-
-		return $params;
-	}
-
-	/**
-	 * @inheritdoc
-	 */
 	public function validate($value, Context $context)
 	{
 		$reference = $context->param(self::PARAM_REFERENCE);
@@ -48,6 +35,14 @@ abstract class AbstractComparisonValidator extends AbstractValidator
 		$context->message_args[self::MESSAGE_ARG_VALUE_TYPE] = Render::render_type($reference);
 
 		return $this->compare($value, $reference);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	protected function get_params_mapping()
+	{
+		return [ self::PARAM_REFERENCE ];
 	}
 
 	/**

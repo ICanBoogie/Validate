@@ -41,19 +41,6 @@ class Type extends AbstractValidator
 	/**
 	 * @inheritdoc
 	 */
-	public function normalize_params(array $params)
-	{
-		if (isset($params[0]))
-		{
-			$params[self::PARAM_TYPE] = $params[0];
-		}
-
-		return $params;
-	}
-
-	/**
-	 * @inheritdoc
-	 */
 	public function validate($value, Context $context)
 	{
 		$context->message_args[self::PARAM_TYPE] = $type = $context->param(self::PARAM_TYPE);
@@ -65,6 +52,14 @@ class Type extends AbstractValidator
 		}
 
 		return $value instanceof $type;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	protected function get_params_mapping()
+	{
+		return [ self::PARAM_TYPE ];
 	}
 
 	/**

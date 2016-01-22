@@ -19,7 +19,7 @@ use ICanBoogie\Validate\ParameterIsMissing;
  */
 class AbstractComparisonValidatorTest extends \PHPUnit_Framework_TestCase
 {
-	public function test_should_throw_exception_on_missing_param()
+	public function test_should_throw_exception_on_missing_reference()
 	{
 		$validator = $this
 			->getMockBuilder(AbstractComparisonValidator::class)
