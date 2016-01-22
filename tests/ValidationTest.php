@@ -215,6 +215,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 	{
 		return [
 
+			[ Validator\Between::class,      [ 1, 3 ], 4, "should be between `1` and `3`" ],
 			[ Validator\Blank::class,        [], uniqid(), Validator\Blank::DEFAULT_MESSAGE ],
 			[ Validator\Email::class,        [], 'person', "`person` is not a valid email address" ],
 			[ Validator\Equal::class,        [ 3 ], 4, "should equal 3" ],
@@ -226,6 +227,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 			[ Validator\MaxLength::class,    [ 3 ], "abcd", "should be at most 3 characters long" ],
 			[ Validator\Min::class,          [ 10 ], 8, "should be at least 10" ],
 			[ Validator\MinLength::class,    [ 3 ], "ab", "should be at least 3 characters long" ],
+			[ Validator\NotBetween::class,   [ 1, 3 ], 2, "should not be between `1` and `3`" ],
 			[ Validator\NotBlank::class,     [], '', Validator\NotBlank::DEFAULT_MESSAGE ],
 			[ Validator\NotEqual::class,     [ 3 ], 3, "should not equal 3" ],
 			[ Validator\NotIdentical::class, [ 3 ], 3, "should not be identical to (integer) `3`" ],

@@ -37,6 +37,7 @@ class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 	{
 		return [
 
+			[ Validator\Between::class,      Validator\Between::ALIAS ],
 			[ Validator\Blank::class,        Validator\Blank::ALIAS ],
 			[ Validator\Email::class,        Validator\Email::ALIAS ],
 			[ Validator\Equal::class,        Validator\Equal::ALIAS ],
@@ -48,6 +49,7 @@ class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 			[ Validator\MaxLength::class,    Validator\MaxLength::ALIAS ],
 			[ Validator\Min::class,          Validator\Min::ALIAS ],
 			[ Validator\MinLength::class,    Validator\MinLength::ALIAS ],
+			[ Validator\NotBetween::class,   Validator\NotBetween::ALIAS ],
 			[ Validator\NotBlank::class,     Validator\NotBlank::ALIAS ],
 			[ Validator\NotEqual::class,     Validator\NotEqual::ALIAS ],
 			[ Validator\NotIdentical::class, Validator\NotIdentical::ALIAS ],

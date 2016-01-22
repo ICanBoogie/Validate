@@ -11,25 +11,41 @@ The **icanboogie/validate** offers a simple API to validate data.
 
 The following validators are available:
 
-- [Blank][], `blank`: Validates that a value is blank.
-- [Email][], `email`: Validates that a value is a valid email.
-- [Equal][], `equal`: Validates that two values are equal.
-- [Identical][], `identical`: Validates that two values are identical.
-- [IsFalse][], `is-false`: Validates that a value is false.
-- [IsNull][], `is-null`: Validates that a value is `null`.
-- [IsTrue][], `is-true`: Validates that a value is true.
-- [Max][], `max`: Validates that a value has a maximum value.
-- [MaxLength][], `max-length`: Validates that a value has a maximum length.
-- [Min][], `min`: Validates that a value has a minimum value.
-- [MinLength][], `min-length`: Validates that a value has a minimum length.
-- [NotBlank][], `not-blank`: Validates that a value is blank.
-- [NotEqual][], `not-equal`: Validates that two values are not equal.
-- [NotIdentical][], `not-identical`: Validates that two values are not identical.
-- [NotNull][], `not-null`: Validates that a value is not `null`.
-- [Required][], `required`: States that a value is required.
-- [TimeZone][], `timezone`: Validates that a value is a valid time zone.
-- [Type][], `type`: Validates that a value is of a specified type.
-- [URL][], `url`: Validates that a value is a valid URL.
+- Generic
+
+	- [Blank][], `blank`: Validates that a value is blank.
+	- [NotBlank][], `not-blank`: Validates that a value is blank.
+	- [Email][], `email`: Validates that a value is a valid email.
+	- [TimeZone][], `timezone`: Validates that a value is a valid time zone.
+	- [URL][], `url`: Validates that a value is a valid URL.
+
+- Type comparison
+
+	- [IsFalse][], `is-false`: Validates that a value is false.
+	- [IsNull][], `is-null`: Validates that a value is `null`.
+	- [NotNull][], `not-null`: Validates that a value is not `null`.
+	- [IsTrue][], `is-true`: Validates that a value is true.
+	- [Type][], `type`: Validates that a value is of a specified type.
+
+- Reference comparison
+
+	- [Equal][], `equal`: Validates that two values are equal.
+	- [NotEqual][], `not-equal`: Validates that two values are not equal.
+	- [Identical][], `identical`: Validates that two values are identical.
+	- [NotIdentical][], `not-identical`: Validates that two values are not identical.
+	- [Max][], `max`: Validates that a value has a maximum value.
+	- [MaxLength][], `max-length`: Validates that a value has a maximum length.
+	- [Min][], `min`: Validates that a value has a minimum value.
+	- [MinLength][], `min-length`: Validates that a value has a minimum length.
+
+- Range comparison
+
+	- [Between][], `between`: Validates that a value is between two references.
+	- [NotBetween][], `not-between`: Validates that a value is not between two references.
+
+- Flags
+
+	- [Required][], `required`: States that a value is required. Should be specified first.
 
 ```php
 <?php
@@ -380,6 +396,8 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [UnlessCallable]:               http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.UnlessCallable.html
 [ValidationErrors]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidationErrors.html
 [ValidationFailed]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidationFailed.html
+
+[Between]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Between.html
 [Blank]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Blank.html
 [Email]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Email.html
 [Equal]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Equal.html
@@ -391,6 +409,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [MaxLength]:                    http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.MaxLength.html
 [Min]:                          http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Min.html
 [MinLength]:                    http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.MinLength.html
+[NotBetween]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotBetween.html
 [NotBlank]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotBlank.html
 [NotEqual]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotEqual.html
 [NotIdentical]:                 http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotIdentical.html

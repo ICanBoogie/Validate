@@ -29,6 +29,7 @@ class BuiltinValidatorProvider extends AbstractValidatorProvider
 	 */
 	static private $builtin_validators = [
 
+		'between'       => Validator\Between::class,
 		'blank'         => Validator\Blank::class,
 		'email'         => Validator\Email::class,
 		'equal'         => Validator\Equal::class,
@@ -40,6 +41,7 @@ class BuiltinValidatorProvider extends AbstractValidatorProvider
 		'max-length'    => Validator\MaxLength::class,
 		'min'           => Validator\Min::class,
 		'min-length'    => Validator\MinLength::class,
+		'not-between'   => Validator\NotBetween::class,
 		'not-blank'     => Validator\NotBlank::class,
 		'not-equal'     => Validator\NotEqual::class,
 		'not-identical' => Validator\NotIdentical::class,
