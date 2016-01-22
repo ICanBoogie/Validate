@@ -38,6 +38,18 @@ class Render
 	}
 
 	/**
+	 * Renders value type.
+	 *
+	 * @param mixed $value
+	 *
+	 * @return string
+	 */
+	static public function render_type($value)
+	{
+		return gettype($value);
+	}
+
+	/**
 	 * Renders a value into a string.
 	 *
 	 * @param mixed $value

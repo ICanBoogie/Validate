@@ -19,7 +19,7 @@ use ICanBoogie\Validate\ParameterIsMissing;
  */
 class AbstractComparisonValidatorTest extends \PHPUnit_Framework_TestCase
 {
-	public function test_missing_param()
+	public function test_should_throw_exception_on_missing_param()
 	{
 		$validator = $this
 			->getMockBuilder(AbstractComparisonValidator::class)
@@ -39,5 +39,39 @@ class AbstractComparisonValidatorTest extends \PHPUnit_Framework_TestCase
 		}
 
 		$this->fail("Expected ParameterIsMissing");
+	}
+
+	public function test_should_add_message_arg_reference()
+	{
+		$validator = $this
+			->getMockBuilder(AbstractComparisonValidator::class)
+			->getMockForAbstractClass();
+
+		/* @var $validator AbstractComparisonValidator */
+
+		$context = new Context;
+		$reference = uniqid();
+		$context->validator_params = [ AbstractComparisonValidator::PARAM_REFERENCE => $reference ];
+		$validator->validate(uniqid(), $context);
+
+		$this->assertArrayHasKey(AbstractComparisonValidator::MESSAGE_ARG_REFERENCE, $context->message_args);
+		$this->assertSame($reference, $context->message_args[AbstractComparisonValidator::MESSAGE_ARG_REFERENCE]);
+	}
+
+	public function test_should_add_message_arg_value_type()
+	{
+		$validator = $this
+			->getMockBuilder(AbstractComparisonValidator::class)
+			->getMockForAbstractClass();
+
+		/* @var $validator AbstractComparisonValidator */
+
+		$context = new Context;
+		$reference = new \stdClass();
+		$context->validator_params = [ AbstractComparisonValidator::PARAM_REFERENCE => $reference ];
+		$validator->validate(uniqid(), $context);
+
+		$this->assertArrayHasKey(AbstractComparisonValidator::MESSAGE_ARG_VALUE_TYPE, $context->message_args);
+		$this->assertSame(gettype($reference), $context->message_args[AbstractComparisonValidator::MESSAGE_ARG_VALUE_TYPE]);
 	}
 }
