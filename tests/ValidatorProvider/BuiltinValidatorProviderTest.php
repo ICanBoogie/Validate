@@ -20,12 +20,12 @@ use ICanBoogie\Validate\Validator\SampleValidator;
 class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @dataProvider provide_test_builtin_validator
+	 * @dataProvider provide_test_alias_mapping
 	 *
 	 * @param string $class
 	 * @param string $alias
 	 */
-	public function test_builtin_validator($class, $alias)
+	public function test_alias_mapping($class, $alias)
 	{
 		$provider = new BuiltinValidatorProvider;
 		$validator = $provider($class);
@@ -33,35 +33,16 @@ class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($validator, $provider($alias));
 	}
 
-	public function provide_test_builtin_validator()
+	public function provide_test_alias_mapping()
 	{
-		return [
+		$alias = [];
 
-			[ Validator\Between::class,      Validator\Between::ALIAS ],
-			[ Validator\Blank::class,        Validator\Blank::ALIAS ],
-			[ Validator\Boolean::class,      Validator\Boolean::ALIAS ],
-			[ Validator\Email::class,        Validator\Email::ALIAS ],
-			[ Validator\Equal::class,        Validator\Equal::ALIAS ],
-			[ Validator\Identical::class,    Validator\Identical::ALIAS ],
-			[ Validator\IsFalse::class,      Validator\IsFalse::ALIAS ],
-			[ Validator\IsNull::class,       Validator\IsNull::ALIAS ],
-			[ Validator\IsTrue::class,       Validator\IsTrue::ALIAS ],
-			[ Validator\JSON::class,         Validator\JSON::ALIAS ],
-			[ Validator\Max::class,          Validator\Max::ALIAS ],
-			[ Validator\MaxLength::class,    Validator\MaxLength::ALIAS ],
-			[ Validator\Min::class,          Validator\Min::ALIAS ],
-			[ Validator\MinLength::class,    Validator\MinLength::ALIAS ],
-			[ Validator\NotBetween::class,   Validator\NotBetween::ALIAS ],
-			[ Validator\NotBlank::class,     Validator\NotBlank::ALIAS ],
-			[ Validator\NotEqual::class,     Validator\NotEqual::ALIAS ],
-			[ Validator\NotIdentical::class, Validator\NotIdentical::ALIAS ],
-			[ Validator\NotNull::class,      Validator\NotNull::ALIAS ],
-			[ Validator\Required::class,     Validator\Required::ALIAS ],
-			[ Validator\TimeZone::class,     Validator\TimeZone::ALIAS ],
-			[ Validator\Type::class,         Validator\Type::ALIAS ],
-			[ Validator\URL::class,          Validator\URL::ALIAS ],
+		foreach ($this->getValidators() as $class)
+		{
+			$alias[] = [ $class, $class::ALIAS ];
+		}
 
-		];
+		return $alias;
 	}
 
 	public function test_custom_validator()
@@ -80,5 +61,36 @@ class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertSame($validator, $provider(SampleValidator::ALIAS));
 		$this->assertSame($validator, $provider(SampleValidator::class));
+	}
+
+	protected function getValidators()
+	{
+		return [
+
+			Validator\Between::class,
+			Validator\Blank::class,
+			Validator\Boolean::class,
+			Validator\Email::class,
+			Validator\Equal::class,
+			Validator\Identical::class,
+			Validator\IsFalse::class,
+			Validator\IsNull::class,
+			Validator\IsTrue::class,
+			Validator\JSON::class,
+			Validator\Max::class,
+			Validator\MaxLength::class,
+			Validator\Min::class,
+			Validator\MinLength::class,
+			Validator\NotBetween::class,
+			Validator\NotBlank::class,
+			Validator\NotEqual::class,
+			Validator\NotIdentical::class,
+			Validator\NotNull::class,
+			Validator\Required::class,
+			Validator\TimeZone::class,
+			Validator\Type::class,
+			Validator\URL::class,
+
+		];
 	}
 }

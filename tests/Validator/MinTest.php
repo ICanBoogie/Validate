@@ -16,23 +16,23 @@ use ICanBoogie\Validate\Validator;
 /**
  * @small
  */
-class MinTest extends ValidatorTestCase
+class MinTest extends ComparisonValidatorTestCase
 {
 	const VALIDATOR_CLASS = Min::class;
 
 	public function provide_test_valid_values()
 	{
 		return [
-			[ 12, [ Min::PARAM_REFERENCE => 10 ] ],
-			[ 12, [ 10 ] ],
+			[ 12, 10 ],
+			[ "abd", "abc" ],
 		];
 	}
 
 	public function provide_test_invalid_values()
 	{
 		return [
-			[ 8, [ Min::PARAM_REFERENCE => 10 ] ],
-			[ 8, [ 10 ] ],
+			[ 8, 10 ],
+			[ "abc", "abd" ],
 		];
 	}
 }

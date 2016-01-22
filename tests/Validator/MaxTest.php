@@ -16,23 +16,23 @@ use ICanBoogie\Validate\Validator;
 /**
  * @small
  */
-class MaxTest extends ValidatorTestCase
+class MaxTest extends ComparisonValidatorTestCase
 {
 	const VALIDATOR_CLASS = Max::class;
 
 	public function provide_test_valid_values()
 	{
 		return [
-			[ 8, [ Max::PARAM_REFERENCE => 10 ] ],
-			[ 8, [ 10 ] ],
+			[ 8, 10],
+			[ "abc", "abd" ],
 		];
 	}
 
 	public function provide_test_invalid_values()
 	{
 		return [
-			[ 12, [ Max::PARAM_REFERENCE => 10 ] ],
-			[ 12, [ 10 ] ],
+			[ 12, 10 ],
+			[ "abd", "abc" ],
 		];
 	}
 }
