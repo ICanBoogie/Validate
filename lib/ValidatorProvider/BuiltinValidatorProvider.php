@@ -31,6 +31,7 @@ class BuiltinValidatorProvider extends AbstractValidatorProvider
 
 		'between'       => Validator\Between::class,
 		'blank'         => Validator\Blank::class,
+		'boolean'       => Validator\Boolean::class,
 		'email'         => Validator\Email::class,
 		'equal'         => Validator\Equal::class,
 		'identical'     => Validator\Identical::class,

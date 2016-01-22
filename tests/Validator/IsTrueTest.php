@@ -26,7 +26,8 @@ class IsTrueTest extends ValidatorTestCase
 			[ true ],
 			[ 'true' ],
 			[ 'yes' ],
-			[ 1 ]
+			[ 'on' ],
+			[ 1 ],
 		];
 	}
 
@@ -36,7 +37,8 @@ class IsTrueTest extends ValidatorTestCase
 			[ false ],
 			[ 'false' ],
 			[ 'no' ],
-			[ 0 ]
+			[ 'off' ],
+			[ 0 ],
 		];
 	}
 }

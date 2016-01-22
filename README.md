@@ -22,6 +22,7 @@ The following validators are available:
 
 - Type comparison
 
+	- [Boolean][], `boolean`: Validates that a value is a boolean.
 	- [IsFalse][], `is-false`: Validates that a value is false.
 	- [IsNull][], `is-null`: Validates that a value is `null`.
 	- [NotNull][], `not-null`: Validates that a value is not `null`.
@@ -403,6 +404,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 [Between]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Between.html
 [Blank]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Blank.html
+[Boolean]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Boolean.html
 [Email]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Email.html
 [Equal]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Equal.html
 [Identical]:                    http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Identical.html

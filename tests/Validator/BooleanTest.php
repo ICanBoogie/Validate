@@ -16,29 +16,33 @@ use ICanBoogie\Validate\Validator;
 /**
  * @small
  */
-class IsFalseTest extends ValidatorTestCase
+class BooleanTest extends ValidatorTestCase
 {
-	const VALIDATOR_CLASS = IsFalse::class;
+	const VALIDATOR_CLASS = Boolean::class;
 
 	public function provide_test_valid_values()
 	{
 		return [
 			[ false ],
 			[ 'false' ],
-			[ 'no' ],
 			[ 'off' ],
+			[ 'no' ],
 			[ 0 ],
+			[ true ],
+			[ 'true' ],
+			[ 'on' ],
+			[ 'yes' ],
+			[ 1 ],
 		];
 	}
 
 	public function provide_test_invalid_values()
 	{
 		return [
-			[ true ],
-			[ 'true' ],
-			[ 'yes' ],
-			[ 'on' ],
-			[ 1 ],
+			[ null ],
+			[ 'abc' ],
+			[ [ ] ],
+			[ (object) [ 'p' => 1 ] ]
 		];
 	}
 }

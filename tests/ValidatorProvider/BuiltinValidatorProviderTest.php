@@ -39,6 +39,7 @@ class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 
 			[ Validator\Between::class,      Validator\Between::ALIAS ],
 			[ Validator\Blank::class,        Validator\Blank::ALIAS ],
+			[ Validator\Boolean::class,      Validator\Boolean::ALIAS ],
 			[ Validator\Email::class,        Validator\Email::ALIAS ],
 			[ Validator\Equal::class,        Validator\Equal::ALIAS ],
 			[ Validator\Identical::class,    Validator\Identical::ALIAS ],

@@ -217,6 +217,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 			[ Validator\Between::class,      [ 1, 3 ], 4, "should be between `1` and `3`" ],
 			[ Validator\Blank::class,        [], uniqid(), Validator\Blank::DEFAULT_MESSAGE ],
+			[ Validator\Boolean::class,      [], "abc", Validator\Boolean::DEFAULT_MESSAGE ],
 			[ Validator\Email::class,        [], 'person', "`person` is not a valid email address" ],
 			[ Validator\Equal::class,        [ 3 ], 4, "should equal 3" ],
 			[ Validator\Identical::class,    [ 3 ], 4, "should be identical to (integer) `3`" ],
