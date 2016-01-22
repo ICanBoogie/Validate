@@ -21,7 +21,7 @@ class Validation implements ValidatorOptions
 	const SERIALIZED_STOP_ON_ERROR_SUFFIX = '!';
 	const SERIALIZED_VALIDATION_SEPARATOR = '|';
 	const SERIALIZED_ALIAS_SEPARATOR = ':';
-	const SERIALIZED_PARAM_SEPARATOR = ',';
+	const SERIALIZED_PARAM_SEPARATOR = ';';
 
 	/**
 	 * @var array
