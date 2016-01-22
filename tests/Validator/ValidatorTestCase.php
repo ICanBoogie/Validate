@@ -43,11 +43,17 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	 *
 	 * @param mixed $value
 	 * @param mixed $params
+	 * @param string|null $value_type
 	 */
-	public function test_valid_values($value, $params = null)
+	public function test_valid_values($value, $params = null, $value_type = null)
 	{
 		$this->context->validator_params = $this->validator->normalize_params($params ?: []);
 		$this->assertTrue($this->validator->validate($value, $this->context));
+
+		if ($value_type)
+		{
+			$this->assertEquals($value_type, $this->context->message_args[AbstractComparisonValidator::MESSAGE_ARG_VALUE_TYPE]);
+		}
 	}
 
 	/**
@@ -60,11 +66,17 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	 *
 	 * @param mixed $value
 	 * @param mixed $params
+	 * @param string|null $value_type
 	 */
-	public function test_invalid_values($value, $params = null)
+	public function test_invalid_values($value, $params = null, $value_type = null)
 	{
 		$this->context->validator_params = $this->validator->normalize_params($params ?: []);
 		$this->assertFalse($this->validator->validate($value, $this->context));
+
+		if ($value_type)
+		{
+			$this->assertEquals($value_type, $this->context->message_args[AbstractComparisonValidator::MESSAGE_ARG_VALUE_TYPE]);
+		}
 	}
 
 	/**

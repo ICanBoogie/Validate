@@ -27,13 +27,17 @@ class TypeTest extends ValidatorTestCase
 	 *
 	 * @param mixed $value
 	 * @param string|array $type
+	 * @param string|null $value_type
 	 */
-	public function test_valid_values($value, $type = [])
+	public function test_valid_values($value, $type = null, $value_type = null)
 	{
-		parent::test_valid_values($value, [ Type::PARAM_TYPE => $type ]);
-		parent::test_valid_values($value, [ $type ]);
+		parent::test_valid_values($value, [ Type::PARAM_TYPE => $type ], $value_type);
+		parent::test_valid_values($value, [ $type ], $value_type);
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function provide_test_valid_values()
 	{
 		$object = new \stdClass();
@@ -79,13 +83,17 @@ class TypeTest extends ValidatorTestCase
 	 *
 	 * @param mixed $value
 	 * @param string|array $type
+	 * @param string|null $value_type
 	 */
-	public function test_invalid_values($value, $type = [])
+	public function test_invalid_values($value, $type = null, $value_type = null)
 	{
-		parent::test_invalid_values($value, [ Type::PARAM_TYPE => $type ]);
-		parent::test_invalid_values($value, [ $type ]);
+		parent::test_invalid_values($value, [ Type::PARAM_TYPE => $type ], $value_type);
+		parent::test_invalid_values($value, [ $type ], $value_type);
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function provide_test_invalid_values()
 	{
 		$object = new \stdClass();

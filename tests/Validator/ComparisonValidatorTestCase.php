@@ -24,10 +24,11 @@ abstract class ComparisonValidatorTestCase extends ValidatorTestCase
 	 *
 	 * @param mixed $value
 	 * @param mixed $reference
+	 * @param string|null $value_type
 	 */
-	public function test_valid_values($value, $reference = null)
+	public function test_valid_values($value, $reference = null, $value_type = null)
 	{
-		parent::test_valid_values($value, [ $reference ]);
+		parent::test_valid_values($value, [ $reference ], $value_type);
 	}
 
 	/**
@@ -35,9 +36,10 @@ abstract class ComparisonValidatorTestCase extends ValidatorTestCase
 	 *
 	 * @param mixed $value
 	 * @param mixed $reference
+	 * @param string|null $value_type
 	 */
-	public function test_invalid_values($value, $reference = null)
+	public function test_invalid_values($value, $reference = null, $value_type = null)
 	{
-		parent::test_invalid_values($value, [ $reference ]);
+		parent::test_invalid_values($value, [ $reference ], $value_type);
 	}
 }
