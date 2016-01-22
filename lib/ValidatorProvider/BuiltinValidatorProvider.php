@@ -37,6 +37,7 @@ class BuiltinValidatorProvider extends AbstractValidatorProvider
 		'is-false'      => Validator\IsFalse::class,
 		'is-null'       => Validator\IsNull::class,
 		'is-true'       => Validator\IsTrue::class,
+		'json'          => Validator\JSON::class,
 		'max'           => Validator\Max::class,
 		'max-length'    => Validator\MaxLength::class,
 		'min'           => Validator\Min::class,

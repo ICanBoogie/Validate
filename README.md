@@ -11,13 +11,14 @@ The **icanboogie/validate** offers a simple API to validate data.
 
 The following validators are available:
 
+- Flags
+
+	- [Required][], `required`: States that a value is required. Should be specified first.
+
 - Generic
 
 	- [Blank][], `blank`: Validates that a value is blank.
 	- [NotBlank][], `not-blank`: Validates that a value is blank.
-	- [Email][], `email`: Validates that a value is a valid email.
-	- [TimeZone][], `timezone`: Validates that a value is a valid time zone.
-	- [URL][], `url`: Validates that a value is a valid URL.
 
 - Type comparison
 
@@ -43,9 +44,12 @@ The following validators are available:
 	- [Between][], `between`: Validates that a value is between two references.
 	- [NotBetween][], `not-between`: Validates that a value is not between two references.
 
-- Flags
+- Complex types
 
-	- [Required][], `required`: States that a value is required. Should be specified first.
+	- [Email][], `email`: Validates that a value is a valid email.
+	- [JSON][], `json`: Validates that a value is a valid JSON.
+	- [TimeZone][], `timezone`: Validates that a value is a valid time zone.
+	- [URL][], `url`: Validates that a value is a valid URL.
 
 ```php
 <?php
@@ -405,6 +409,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [IsFalse]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsFalse.html
 [IsNull]:                       http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsNull.html
 [IsTrue]:                       http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsTrue.html
+[JSON]:                         http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.JSON.html
 [Max]:                          http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Max.html
 [MaxLength]:                    http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.MaxLength.html
 [Min]:                          http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Min.html

@@ -45,6 +45,7 @@ class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 			[ Validator\IsFalse::class,      Validator\IsFalse::ALIAS ],
 			[ Validator\IsNull::class,       Validator\IsNull::ALIAS ],
 			[ Validator\IsTrue::class,       Validator\IsTrue::ALIAS ],
+			[ Validator\JSON::class,         Validator\JSON::ALIAS ],
 			[ Validator\Max::class,          Validator\Max::ALIAS ],
 			[ Validator\MaxLength::class,    Validator\MaxLength::ALIAS ],
 			[ Validator\Min::class,          Validator\Min::ALIAS ],

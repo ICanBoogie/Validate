@@ -223,6 +223,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 			[ Validator\IsFalse::class,      [], true, Validator\IsFalse::DEFAULT_MESSAGE ],
 			[ Validator\IsNull::class,       [], uniqid(), Validator\IsNull::DEFAULT_MESSAGE ],
 			[ Validator\IsTrue::class,       [], false, Validator\IsTrue::DEFAULT_MESSAGE ],
+			[ Validator\JSON::class,         [], 12, "should be a valid JSON string" ],
 			[ Validator\Max::class,          [ 10 ], 12, "should be at most 10" ],
 			[ Validator\MaxLength::class,    [ 3 ], "abcd", "should be at most 3 characters long" ],
 			[ Validator\Min::class,          [ 10 ], 8, "should be at least 10" ],
