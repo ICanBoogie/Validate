@@ -13,6 +13,8 @@ namespace ICanBoogie\Validate;
 
 /**
  * Representation of validation errors.
+ *
+ * @method Message[] offsetGet($index)
  */
 class ValidationErrors extends \ArrayObject
 {

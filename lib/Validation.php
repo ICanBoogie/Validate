@@ -128,8 +128,9 @@ class Validation implements ValidatorOptions
 			$context->message = $validator::DEFAULT_MESSAGE;
 			$context->message_args = [
 
-				'value' => $value,
-				'attribute' => $attribute
+				Validator::MESSAGE_ARG_ATTRIBUTE => $attribute,
+				Validator::MESSAGE_ARG_VALUE => $value,
+				Validator::MESSAGE_ARG_VALIDATOR => get_class($validator),
 
 			];
 

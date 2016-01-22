@@ -197,18 +197,25 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider provide_test_message
 	 *
-	 * @param string $validator_name
+	 * @param string $class
 	 * @param array $params
 	 * @param mixed $value
 	 * @param string $expected
 	 */
-	public function test_message($validator_name, $params, $value, $expected)
+	public function test_message($class, $params, $value, $expected)
 	{
 		$attribute = uniqid();
-		$validation = new Validation([ $attribute => [ $validator_name => $params ]]);
+		$validation = new Validation([ $attribute => [ $class => $params ]]);
 		$errors = $validation->validate(new ArrayAdapter([ $attribute => $value ]));
 		$this->assertArrayHasKey($attribute, $errors);
-		$this->assertSame($expected, (string) reset($errors[$attribute]));
+		$message = $errors[$attribute][0];
+		$this->assertArrayHasKey(Validator::MESSAGE_ARG_ATTRIBUTE, $message->args);
+		$this->assertArrayHasKey(Validator::MESSAGE_ARG_VALUE, $message->args);
+		$this->assertArrayHasKey(Validator::MESSAGE_ARG_VALIDATOR, $message->args);
+		$this->assertSame($attribute, $message->args[Validator::MESSAGE_ARG_ATTRIBUTE]);
+		$this->assertSame($value, $message->args[Validator::MESSAGE_ARG_VALUE]);
+		$this->assertSame($class, $message->args[Validator::MESSAGE_ARG_VALIDATOR]);
+		$this->assertSame($expected, (string) $message);
 	}
 
 	public function provide_test_message()

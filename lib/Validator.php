@@ -27,6 +27,21 @@ interface Validator extends ValidatorOptions
 	const DEFAULT_MESSAGE = "is not valid";
 
 	/**
+	 * Index name of message `attribute` argument.
+	 */
+	const MESSAGE_ARG_ATTRIBUTE = 'attribute';
+
+	/**
+	 * Index name of message `value` argument.
+	 */
+	const MESSAGE_ARG_VALUE = 'value';
+
+	/**
+	 * Index name of message `validator` argument.
+	 */
+	const MESSAGE_ARG_VALIDATOR = 'validator';
+
+	/**
 	 * Normalize parameters and options.
 	 *
 	 * @param array $params
