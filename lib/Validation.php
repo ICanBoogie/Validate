@@ -234,7 +234,7 @@ class Validation implements ValidatorOptions
 		{
 			list($alias, $params) = explode(self::SERIALIZED_ALIAS_SEPARATOR, $serialized_alias_and_params, 2) + [ 1 => null ];
 
-			$params = $params === null ? [] : explode(',', $params);
+			$params = $params === null ? [] : explode(self::SERIALIZED_PARAM_SEPARATOR, $params);
 
 			if (substr($alias, -1) === self::SERIALIZED_STOP_ON_ERROR_SUFFIX)
 			{
