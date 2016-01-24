@@ -68,6 +68,7 @@ class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 		return [
 
 			Validator\Between::class,
+			Validator\BetweenLength::class,
 			Validator\Blank::class,
 			Validator\Boolean::class,
 			Validator\Email::class,
@@ -82,6 +83,7 @@ class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 			Validator\Min::class,
 			Validator\MinLength::class,
 			Validator\NotBetween::class,
+			Validator\NotBetweenLength::class,
 			Validator\NotBlank::class,
 			Validator\NotEqual::class,
 			Validator\NotIdentical::class,

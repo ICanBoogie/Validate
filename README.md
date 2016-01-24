@@ -44,6 +44,8 @@ The following validators are available:
 
 	- [Between][], `between`: Validates that a value is between two references.
 	- [NotBetween][], `not-between`: Validates that a value is not between two references.
+	- [BetweenLength][], `between-length`: Validates that a string length is between two references.
+	- [NotBetweenLength][], `not-between-length`: Validates that a string length is not between two references.
 
 - Complex types
 
@@ -403,6 +405,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [ValidationFailed]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidationFailed.html
 
 [Between]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Between.html
+[BetweenLength]:                http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.BetweenLength.html
 [Blank]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Blank.html
 [Boolean]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Boolean.html
 [Email]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Email.html
@@ -417,6 +420,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [Min]:                          http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Min.html
 [MinLength]:                    http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.MinLength.html
 [NotBetween]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotBetween.html
+[NotBetweenLength]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotBetweenLength.html
 [NotBlank]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotBlank.html
 [NotEqual]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotEqual.html
 [NotIdentical]:                 http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotIdentical.html
