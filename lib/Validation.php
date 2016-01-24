@@ -11,6 +11,7 @@
 
 namespace ICanBoogie\Validate;
 
+use ICanBoogie\Validate\Validator\Required;
 use ICanBoogie\Validate\ValidatorProvider\BuiltinValidatorProvider;
 
 /**
@@ -120,9 +121,15 @@ class Validation implements ValidatorOptions
 	 */
 	protected function validate_attribute($attribute, array $validators, Context $context)
 	{
+		$context->value = $value = $context->value($attribute);
+
+		if ($this->should_skip_validation($context, $validators))
+		{
+			return;
+		}
+
 		foreach ($validators as $class_or_alias => $validator_params)
 		{
-			$context->value = $value = $context->value($attribute);
 			$context->validator = $validator = $this->create_validator($class_or_alias);
 			$context->validator_params = $validator->normalize_params($validator_params);
 			$context->message = $validator::DEFAULT_MESSAGE;
@@ -134,7 +141,7 @@ class Validation implements ValidatorOptions
 
 			];
 
-			if ($this->should_skip($context))
+			if ($this->should_skip_validator($context))
 			{
 				return;
 			}
@@ -184,13 +191,33 @@ class Validation implements ValidatorOptions
 	}
 
 	/**
+	 * Whether the validation of a value should be skipped.
+	 *
+	 * The validation of a value should be skipped if it is `null` and the value is not required.
+	 *
+	 * @param Context $context
+	 * @param array $validators
+	 *
+	 * @return bool
+	 */
+	protected function should_skip_validation(Context $context, array $validators)
+	{
+		if ($context->value !== null)
+		{
+			return false;
+		}
+
+		return !array_key_exists(Required::class, $validators) && !array_key_exists(Required::ALIAS, $validators);
+	}
+
+	/**
 	 * Whether the validator should be skipped.
 	 *
 	 * @param Context $context
 	 *
 	 * @return bool
 	 */
-	protected function should_skip(Context $context)
+	protected function should_skip_validator(Context $context)
 	{
 		/* @var $if Validation\IfCallable|callable */
 		/* @var $unless Validation\UnlessCallable|callable */

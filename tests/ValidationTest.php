@@ -303,6 +303,17 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 		$validation->assert(new ArrayAdapter([]));
 	}
 
+	public function test_should_not_validate_null_values_if_not_required()
+	{
+		$validation = new Validation([
+
+			'email' => 'email'
+
+		]);
+
+		$this->assertArrayNotHasKey('email', $validation->validate(new ArrayAdapter([])));
+	}
+
 	/**
 	 * @param ValidationErrors|array $errors
 	 *
