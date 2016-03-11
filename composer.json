@@ -1,7 +1,7 @@
 {
 	"name": "icanboogie/validate",
 	"type": "library",
-	"description": "Validate stuff",
+	"description": "Validate data against a set of rules",
 	"keywords": [ "validate", "assert" ],
 	"homepage": "http://icanboogie.org/",
 	"license": "BSD-3-Clause",
