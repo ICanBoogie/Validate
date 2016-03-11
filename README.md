@@ -7,7 +7,7 @@
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Validate.svg)](https://coveralls.io/r/ICanBoogie/Validate)
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/validate.svg)](https://packagist.org/packages/icanboogie/validate)
 
-The **icanboogie/validate** offers a simple API to validate data.
+The **icanboogie/validate** package offers a simple API to validate data.
 
 The following validators are available:
 
@@ -54,6 +54,8 @@ The following validators are available:
 	- [TimeZone][], `timezone`: Validates that a value is a valid time zone.
 	- [URL][], `url`: Validates that a value is a valid URL.
 
+The following example demonstrates how data may be validated:
+
 ```php
 <?php
 
@@ -61,20 +63,16 @@ use ICanBoogie\Validate\Validation;
 use ICanBoogie\Validate\Reader\ArrayAdapter;
 
 $validation = new Validation([
-
 	'name' => 'required|min-length:3',
 	'email' => 'required|email!|unique',
 	'password' => 'required|min-length:6',
-	'consent' => 'required'
-
+	'consent' => 'required',
 ]);
 
 $errors = $validation->validate(new ArrayAdapter([
-
 	'name' => "Ol",
 	'email' => "olivier",
-	'password' => "123"
-
+	'password' => "123",
 ]));
 
 var_dump($errors['name']);
@@ -107,7 +105,11 @@ string(36) "should be at least 3 characters long"
 
 ## Validation
 
-A validation is defined using an array of key/value pairs where _key_ is an attribute to validate and _key_ is the rules. Rules may be defined as a string or an array of key/value pairs where _key_ is a validator class, or alias, and _value_ an array of parameters and options. Optionally you may provide a validator provider and a message formatter.
+A validation is defined using an array of key/value pairs where _key_ is an attribute to validate
+and _key_ is the rules. Rules may be defined as a string or an array of key/value pairs where _key_
+is a validator class, or alias, and _value_ an array of parameters and options. Optionally you may
+provide a validator provider, if you don't, an instance of [BuiltinValidatorProvider][] is created
+by default.
 
 A validation is represented by a [Validation][] instance.
 
@@ -117,21 +119,16 @@ A validation is represented by a [Validation][] instance.
 use ICanBoogie\Validate\Validation;
 
 $validation = new Validation([
-
 	'name' => 'required|min-length:3',
-
 ]);
 
 # or
 
 $validation = new Validation([
-
 	'name' => [
-	
 		'required' => [],
 		'min-length' => [ 3 ],
 	]
-	
 ]);
 
 # or
@@ -139,13 +136,10 @@ $validation = new Validation([
 use ICanBoogie\Validate\Validator;
 
 $validation = new Validation([
-
 	'name' => [
-	
 		Validator\Required::class => [],
 		Validator\MinLength::class => [ 3 ],
 	]
-	
 ]);
 
 # or
@@ -153,13 +147,10 @@ $validation = new Validation([
 use ICanBoogie\Validate\Validator;
 
 $validation = new Validation([
-
 	'name' => [
-	
 		Validator\Required::class => [],
 		Validator\MinLength::class => [ Validator\MinLength::PARAM_REFERENCE => 3 ],
 	]
-
 ]);
 ```
 
@@ -169,7 +160,8 @@ $validation = new Validation([
 
 ### Validating data
 
-The `validate()` method is used to validate data. The method returns a [ValidationErrors][] instance if the validation failed, an empty array otherwise.
+The `validate()` method validates data. It returns a [ValidationErrors][] instance if the validation
+failed, an empty array otherwise.
 
 ```php
 <?php
@@ -195,7 +187,9 @@ foreach ($errors as $attribute => $messages)
 
 ### Asserting that data is valid
 
-The `assert()` method may be used to assert that data is valid. Instead of returning a [ValidationErrors][] instance like `validate()`, the method throws a [ValidationFailed][] exception when the validation fails. The validation errors may be retrieved from the exception.
+The `assert()` method may be used to assert that data is valid. Instead of returning a
+[ValidationErrors][] instance like `validate()`, the method throws a [ValidationFailed][] exception.
+The validation errors may be retrieved from the exception using its `errors` property.
 
 ```php
 <?php
@@ -221,13 +215,19 @@ catch (ValidationFailed $e)
 
 The following validation options may be defined:
 
-- `ValidatorOptions::OPTION_MESSAGE`: A custom error message, which overrides the validator default message.
+- `ValidatorOptions::OPTION_MESSAGE`: A custom error message, which overrides the validator default
+message.
 
-- `ValidatorOptions::OPTION_IF`: The validator is used only if the callable defined by this option returns `true`. The callable may be a closure or an instance implementing the [IfCallable][] interface.
+- `ValidatorOptions::OPTION_IF`: The validator is used only if the callable defined by this option
+returns `true`. The callable may be a closure or an instance implementing the [IfCallable][]
+interface.
 
-- `ValidatorOptions::OPTION_UNLESS`: The validator is skipped if the callable defined by this option returns `true`. The callable may be a closure or an instance implementing the [UnlessCallable][] interface.
+- `ValidatorOptions::OPTION_UNLESS`: The validator is skipped if the callable defined by this option
+returns `true`. The callable may be a closure or an instance implementing the [UnlessCallable][]
+interface.
 
-- `ValidatorOptions::OPTION_STOP_ON_ERROR`: If `true`, the validation of a value stops after an error. This option is always `true` for the [Required][] validator.
+- `ValidatorOptions::OPTION_STOP_ON_ERROR`: If `true`, the validation of a value stops after an
+error. This option is always `true` for the [Required][] validator.
 
 ```php
 <?php
@@ -238,37 +238,21 @@ use ICanBoogie\Validate\Validator\Required;
 use ICanBoogie\Validate\Validator\Email;
 
 $validation = new Validation([
-
 	'email' => [
-
 		Required::class => [
-
 			Required::OPTION_MESSAGE => "An email address must be supplied if your wish to register.",
-
 			Required::OPTION_IF => function(Context $context) {
-
 				return $context->value('name')
-
 			},
-
 			Required::OPTION_UNLESS => function(Context $context) {
-
 				return !$context->value('register')
-
 			},
-
 			Required::OPTION_STOP_ON_ERROR => true // already defined by Require
-
 		],
-
 		Email::class => [
-
 			Email::OPTION_MESSAGE => "`{value}` is an invalid email address for the field E-Mail.",
-
 		]
-
 	]
-
 ]);
 ```
 
@@ -278,20 +262,23 @@ $validation = new Validation([
 
 ## Validation context
 
-The validation context provides the following information:
+The validation context is represented by a [Context][] instance and is passed along with the value
+to validate to the validator. The validator may used the context to retrieve parameters and options,
+and when required get a complete picture of the ongoing validation.
+
+The following properties are available:
 
 - `attribute`: The attribute being validated.
 - `value`: The value of the attribute being validated.
 - `validator`: The current validator.
 - `validator_params`: The parameters and options for the current validator.
-- `reader`: A [Reader][] adapter giving access the values being validated.
+- `reader`: A [Reader][] adapter giving access to the values being validated.
 - `message`: The possible error message for the current validator.
 - `message_args`: The arguments for the possible error message.
 - `errors`: The collected errors.
 
-The validation context is represented by a [Context][] instance and is passed along with the value to validate to the validator. The validator may used the context to retrieve parameters and options, and when required get a complete picture of the ongoing validation.
-
-The following example demonstrates how a validator may retrieve its parameters and options from the context, and a value from the value reader:
+The following example demonstrates how a validator may retrieve its parameters and options from the
+context, and a value from the value reader:
 
 ```php
 <?php
@@ -314,7 +301,6 @@ use ICanBoogie\Validate\Context
 	}
 
 // …
-
 ```
 
 
@@ -396,6 +382,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 [documentation]:                http://api.icanboogie.org/validate/latest/
+[BuiltinValidatorProvider]:     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidatorProvider.BuiltinValidatorProvider.html
 [Context]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Context.html
 [Reader]:                       http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Reader.html
 [Validation]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.html
