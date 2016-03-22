@@ -50,6 +50,7 @@ class BuiltinValidatorProvider extends AbstractValidatorProvider
 		'not-equal'          => Validator\NotEqual::class,
 		'not-identical'      => Validator\NotIdentical::class,
 		'not-null'           => Validator\NotNull::class,
+		'regex'              => Validator\Regex::class,
 		'required'           => Validator\Required::class,
 		'timezone'           => Validator\TimeZone::class,
 		'type'               => Validator\Type::class,

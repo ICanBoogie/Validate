@@ -47,10 +47,11 @@ The following validators are available:
 	- [BetweenLength][], `between-length`: Validates that a string length is between two references.
 	- [NotBetweenLength][], `not-between-length`: Validates that a string length is not between two references.
 
-- Complex types
+- String comparison
 
 	- [Email][], `email`: Validates that a value is a valid email.
 	- [JSON][], `json`: Validates that a value is a valid JSON.
+	- [Regex][], `regex`: Validates that a value matches or not a pattern.
 	- [TimeZone][], `timezone`: Validates that a value is a valid time zone.
 	- [URL][], `url`: Validates that a value is a valid URL.
 
@@ -412,6 +413,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 [NotEqual]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotEqual.html
 [NotIdentical]:                 http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotIdentical.html
 [NotNull]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotNull.html
+[Regex]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Regex.html
 [Required]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Required.html
 [TimeZone]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.TimeZone.html
 [Type]:                         http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Type.html

@@ -243,6 +243,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 			[ Validator\NotEqual::class,         [ 3 ], 3, "should not equal 3" ],
 			[ Validator\NotIdentical::class,     [ 3 ], 3, "should not be identical to (integer) `3`" ],
 			[ Validator\NotNull::class,          [], null, Validator\NotNull::DEFAULT_MESSAGE ],
+			[ Validator\Regex::class,            [ '/^\d+$/' ], "abcd", "`abcd` does not match pattern" ],
 			[ Validator\Required::class,         [], null, Validator\Required::DEFAULT_MESSAGE ],
 			[ Validator\TimeZone::class,         [], 'Europe/Pas', "`Europe/Pas` is not a valid time zone, did you mean `Europe/Paris`?" ],
 			[ Validator\Type::class,             [ 'integer' ], null, "should be of type integer" ],

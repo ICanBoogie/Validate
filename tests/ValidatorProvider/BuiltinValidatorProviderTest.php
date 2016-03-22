@@ -88,6 +88,7 @@ class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 			Validator\NotEqual::class,
 			Validator\NotIdentical::class,
 			Validator\NotNull::class,
+			Validator\Regex::class,
 			Validator\Required::class,
 			Validator\TimeZone::class,
 			Validator\Type::class,
