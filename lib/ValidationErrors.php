@@ -11,6 +11,8 @@
 
 namespace ICanBoogie\Validate;
 
+use ICanBoogie\ErrorCollection;
+
 /**
  * Representation of validation errors.
  *
@@ -38,6 +40,28 @@ class ValidationErrors extends \ArrayObject
 	public function to_array()
 	{
 		return $this->getArrayCopy();
+	}
+
+	/**
+	 * Returns an error collection instance.
+	 *
+	 * @return ErrorCollection
+	 */
+	public function to_error_collection()
+	{
+		$collection = new ErrorCollection;
+
+		/* @var $messages Message[] */
+
+		foreach ($this as $attribute => $messages)
+		{
+			foreach ($messages as $message)
+			{
+				$collection->add($attribute, $message->format, $message->args);
+			}
+		}
+
+		return $collection;
 	}
 
 	/**
