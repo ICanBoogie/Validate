@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\Validator;
 /**
  * Validates that a value has a minimum length.
  */
-class MinLength extends AbstractComparisonValidator
+class MinLength extends ComparisonValidatorAbstract
 {
 	const ALIAS = 'min-length';
 	const DEFAULT_MESSAGE = "should be at least {reference} characters long";

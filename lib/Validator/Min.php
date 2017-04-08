@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\Validator;
 /**
  * Validates that a value has a minimum value.
  */
-class Min extends AbstractComparisonValidator
+class Min extends ComparisonValidatorAbstract
 {
 	const ALIAS = 'min';
 	const DEFAULT_MESSAGE = "should be at least {reference}";

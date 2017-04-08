@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\Validator;
 /**
  * Validates that a value is identical to a reference.
  */
-class Identical extends AbstractComparisonValidator
+class Identical extends ComparisonValidatorAbstract
 {
 	const ALIAS = 'identical';
 	const DEFAULT_MESSAGE = "should be identical to ({value_type}) `{reference}`";

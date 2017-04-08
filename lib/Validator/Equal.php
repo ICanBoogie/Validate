@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\Validator;
 /**
  * Validates that a value equals a reference.
  */
-class Equal extends AbstractComparisonValidator
+class Equal extends ComparisonValidatorAbstract
 {
 	const ALIAS = 'equal';
 	const DEFAULT_MESSAGE = "should equal {reference}";
