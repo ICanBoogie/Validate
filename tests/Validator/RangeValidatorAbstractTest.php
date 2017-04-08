@@ -17,23 +17,23 @@ use ICanBoogie\Validate\ParameterIsMissing;
 /**
  * @small
  */
-class AbstractRangeValidatorTest extends \PHPUnit_Framework_TestCase
+class RangeValidatorAbstractTest extends \PHPUnit_Framework_TestCase
 {
 	public function test_normalize_params()
 	{
 		$validator = $this
-			->getMockBuilder(AbstractRangeValidator::class)
+			->getMockBuilder(RangeValidatorAbstract::class)
 			->getMockForAbstractClass();
 
-		/* @var $validator AbstractRangeValidator */
+		/* @var $validator RangeValidatorAbstract */
 
 		$min = mt_rand(10, 20);
 		$max = mt_rand(30, 40);
 
 		$this->assertSame([
 
-			AbstractRangeValidator::PARAM_MIN => $min,
-			AbstractRangeValidator::PARAM_MAX => $max,
+			RangeValidatorAbstract::PARAM_MIN => $min,
+			RangeValidatorAbstract::PARAM_MAX => $max,
 
 		], $validator->normalize_params([ $min, $max ]));
 	}
@@ -47,10 +47,10 @@ class AbstractRangeValidatorTest extends \PHPUnit_Framework_TestCase
 	public function test_should_throw_exception_on_missing_param(array $params, $missing)
 	{
 		$validator = $this
-			->getMockBuilder(AbstractRangeValidator::class)
+			->getMockBuilder(RangeValidatorAbstract::class)
 			->getMockForAbstractClass();
 
-		/* @var $validator AbstractRangeValidator */
+		/* @var $validator RangeValidatorAbstract */
 
 		try
 		{
@@ -72,8 +72,8 @@ class AbstractRangeValidatorTest extends \PHPUnit_Framework_TestCase
 	{
 		return [
 
-			[ [ AbstractRangeValidator::PARAM_MAX => 10 ], 'MIN' ],
-			[ [ AbstractRangeValidator::PARAM_MIN => 10 ], 'MAX' ],
+			[ [ RangeValidatorAbstract::PARAM_MAX => 10 ], 'MIN' ],
+			[ [ RangeValidatorAbstract::PARAM_MIN => 10 ], 'MAX' ],
 
 		];
 	}
@@ -81,28 +81,28 @@ class AbstractRangeValidatorTest extends \PHPUnit_Framework_TestCase
 	public function test_message_args()
 	{
 		$validator = $this
-			->getMockBuilder(AbstractRangeValidator::class)
+			->getMockBuilder(RangeValidatorAbstract::class)
 			->getMockForAbstractClass();
 
-		/* @var $validator AbstractRangeValidator */
+		/* @var $validator RangeValidatorAbstract */
 
 		$context = new Context;
 		$min = mt_rand(10, 20);
 		$max = mt_rand(30, 40);
 		$context->validator_params = [
 
-			AbstractRangeValidator::PARAM_MIN => $min,
-			AbstractRangeValidator::PARAM_MAX => $max,
+			RangeValidatorAbstract::PARAM_MIN => $min,
+			RangeValidatorAbstract::PARAM_MAX => $max,
 
 		];
 
 		$validator->validate(mt_rand(50, 60), $context);
 
-		$this->assertArrayHasKey(AbstractRangeValidator::MESSAGE_ARG_MIN, $context->message_args);
-		$this->assertArrayHasKey(AbstractRangeValidator::MESSAGE_ARG_MAX, $context->message_args);
-		$this->assertArrayHasKey(AbstractRangeValidator::MESSAGE_ARG_VALUE_TYPE, $context->message_args);
-		$this->assertSame($min, $context->message_args[AbstractRangeValidator::MESSAGE_ARG_MIN]);
-		$this->assertSame($max, $context->message_args[AbstractRangeValidator::MESSAGE_ARG_MAX]);
-		$this->assertSame('integer', $context->message_args[AbstractRangeValidator::MESSAGE_ARG_VALUE_TYPE]);
+		$this->assertArrayHasKey(RangeValidatorAbstract::MESSAGE_ARG_MIN, $context->message_args);
+		$this->assertArrayHasKey(RangeValidatorAbstract::MESSAGE_ARG_MAX, $context->message_args);
+		$this->assertArrayHasKey(RangeValidatorAbstract::MESSAGE_ARG_VALUE_TYPE, $context->message_args);
+		$this->assertSame($min, $context->message_args[RangeValidatorAbstract::MESSAGE_ARG_MIN]);
+		$this->assertSame($max, $context->message_args[RangeValidatorAbstract::MESSAGE_ARG_MAX]);
+		$this->assertSame('integer', $context->message_args[RangeValidatorAbstract::MESSAGE_ARG_VALUE_TYPE]);
 	}
 }

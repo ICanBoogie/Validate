@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\Validator;
 /**
  * Validates that a value is between two references.
  */
-class Between extends AbstractRangeValidator
+class Between extends RangeValidatorAbstract
 {
 	const ALIAS = 'between';
 	const DEFAULT_MESSAGE = "should be between `{min}` and `{max}`";
