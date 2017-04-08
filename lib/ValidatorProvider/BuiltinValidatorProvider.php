@@ -16,7 +16,7 @@ use ICanBoogie\Validate\Validator;
 /**
  * Provides aliases to builtin validators.
  */
-class BuiltinValidatorProvider extends ValidatorProviderAbstract
+class BuiltinValidatorProvider extends SimpleValidatorProvider
 {
 	/**
 	 * Alias mapping to builtin validators.
@@ -63,8 +63,8 @@ class BuiltinValidatorProvider extends ValidatorProviderAbstract
 	 *
 	 * @inheritdoc
 	 */
-	public function __construct(array $instances = [], array $aliases = [])
+	public function __construct(array $aliases = [])
 	{
-		parent::__construct($instances, $aliases + self::$builtin_validators);
+		parent::__construct($aliases + self::$builtin_validators);
 	}
 }

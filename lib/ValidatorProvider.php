@@ -22,6 +22,8 @@ interface ValidatorProvider
 	 * @param string $class_or_alias The class or alias of the validator.
 	 *
 	 * @return Validator
+	 *
+	 * @throws UndefinedValidator if the validator is not defined.
 	 */
 	public function __invoke($class_or_alias);
 }
