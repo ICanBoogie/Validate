@@ -283,12 +283,13 @@ context, and a value from the value reader:
 ```php
 <?php
 
-use ICanBoogie\Validate\Context
+use ICanBoogie\Validate\Context;
+use ICanBoogie\Validate\Validator\ValidatorAbstract;
 
-// …
-
+class SampleValidator extends ValidatorAbstract
+{
 	const PARAM_REFERENCE = 'reference';
-	const OPTION_STRICT = 'strict;
+	const OPTION_STRICT = 'strict';
 
 	/**
 	 * @inheritdoc
@@ -299,8 +300,108 @@ use ICanBoogie\Validate\Context
 		$strict = $context->option(self::OPTION_STRICT, false);
 		$other_value = $context->value('some_other_value');
 	}
+}
+```
 
-// …
+
+
+
+
+## Validator provider
+
+Validator instances are obtained using a _validator provider_. By default, an instance of
+[BuiltinValidatorProvider][] is used, but you can provide your own provider, or better, a provider
+collection.
+
+The following example demonstrates how to use the builtin provider:
+
+```php
+<?php
+
+use ICanBoogie\Validate\Validation;
+use ICanBoogie\Validate\ValidatorProvider\BuiltinValidatorProvider;
+
+/* @var $rules array */
+
+$builtin_validator_provider = new BuiltinValidatorProvider;
+$validation = new Validation($rules, $builtin_validator_provider);
+
+# or
+
+$validation = new Validation($rules);
+```
+
+The following example demonstrates how to provide your own `sample` validator: 
+
+```php
+<?php
+
+use ICanBoogie\Validate\UndefinedValidator;
+use ICanBoogie\Validate\Validation;
+use ICanBoogie\Validate\Validator;
+
+/* @var $sample_validator Validator */
+
+$rules = [ 'attribute' => $sample_validator::ALIAS ];
+$sample_validator_provider = function ($class_or_alias) use ($sample_validator) {
+
+	switch ($class_or_alias)
+	{
+		case get_class($sample_validator):
+		case $sample_validator::ALIAS:
+			return $sample_validator;
+
+		default:
+			throw new UndefinedValidator($class_or_alias);
+	}
+
+};
+
+$validation = new Validation($rules, $sample_validator_provider);
+```
+
+The following example demonstrates how to provide validators using a container:
+
+```php
+<?php
+
+use ICanBoogie\Validate\Validation;
+use ICanBoogie\Validate\ValidatorProvider\ContainerValidatorProvider;
+use Psr\Container\ContainerInterface;
+
+/* @var $rules array */
+/* @var $container ContainerInterface */
+
+$prefix = 'validator.';
+$container_validator_provider = new ContainerValidatorProvider($container, $prefix);
+
+$validation = new Validation($rules, $container_validator_provider);
+```
+
+The following example demonstrates how to use a number of providers as a collection:
+ 
+```php
+<?php
+
+use ICanBoogie\Validate\Validation;
+use ICanBoogie\Validate\ValidatorProvider\BuiltinValidatorProvider;
+use ICanBoogie\Validate\ValidatorProvider\ContainerValidatorProvider;
+use ICanBoogie\Validate\ValidatorProvider\ValidatorProviderCollection;
+
+/* @var $rules array */
+/* @var $container_validator_provider ContainerValidatorProvider */
+/* @var $sample_validator_provider callable */
+/* @var $builtin_validator_provider BuiltinValidatorProvider */
+
+$validator_provider_collection = new ValidatorProviderCollection([
+
+	$container_validator_provider,
+	$sample_validator_provider,
+	$builtin_validator_provider,
+
+]);
+ 
+$validation = new Validation($rules, $validator_provider_collection);
 ```
 
 
@@ -325,9 +426,7 @@ The package requires PHP 5.5 or later.
 
 The recommended way to install this package is through [Composer](http://getcomposer.org/):
 
-```
-$ composer require icanboogie/validate
-```
+	$ composer require icanboogie/validate
 
 
 
@@ -381,6 +480,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 
+[ICanBoogie]:                   https://icanboogie.org/
 [documentation]:                https://icanboogie.org/api/validate/master/
 [BuiltinValidatorProvider]:     https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.ValidatorProvider.BuiltinValidatorProvider.html
 [Context]:                      https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Context.html
