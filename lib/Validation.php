@@ -122,17 +122,7 @@ class Validation implements ValidatorOptions
 	{
 		foreach ($validators as $class_or_alias => $validator_params)
 		{
-			$context->value = $value = $context->value($attribute);
-			$context->validator = $validator = $this->create_validator($class_or_alias);
-			$context->validator_params = $validator->normalize_params($validator_params);
-			$context->message = $validator::DEFAULT_MESSAGE;
-			$context->message_args = [
-
-				Validator::MESSAGE_ARG_ATTRIBUTE => $attribute,
-				Validator::MESSAGE_ARG_VALUE => $value,
-				Validator::MESSAGE_ARG_VALIDATOR => get_class($validator),
-
-			];
+			list($value, $validator) = $this->prepare_context($context, $attribute, $class_or_alias, $validator_params);
 
 			if ($this->should_skip($context))
 			{
@@ -181,6 +171,31 @@ class Validation implements ValidatorOptions
 		$context->reader = $reader;
 
 		return $context;
+	}
+
+	/**
+	 * @param Context $context
+	 * @param string $attribute
+	 * @param string $validator
+	 * @param array $validator_params
+	 *
+	 * @return array value and validator
+	 */
+	protected function prepare_context(Context $context, $attribute, $validator, array $validator_params)
+	{
+		$context->value = $value = $context->value($attribute);
+		$context->validator = $validator = $this->create_validator($validator);
+		$context->validator_params = $validator->normalize_params($validator_params);
+		$context->message = $validator::DEFAULT_MESSAGE;
+		$context->message_args = [
+
+			Validator::MESSAGE_ARG_ATTRIBUTE => $attribute,
+			Validator::MESSAGE_ARG_VALUE => $value,
+			Validator::MESSAGE_ARG_VALIDATOR => get_class($validator),
+
+		];
+
+		return [ $value, $validator ];
 	}
 
 	/**
