@@ -16,7 +16,7 @@ use ICanBoogie\Validate\Validator;
 /**
  * Provides aliases to builtin validators.
  */
-class BuiltinValidatorProvider extends AbstractValidatorProvider
+class BuiltinValidatorProvider extends ValidatorProviderAbstract
 {
 	/**
 	 * Alias mapping to builtin validators.

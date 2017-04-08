@@ -17,7 +17,7 @@ use ICanBoogie\Validate\ValidatorProvider;
 /**
  * Abstract class for validator provider.
  */
-abstract class AbstractValidatorProvider implements ValidatorProvider
+abstract class ValidatorProviderAbstract implements ValidatorProvider
 {
 	/**
 	 * @var Validator[]
