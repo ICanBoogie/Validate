@@ -11,6 +11,7 @@
 
 namespace ICanBoogie\Validate;
 
+use ICanBoogie\Validate\Validator\Required;
 use ICanBoogie\Validate\ValidatorProvider\BuiltinValidatorProvider;
 
 /**
@@ -101,9 +102,15 @@ class Validation implements ValidatorOptions
 
 		foreach ($this->validations as $attribute => $validators)
 		{
-			/* @var $attribute string */
-
 			$context->attribute = $attribute;
+			$context->value = $value = $context->value($attribute);
+
+			$validators = $this->resolve_validators($validators, $contains_required);
+
+			if (!$contains_required && Required::is_empty($value))
+			{
+				continue;
+			}
 
 			$this->validate_attribute($attribute, $validators, $context);
 		}
@@ -120,23 +127,26 @@ class Validation implements ValidatorOptions
 	 */
 	protected function validate_attribute($attribute, array $validators, Context $context)
 	{
-		foreach ($validators as $class_or_alias => $validator_params)
+		/* @var $validator Validator */
+		/* @var $validator_params array */
+
+		foreach ($validators as list($validator, $validator_params))
 		{
-			list($value, $validator) = $this->prepare_context($context, $attribute, $class_or_alias, $validator_params);
+			$this->prepare_context($context, $attribute, $validator, $validator_params);
 
 			if ($this->should_skip($context))
 			{
-				return;
+				continue;
 			}
 
-			if (!$validator->validate($value, $context))
+			if (!$validator->validate($context->value, $context))
 			{
 				$this->error($context);
 			}
 
 			if ($this->should_stop($context))
 			{
-				break;
+				return;
 			}
 		}
 	}
@@ -176,26 +186,21 @@ class Validation implements ValidatorOptions
 	/**
 	 * @param Context $context
 	 * @param string $attribute
-	 * @param string $validator
+	 * @param Validator $validator
 	 * @param array $validator_params
-	 *
-	 * @return array value and validator
 	 */
-	protected function prepare_context(Context $context, $attribute, $validator, array $validator_params)
+	protected function prepare_context(Context $context, $attribute, Validator $validator, array $validator_params)
 	{
-		$context->value = $value = $context->value($attribute);
-		$context->validator = $validator = $this->create_validator($validator);
+		$context->validator = $validator;
 		$context->validator_params = $validator->normalize_params($validator_params);
 		$context->message = $validator::DEFAULT_MESSAGE;
 		$context->message_args = [
 
 			Validator::MESSAGE_ARG_ATTRIBUTE => $attribute,
-			Validator::MESSAGE_ARG_VALUE => $value,
+			Validator::MESSAGE_ARG_VALUE => $context->value,
 			Validator::MESSAGE_ARG_VALIDATOR => get_class($validator),
 
 		];
-
-		return [ $value, $validator ];
 	}
 
 	/**
@@ -264,13 +269,40 @@ class Validation implements ValidatorOptions
 	}
 
 	/**
+	 * @param array $validators
+	 * @param bool $contains_required A reference to a variable to will get a boolean whether the
+	 * validators contains a {@link Required} validator.
+	 *
+	 * @return array
+	 */
+	protected function resolve_validators(array $validators, &$contains_required = false)
+	{
+		$contains_required = false;
+
+		array_walk($validators, function (&$params, $class_or_alias) use (&$contains_required) {
+
+			$validator = $this->resolve_validator($class_or_alias);
+
+			if ($validator instanceof Required)
+			{
+				$contains_required = true;
+			}
+
+			$params = [ $validator, $params ];
+
+		});
+
+		return $validators;
+	}
+
+	/**
 	 * Creates a validator.
 	 *
 	 * @param string $class_or_alias The class or alias of the validator.
 	 *
 	 * @return Validator
 	 */
-	protected function create_validator($class_or_alias)
+	protected function resolve_validator($class_or_alias)
 	{
 		$provider = $this->validator_provider;
 

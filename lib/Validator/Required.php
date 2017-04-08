@@ -23,6 +23,31 @@ class Required extends ValidatorAbstract
 	const DEFAULT_MESSAGE = "is required";
 
 	/**
+	 * Whether a given value is empty.
+	 *
+	 * The following values are considered empty: an empty array, an empty trimmed string, `null`.
+	 * `false` and `0` are considered like valid values.
+	 *
+	 * @param mixed $value
+	 *
+	 * @return bool
+	 */
+	static public function is_empty($value)
+	{
+		if (is_array($value))
+		{
+			return !count($value);
+		}
+
+		if (is_string($value))
+		{
+			return trim($value) === '';
+		}
+
+		return $value === null;
+	}
+
+	/**
 	 * @inheritdoc
 	 */
 	public function normalize_params(array $params)
@@ -39,16 +64,6 @@ class Required extends ValidatorAbstract
 	 */
 	public function validate($value, Context $context)
 	{
-		if (is_array($value))
-		{
-			return count($value) > 0;
-		}
-
-		if (is_string($value))
-		{
-			return trim($value) !== '';
-		}
-
-		return $value !== null;
+		return !self::is_empty($value);
 	}
 }

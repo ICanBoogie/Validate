@@ -20,31 +20,24 @@ use ICanBoogie\Validate\Reader\ArrayAdapter;
  */
 class ValidationTest extends \PHPUnit_Framework_TestCase
 {
-	public function test_custom_message()
+	public function test_should_not_validate_empty_value()
 	{
-		$validation = new Validation([
+		$attribute = uniqid();
+		$validation = new Validation([ $attribute => 'timezone' ]);
+		$errors = $validation->validate(new ArrayAdapter([ $attribute => ' ' ]));
 
-			'email' => [
+		$this->assertCount(0, $errors);
+	}
 
-				Email::class => [
+	public function test_should_validate_empty_value_if_required()
+	{
+		$attribute = uniqid();
+		$validation = new Validation([ $attribute => 'required|timezone' ]);
+		$errors = $validation->validate(new ArrayAdapter([ $attribute => ' ' ]));
 
-					Email::OPTION_MESSAGE => "{value} is not a valid email address."
+		$this->assertSame([
 
-				]
-
-			]
-
-		]);
-
-		$errors = $validation->validate(new ArrayAdapter([
-
-			'email' => 'person'
-
-		]));
-
-		$this->assertEquals([
-
-			'email' => [ "person is not a valid email address." ]
+			$attribute => [ Required::DEFAULT_MESSAGE ]
 
 		], $this->stringify_errors($errors));
 	}
@@ -173,13 +166,8 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 			'email' => [
 
-				Required::class => [
-
-					Required::OPTION_STOP_ON_ERROR => true
-
-				],
-
-				Email::class => []
+				Required::class => [],
+				Email::class => [],
 
 			]
 
@@ -190,6 +178,35 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals([
 
 			'email' => [ Required::DEFAULT_MESSAGE ]
+
+		], $this->stringify_errors($errors));
+	}
+
+	public function test_custom_message()
+	{
+		$validation = new Validation([
+
+			'email' => [
+
+				Email::class => [
+
+					Email::OPTION_MESSAGE => "{value} is not a valid email address."
+
+				]
+
+			]
+
+		]);
+
+		$errors = $validation->validate(new ArrayAdapter([
+
+			'email' => 'person'
+
+		]));
+
+		$this->assertEquals([
+
+			'email' => [ "person is not a valid email address." ]
 
 		], $this->stringify_errors($errors));
 	}
@@ -239,14 +256,13 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 			[ Validator\MinLength::class,        [ 3 ], "ab", "should be at least 3 characters long" ],
 			[ Validator\NotBetween::class,       [ 1, 3 ], 2, "should not be between `1` and `3`" ],
 			[ Validator\NotBetweenLength::class, [ 3, 10 ], "abcd", "should not be between 3 and 10 characters long" ],
-			[ Validator\NotBlank::class,         [], '', Validator\NotBlank::DEFAULT_MESSAGE ],
+			[ Validator\NotBlank::class,         [], false, Validator\NotBlank::DEFAULT_MESSAGE ],
 			[ Validator\NotEqual::class,         [ 3 ], 3, "should not equal 3" ],
 			[ Validator\NotIdentical::class,     [ 3 ], 3, "should not be identical to (integer) `3`" ],
-			[ Validator\NotNull::class,          [], null, Validator\NotNull::DEFAULT_MESSAGE ],
 			[ Validator\Regex::class,            [ '/^\d+$/' ], "abcd", "`abcd` does not match pattern" ],
 			[ Validator\Required::class,         [], null, Validator\Required::DEFAULT_MESSAGE ],
 			[ Validator\TimeZone::class,         [], 'Europe/Pas', "`Europe/Pas` is not a valid time zone, did you mean `Europe/Paris`?" ],
-			[ Validator\Type::class,             [ 'integer' ], null, "should be of type integer" ],
+			[ Validator\Type::class,             [ 'integer' ], "abc", "should be of type integer" ],
 			[ Validator\URL::class,              [], 'icanboogie.org', "`icanboogie.org` is not a valid URL" ],
 
 		];

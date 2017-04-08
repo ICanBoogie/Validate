@@ -86,11 +86,13 @@ array(1) {
     public $format =>
     string(46) "should be at least {reference} characters long"
     public $args =>
-    array(3) {
-      'value' =>
-      string(2) "Ol"
+    array(4) {
       'attribute' =>
       string(4) "name"
+      'value' =>
+      string(2) "Ol"
+      'validator' =>
+      string(39) "ICanBoogie\Validate\Validator\MinLength"
       'reference' =>
       string(1) "3"
     }
@@ -150,6 +152,42 @@ $validation = new Validation([
 		Validator\MinLength::class => [ Validator\MinLength::PARAM_REFERENCE => 3 ],
 	]
 ]);
+```
+
+
+
+
+
+### Empty values, required attributes
+
+It is important to know that validators are not run on empty values, unless the `required` validator
+is used too. The following values are considered _empty_: `null`, an empty array, an empty trimmed
+string; but `false` and `0` are considered valid values.
+
+The following example demonstrates how `required` influences validation:
+
+```php
+<?php
+
+use ICanBoogie\Validate\Reader\ArrayAdapter;
+use ICanBoogie\Validate\Validation;
+
+$validation = new Validation([
+
+	'required_tz' => 'required|timezone',
+	'optional_tz' => 'timezone',
+
+]);
+
+$errors =$validation->validate(new ArrayAdapter([
+
+	'required_tz' => '',
+	'optional_tz' => '',
+
+]));
+
+isset($errors['required_tz']); // true
+isset($errors['optional_tz']); // false
 ```
 
 
