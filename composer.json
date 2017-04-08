@@ -2,7 +2,10 @@
 	"name": "icanboogie/validate",
 	"type": "library",
 	"description": "Validate data against a set of rules",
-	"keywords": [ "validate", "assert" ],
+	"keywords": [
+		"validate",
+		"assert"
+	],
 	"homepage": "http://icanboogie.org/",
 	"license": "BSD-3-Clause",
 	"authors": [
@@ -10,7 +13,7 @@
 			"name": "Olivier Laviale",
 			"email": "olivier.laviale@gmail.com",
 			"homepage": "http://www.weirdog.com/",
-			"role" : "Developer"
+			"role": "Developer"
 		}
 	],
 	"support": {
@@ -19,7 +22,7 @@
 	},
 	"minimum-stability": "dev",
 	"require": {
-		"php": ">=5.5.0"
+		"php": "^5.5 || ^7.0"
 	},
 	"require-dev": {
 		"icanboogie/errors": "^2.0"
@@ -27,6 +30,11 @@
 	"autoload": {
 		"psr-4": {
 			"ICanBoogie\\Validate\\": "lib/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"ICanBoogie\\Validate\\": "tests/"
 		}
 	}
 }
