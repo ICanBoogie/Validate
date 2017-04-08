@@ -16,7 +16,7 @@ use ICanBoogie\Validate\Context;
 /**
  * Validates that a value is `null`.
  */
-class IsNull extends AbstractValidator
+class IsNull extends ValidatorAbstract
 {
 	const ALIAS = 'is-null';
 	const DEFAULT_MESSAGE = "should be null";

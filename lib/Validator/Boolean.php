@@ -16,7 +16,7 @@ use ICanBoogie\Validate\Context;
 /**
  * Validates that a value is false.
  */
-class Boolean extends AbstractValidator
+class Boolean extends ValidatorAbstract
 {
 	const ALIAS = 'boolean';
 	const DEFAULT_MESSAGE = "should be a boolean";

@@ -16,7 +16,7 @@ use ICanBoogie\Validate\Context;
 /**
  * Validates that a value is blank.
  */
-class NotBlank extends AbstractValidator
+class NotBlank extends ValidatorAbstract
 {
 	const ALIAS = 'not-blank';
 	const DEFAULT_MESSAGE = "should not be blank";

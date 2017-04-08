@@ -16,7 +16,7 @@ use ICanBoogie\Validate\Context;
 /**
  * Validates that a value is of a specific type.
  */
-class Type extends AbstractValidator
+class Type extends ValidatorAbstract
 {
 	const ALIAS = 'type';
 	const DEFAULT_MESSAGE = "should be of type {type}";

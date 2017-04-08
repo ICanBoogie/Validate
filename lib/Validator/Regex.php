@@ -16,7 +16,7 @@ use ICanBoogie\Validate\Context;
 /**
  * Validates that a value matches a regular expression.
  */
-class Regex extends AbstractValidator
+class Regex extends ValidatorAbstract
 {
 	const ALIAS = 'regex';
 	const DEFAULT_MESSAGE = "`{value}` does not match pattern";

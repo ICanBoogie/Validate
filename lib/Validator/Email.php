@@ -16,7 +16,7 @@ use ICanBoogie\Validate\Context;
 /**
  * Validates that a value is a valid email address.
  */
-class Email extends AbstractValidator
+class Email extends ValidatorAbstract
 {
 	const ALIAS = 'email';
 	const DEFAULT_MESSAGE = "`{value}` is not a valid email address";

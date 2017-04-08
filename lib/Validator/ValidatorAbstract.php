@@ -17,7 +17,7 @@ use ICanBoogie\Validate\Validator;
 /**
  * Abstract validator.
  */
-abstract class AbstractValidator implements Validator
+abstract class ValidatorAbstract implements Validator
 {
 	/**
 	 * @inheritdoc

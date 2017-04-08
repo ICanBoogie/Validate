@@ -16,7 +16,7 @@ use ICanBoogie\Validate\Context;
 /**
  * Validates that a value is a valid URL.
  */
-class URL extends AbstractValidator
+class URL extends ValidatorAbstract
 {
 	const ALIAS = 'url';
 	const DEFAULT_MESSAGE = "`{value}` is not a valid URL";

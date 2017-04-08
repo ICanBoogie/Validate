@@ -17,7 +17,7 @@ use ICanBoogie\Validate\Render;
 /**
  * Abstract for classes implementing value comparison.
  */
-abstract class AbstractComparisonValidator extends AbstractValidator
+abstract class AbstractComparisonValidator extends ValidatorAbstract
 {
 	const PARAM_REFERENCE = 'reference';
 

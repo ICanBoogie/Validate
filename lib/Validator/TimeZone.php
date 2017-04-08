@@ -19,7 +19,7 @@ use ICanBoogie\Validate\Context;
  * **Note:** This class validates _time zone_ such as "Europe/Paris" **NOT** _time zone offsets_
  * such as "+02:00".
  */
-class TimeZone extends AbstractValidator
+class TimeZone extends ValidatorAbstract
 {
 	const ALIAS = 'timezone';
 	const DEFAULT_MESSAGE = "`{value}` is not a valid time zone, did you mean `{suggestion}`?";

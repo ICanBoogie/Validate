@@ -16,7 +16,7 @@ use ICanBoogie\Validate\Context;
 /**
  * @small
  */
-class SampleValidator extends AbstractValidator
+class SampleValidator extends ValidatorAbstract
 {
 	const ALIAS = 'sample';
 	const DEFAULT_MESSAGE = 'is not sample';

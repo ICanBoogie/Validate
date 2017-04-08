@@ -17,7 +17,7 @@ use ICanBoogie\Validate\Context;
  * States that a value is required. When the value is not present the validator issues an error
  * and stops validation of the value, that is on error no other validator is run.
  */
-class Required extends AbstractValidator
+class Required extends ValidatorAbstract
 {
 	const ALIAS = 'required';
 	const DEFAULT_MESSAGE = "is required";

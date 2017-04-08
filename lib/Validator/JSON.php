@@ -16,7 +16,7 @@ use ICanBoogie\Validate\Context;
 /**
  * Validates that a value is a JSON string.
  */
-class JSON extends AbstractValidator
+class JSON extends ValidatorAbstract
 {
 	const ALIAS = 'json';
 	const DEFAULT_MESSAGE = 'should be a valid JSON string';
