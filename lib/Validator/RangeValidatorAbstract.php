@@ -17,7 +17,7 @@ use ICanBoogie\Validate\Render;
 /**
  * Abstract for classes implementing rane comparison.
  */
-abstract class AbstractRangeValidator extends ValidatorAbstract
+abstract class RangeValidatorAbstract extends ValidatorAbstract
 {
 	const PARAM_MIN = 'min';
 	const PARAM_MAX = 'max';
