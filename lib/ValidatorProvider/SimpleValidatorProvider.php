@@ -11,31 +11,29 @@
 
 namespace ICanBoogie\Validate\ValidatorProvider;
 
+use ICanBoogie\Validate\UndefinedValidator;
 use ICanBoogie\Validate\Validator;
-use ICanBoogie\Validate\ValidatorProvider;
 
 /**
- * Abstract class for validator provider.
+ * Provide simple validators, without dependencies.
  */
-abstract class ValidatorProviderAbstract implements ValidatorProvider
+class SimpleValidatorProvider
 {
-	/**
-	 * @var Validator[]
-	 */
-	private $instances = [];
-
 	/**
 	 * @var array
 	 */
 	private $aliases = [];
 
 	/**
-	 * @param Validator[] $instances
+	 * @var Validator[]
+	 */
+	private $instances = [];
+
+	/**
 	 * @param array $aliases
 	 */
-	public function __construct(array $instances = [], array $aliases = [])
+	public function __construct(array $aliases)
 	{
-		$this->instances = $instances;
 		$this->aliases = $aliases;
 	}
 
@@ -75,6 +73,11 @@ abstract class ValidatorProviderAbstract implements ValidatorProvider
 	 */
 	protected function instantiate($class)
 	{
+		if (!class_exists($class))
+		{
+			throw new UndefinedValidator($class);
+		}
+
 		return new $class;
 	}
 }

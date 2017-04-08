@@ -12,13 +12,34 @@
 namespace ICanBoogie\Validate\ValidatorProvider;
 
 use ICanBoogie\Validate\Validator;
-use ICanBoogie\Validate\Validator\SampleValidator;
 
 /**
  * @medium
  */
 class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 {
+	/**
+	 * @var BuiltinValidatorProvider
+	 */
+	private $provider;
+
+	public function setUp()
+	{
+		if (!$this->provider)
+		{
+			$this->provider = new BuiltinValidatorProvider;
+		}
+	}
+
+	/**
+	 * @expectedException \ICanBoogie\Validate\UndefinedValidator
+	 */
+	public function test_should_throw_exception_if_validator_is_not_defined()
+	{
+		$provider = $this->provider;
+		$provider(uniqid());
+	}
+
 	/**
 	 * @dataProvider provide_test_alias_mapping
 	 *
@@ -27,45 +48,22 @@ class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_alias_mapping($class, $alias)
 	{
-		$provider = new BuiltinValidatorProvider;
+		$provider = $this->provider;
 		$validator = $provider($class);
 		$this->assertInstanceOf($class, $validator);
 		$this->assertSame($validator, $provider($alias));
 	}
 
+	/**
+	 * @return array
+	 */
 	public function provide_test_alias_mapping()
 	{
-		$alias = [];
+		return array_map(function ($class) {
 
-		foreach ($this->getValidators() as $class)
-		{
-			$alias[] = [ $class, $class::ALIAS ];
-		}
+			return [ $class, $class::ALIAS ];
 
-		return $alias;
-	}
-
-	public function test_custom_validator()
-	{
-		$validator = new SampleValidator;
-
-		$provider = new BuiltinValidatorProvider([
-
-			SampleValidator::class => $validator
-
-		], [
-
-			SampleValidator::ALIAS => SampleValidator::class
-
-		]);
-
-		$this->assertSame($validator, $provider(SampleValidator::ALIAS));
-		$this->assertSame($validator, $provider(SampleValidator::class));
-	}
-
-	protected function getValidators()
-	{
-		return [
+		}, [
 
 			Validator\Between::class,
 			Validator\BetweenLength::class,
@@ -94,6 +92,6 @@ class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 			Validator\Type::class,
 			Validator\URL::class,
 
-		];
+		]);
 	}
 }
