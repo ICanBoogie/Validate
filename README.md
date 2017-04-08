@@ -1,8 +1,7 @@
 # Validate
 
 [![Release](https://img.shields.io/packagist/v/icanboogie/validate.svg)](https://packagist.org/packages/icanboogie/validate)
-[![Build Status](https://img.shields.io/travis/ICanBoogie/Validate/master.svg)](http://travis-ci.org/ICanBoogie/Validate)
-[![HHVM](https://img.shields.io/hhvm/icanboogie/validate.svg)](http://hhvm.h4cc.de/package/icanboogie/validate)
+[![Build Status](https://img.shields.io/travis/ICanBoogie/Validate.svg)](http://travis-ci.org/ICanBoogie/Validate)
 [![Code Quality](https://img.shields.io/scrutinizer/g/icanboogie/validate.svg)](https://scrutinizer-ci.com/g/ICanBoogie/Validate)
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Validate.svg)](https://coveralls.io/r/ICanBoogie/Validate)
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/validate.svg)](https://packagist.org/packages/icanboogie/validate)
@@ -382,39 +381,39 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 
-[documentation]:                http://api.icanboogie.org/validate/latest/
-[BuiltinValidatorProvider]:     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidatorProvider.BuiltinValidatorProvider.html
-[Context]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Context.html
-[Reader]:                       http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Reader.html
-[Validation]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.html
-[IfCallable]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.IfCallable.html
-[UnlessCallable]:               http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validation.UnlessCallable.html
-[ValidationErrors]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidationErrors.html
-[ValidationFailed]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.ValidationFailed.html
+[documentation]:                https://icanboogie.org/api/validate/master/
+[BuiltinValidatorProvider]:     https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.ValidatorProvider.BuiltinValidatorProvider.html
+[Context]:                      https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Context.html
+[Reader]:                       https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Reader.html
+[Validation]:                   https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validation.html
+[IfCallable]:                   https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validation.IfCallable.html
+[UnlessCallable]:               https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validation.UnlessCallable.html
+[ValidationErrors]:             https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.ValidationErrors.html
+[ValidationFailed]:             https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.ValidationFailed.html
 
-[Between]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Between.html
-[BetweenLength]:                http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.BetweenLength.html
-[Blank]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Blank.html
-[Boolean]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Boolean.html
-[Email]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Email.html
-[Equal]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Equal.html
-[Identical]:                    http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Identical.html
-[IsFalse]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsFalse.html
-[IsNull]:                       http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsNull.html
-[IsTrue]:                       http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.IsTrue.html
-[JSON]:                         http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.JSON.html
-[Max]:                          http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Max.html
-[MaxLength]:                    http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.MaxLength.html
-[Min]:                          http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Min.html
-[MinLength]:                    http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.MinLength.html
-[NotBetween]:                   http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotBetween.html
-[NotBetweenLength]:             http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotBetweenLength.html
-[NotBlank]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotBlank.html
-[NotEqual]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotEqual.html
-[NotIdentical]:                 http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotIdentical.html
-[NotNull]:                      http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.NotNull.html
-[Regex]:                        http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Regex.html
-[Required]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Required.html
-[TimeZone]:                     http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.TimeZone.html
-[Type]:                         http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.Type.html
-[URL]:                          http://api.icanboogie.org/validate/latest/class-ICanBoogie.Validate.Validator.URL.html
+[Between]:                      https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.Between.html
+[BetweenLength]:                https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.BetweenLength.html
+[Blank]:                        https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.Blank.html
+[Boolean]:                      https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.Boolean.html
+[Email]:                        https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.Email.html
+[Equal]:                        https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.Equal.html
+[Identical]:                    https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.Identical.html
+[IsFalse]:                      https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.IsFalse.html
+[IsNull]:                       https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.IsNull.html
+[IsTrue]:                       https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.IsTrue.html
+[JSON]:                         https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.JSON.html
+[Max]:                          https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.Max.html
+[MaxLength]:                    https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.MaxLength.html
+[Min]:                          https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.Min.html
+[MinLength]:                    https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.MinLength.html
+[NotBetween]:                   https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.NotBetween.html
+[NotBetweenLength]:             https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.NotBetweenLength.html
+[NotBlank]:                     https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.NotBlank.html
+[NotEqual]:                     https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.NotEqual.html
+[NotIdentical]:                 https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.NotIdentical.html
+[NotNull]:                      https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.NotNull.html
+[Regex]:                        https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.Regex.html
+[Required]:                     https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.Required.html
+[TimeZone]:                     https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.TimeZone.html
+[Type]:                         https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.Type.html
+[URL]:                          https://icanboogie.org/api/validate/master/class-ICanBoogie.Validate.Validator.URL.html
