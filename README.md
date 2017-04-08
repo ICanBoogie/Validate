@@ -144,8 +144,6 @@ $validation = new Validation([
 
 # or
 
-use ICanBoogie\Validate\Validator;
-
 $validation = new Validation([
 	'name' => [
 		Validator\Required::class => [],
@@ -167,6 +165,9 @@ failed, an empty array otherwise.
 <?php
 
 use ICanBoogie\Validate\Reader\RequestAdapter;
+use ICanBoogie\Validate\Validation;
+
+/* @var $validation Validation */
 
 $errors = $validation->validate(new RequestAdapter($_POST));
 
@@ -194,8 +195,11 @@ The validation errors may be retrieved from the exception using its `errors` pro
 ```php
 <?php
 
+use ICanBoogie\Validate\Validation;
 use ICanBoogie\Validate\ValidationFailed;
 use ICanBoogie\Validate\Reader\RequestAdapter;
+
+/* @var $validation Validation */
 
 try
 {
@@ -242,10 +246,10 @@ $validation = new Validation([
 		Required::class => [
 			Required::OPTION_MESSAGE => "An email address must be supplied if your wish to register.",
 			Required::OPTION_IF => function(Context $context) {
-				return $context->value('name')
+				return $context->value('name');
 			},
 			Required::OPTION_UNLESS => function(Context $context) {
-				return !$context->value('register')
+				return !$context->value('register');
 			},
 			Required::OPTION_STOP_ON_ERROR => true // already defined by Require
 		],
