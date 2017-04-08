@@ -39,6 +39,16 @@ class Required extends ValidatorAbstract
 	 */
 	public function validate($value, Context $context)
 	{
-		return $value !== null || (is_array($value) && count($value)) || (is_scalar($value) && trim($value) !== '');
+		if (is_array($value))
+		{
+			return count($value) > 0;
+		}
+
+		if (is_string($value))
+		{
+			return trim($value) !== '';
+		}
+
+		return $value !== null;
 	}
 }
