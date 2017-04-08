@@ -52,7 +52,7 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 
 		if ($value_type)
 		{
-			$this->assertEquals($value_type, $this->context->message_args[AbstractComparisonValidator::MESSAGE_ARG_VALUE_TYPE]);
+			$this->assertEquals($value_type, $this->context->message_args[ComparisonValidatorAbstract::MESSAGE_ARG_VALUE_TYPE]);
 		}
 	}
 
@@ -75,7 +75,7 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 
 		if ($value_type)
 		{
-			$this->assertEquals($value_type, $this->context->message_args[AbstractComparisonValidator::MESSAGE_ARG_VALUE_TYPE]);
+			$this->assertEquals($value_type, $this->context->message_args[ComparisonValidatorAbstract::MESSAGE_ARG_VALUE_TYPE]);
 		}
 	}
 

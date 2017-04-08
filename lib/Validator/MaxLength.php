@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\Validator;
 /**
  * Validates that a value has a maximum length.
  */
-class MaxLength extends AbstractComparisonValidator
+class MaxLength extends ComparisonValidatorAbstract
 {
 	const ALIAS = 'max-length';
 	const DEFAULT_MESSAGE = "should be at most {reference} characters long";

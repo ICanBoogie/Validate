@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\Validator;
 /**
  * Validates that a value is not identical to a reference.
  */
-class NotIdentical extends AbstractComparisonValidator
+class NotIdentical extends ComparisonValidatorAbstract
 {
 	const ALIAS = 'not-identical';
 	const DEFAULT_MESSAGE = "should not be identical to ({value_type}) `{reference}`";

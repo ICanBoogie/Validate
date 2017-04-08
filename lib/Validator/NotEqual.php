@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\Validator;
 /**
  * Validates that a value does not equal a reference.
  */
-class NotEqual extends AbstractComparisonValidator
+class NotEqual extends ComparisonValidatorAbstract
 {
 	const ALIAS = 'not-equal';
 	const DEFAULT_MESSAGE = "should not equal {reference}";

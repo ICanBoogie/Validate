@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\Validator;
 /**
  * Validates that a value has a maximum value.
  */
-class Max extends AbstractComparisonValidator
+class Max extends ComparisonValidatorAbstract
 {
 	const ALIAS = 'max';
 	const DEFAULT_MESSAGE = "should be at most {reference}";
