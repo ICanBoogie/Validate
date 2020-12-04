@@ -22,9 +22,8 @@
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
-	"prefer-dist": true,
 	"require": {
-		"php": "^5.5 || ^7.0"
+		"php": ">=5.5"
 	},
 	"require-dev": {
 		"icanboogie/errors": "^2.0",
