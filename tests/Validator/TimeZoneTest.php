@@ -29,8 +29,8 @@ class TimeZoneTest extends ValidatorTestCase
 		];
 	}
 
-	public function provide_test_invalid_values()
-	{
+	public function provide_test_invalid_values(): array
+    {
 		return [
 			[ 'Paris' ],
 			[ 'Tokyo' ],

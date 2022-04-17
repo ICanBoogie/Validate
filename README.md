@@ -373,7 +373,7 @@ $validation = new Validation($rules, $builtin_validator_provider);
 $validation = new Validation($rules);
 ```
 
-The following example demonstrates how to provide your own `sample` validator: 
+The following example demonstrates how to provide your own `sample` validator:
 
 ```php
 <?php
@@ -421,7 +421,7 @@ $validation = new Validation($rules, $container_validator_provider);
 ```
 
 The following example demonstrates how to use a number of providers as a collection:
- 
+
 ```php
 <?php
 
@@ -442,7 +442,7 @@ $validator_provider_collection = new ValidatorProviderCollection([
 	$builtin_validator_provider,
 
 ]);
- 
+
 $validation = new Validation($rules, $validator_provider_collection);
 ```
 
@@ -451,14 +451,6 @@ $validation = new Validation($rules, $validator_provider_collection);
 
 
 ----------
-
-
-
-
-
-## Requirements
-
-The package requires PHP 5.5 or later.
 
 
 

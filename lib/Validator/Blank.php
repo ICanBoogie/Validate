@@ -36,6 +36,6 @@ class Blank extends ValidatorAbstract
 			return false;
 		}
 
-		return trim($value) === '';
+		return trim($value ?? '') === '';
 	}
 }

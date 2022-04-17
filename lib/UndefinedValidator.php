@@ -11,12 +11,14 @@
 
 namespace ICanBoogie\Validate;
 
+use LogicException;
+
 /**
  * Exception throw if a validator is not defined.
  *
  * @property-read string $class_or_alias
  */
-class UndefinedValidator extends \LogicException
+class UndefinedValidator extends LogicException
 {
 	/**
 	 * @var string
@@ -43,7 +45,7 @@ class UndefinedValidator extends \LogicException
 			return $this->class_or_alias;
 		}
 
-		throw new \LogicException("Undefined or inaccessible property: $name.");
+		throw new LogicException("Undefined or inaccessible property: $name.");
 	}
 
 	/**

@@ -11,9 +11,11 @@
 
 namespace ICanBoogie\Validate;
 
-class UndefinedValidatorTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class UndefinedValidatorTest extends TestCase
 {
-	public function test_exception()
+	public function test_exception(): void
 	{
 		$class_or_alias = uniqid();
 		$previous = new \Exception();
@@ -23,12 +25,10 @@ class UndefinedValidatorTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($previous, $exception->getPrevious());
 	}
 
-	/**
-	 * @expectedException \LogicException
-	 */
-	public function test_should_throw_exception_on_getting_undefined_property()
+	public function test_should_throw_exception_on_getting_undefined_property(): void
 	{
 		$exception = new UndefinedValidator(uniqid());
+		$this->expectException(\LogicException::class);
 		$exception->{ uniqid() };
 	}
 }

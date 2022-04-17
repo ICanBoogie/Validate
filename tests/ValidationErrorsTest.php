@@ -16,7 +16,7 @@ use ICanBoogie\ErrorCollection;
 /**
  * @small
  */
-class ValidationErrorsTest extends \PHPUnit_Framework_TestCase
+class ValidationErrorsTest extends \PHPUnit\Framework\TestCase
 {
 	public function test_from()
 	{

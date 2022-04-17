@@ -25,8 +25,8 @@ class BetweenTest extends RangeValidatorTestCase
 	/**
 	 * @inheritdoc
 	 */
-	public function provide_test_invalid_values()
-	{
+	public function provide_test_invalid_values(): array
+    {
 		return [
 
 			[ null, [ -1, 1 ] ],

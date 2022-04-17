@@ -97,7 +97,8 @@ class Context
 	{
 		if (!isset($this->validator_params[$name]))
 		{
-			throw new ParameterIsMissing(get_class($this->validator) . '::PARAM_' . strtoupper($name));
+			// @TODO: FIXME
+			throw new ParameterIsMissing(/*get_class($this->validator) . */'::PARAM_' . strtoupper($name));
 		}
 
 		return $this->validator_params[$name];

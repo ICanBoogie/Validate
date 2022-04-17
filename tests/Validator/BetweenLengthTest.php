@@ -23,7 +23,7 @@ class BetweenLengthTest extends RangeValidatorTestCase
 	/**
 	 * @inheritdoc
 	 */
-	public function provide_test_invalid_values()
+	public function provide_test_invalid_values(): array
 	{
 		return [
 

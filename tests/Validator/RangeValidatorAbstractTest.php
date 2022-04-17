@@ -17,7 +17,7 @@ use ICanBoogie\Validate\ParameterIsMissing;
 /**
  * @small
  */
-class RangeValidatorAbstractTest extends \PHPUnit_Framework_TestCase
+class RangeValidatorAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	public function test_normalize_params()
 	{

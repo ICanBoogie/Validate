@@ -11,8 +11,10 @@
 
 namespace ICanBoogie\Validate\ValidatorProvider;
 
+use ArrayIterator;
 use ICanBoogie\Validate\UndefinedValidator;
 use ICanBoogie\Validate\ValidatorProvider;
+use Traversable;
 
 /**
  * A collection of validator providers.
@@ -53,16 +55,14 @@ class ValidatorProviderCollection implements ValidatorProvider, \IteratorAggrega
 	}
 
 	/**
-	 * @return ValidatorProvider[]|\Iterator
+	 * @return Traversable<ValidatorProvider>
 	 */
-	public function getIterator()
+	public function getIterator(): Traversable
 	{
-		return new \ArrayIterator($this->providers);
+		return new ArrayIterator($this->providers);
 	}
 
 	/**
-	 * @param callable $provider
-	 *
 	 * @return $this
 	 */
 	public function add(callable $provider)

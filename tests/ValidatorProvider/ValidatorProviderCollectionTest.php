@@ -14,18 +14,16 @@ namespace ICanBoogie\Validate\ValidatorProvider;
 use ICanBoogie\Validate\UndefinedValidator;
 use ICanBoogie\Validate\Validator\SampleValidator;
 
-class ValidatorProviderCollectionTest extends \PHPUnit_Framework_TestCase
+class ValidatorProviderCollectionTest extends \PHPUnit\Framework\TestCase
 {
-	/**
-	 * @expectedException \ICanBoogie\Validate\UndefinedValidator
-	 */
-	public function test_should_throw_exception_if_validator_if_not_defined()
+	public function test_should_throw_exception_if_validator_if_not_defined(): void
 	{
 		$provider = new ValidatorProviderCollection;
+		$this->expectException(UndefinedValidator::class);
 		$provider(uniqid());
 	}
 
-	public function test_should_add_provider()
+	public function test_should_add_provider(): void
 	{
 		$provider1 = function () {};
 		$provider2 = function () {};

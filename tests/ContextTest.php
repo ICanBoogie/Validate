@@ -7,7 +7,7 @@ use ICanBoogie\Validate\Reader\ArrayAdapter;
 /**
  * @small
  */
-class ContextTest extends \PHPUnit_Framework_TestCase
+class ContextTest extends \PHPUnit\Framework\TestCase
 {
 	public function test_value()
 	{
@@ -29,16 +29,14 @@ class ContextTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($value, $context->param($name));
 	}
 
-	/**
-	 * @expectedException \ICanBoogie\Validate\ParameterIsMissing
-	 */
-	public function test_param_undefined()
+	public function test_param_undefined(): void
 	{
 		$context = new Context;
+		$this->expectException(ParameterIsMissing::class);
 		$context->param(uniqid());
 	}
 
-	public function test_option()
+	public function test_option(): void
 	{
 		$name = uniqid();
 		$value = uniqid();

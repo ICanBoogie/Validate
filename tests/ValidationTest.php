@@ -11,14 +11,14 @@
 
 namespace ICanBoogie\Validate;
 
+use ICanBoogie\Validate\Reader\ArrayAdapter;
 use ICanBoogie\Validate\Validator\Email;
 use ICanBoogie\Validate\Validator\Required;
-use ICanBoogie\Validate\Reader\ArrayAdapter;
 
 /**
  * @large
  */
-class ValidationTest extends \PHPUnit_Framework_TestCase
+class ValidationTest extends \PHPUnit\Framework\TestCase
 {
 	public function test_should_not_validate_empty_value()
 	{
@@ -297,7 +297,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 		], $this->stringify_errors($errors));
 	}
 
-	public function test_assert_no_error()
+	public function test_assert_no_error(): void
 	{
 		$validation = new Validation([
 
@@ -308,10 +308,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 		$validation->assert(new ArrayAdapter([ 'email' => 'person@domain.tld' ]));
 	}
 
-	/**
-	 * @expectedException \ICanBoogie\Validate\ValidationFailed
-	 */
-	public function test_assert()
+	public function test_assert(): void
 	{
 		$validation = new Validation([
 
@@ -319,6 +316,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
 		]);
 
+		$this->expectException(ValidationFailed::class);
 		$validation->assert(new ArrayAdapter([]));
 	}
 

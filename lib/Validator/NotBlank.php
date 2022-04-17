@@ -31,6 +31,6 @@ class NotBlank extends ValidatorAbstract
 			return !!count($value);
 		}
 
-		return trim($value) !== '';
+		return trim($value ?? '') !== '';
 	}
 }

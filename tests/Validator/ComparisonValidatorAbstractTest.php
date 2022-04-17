@@ -17,7 +17,7 @@ use ICanBoogie\Validate\ParameterIsMissing;
 /**
  * @small
  */
-class ComparisonValidatorAbstractTest extends \PHPUnit_Framework_TestCase
+class ComparisonValidatorAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	public function test_should_throw_exception_on_missing_reference()
 	{

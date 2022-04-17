@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate;
 /**
  * @small
  */
-class ValidationFailedTest extends \PHPUnit_Framework_TestCase
+class ValidationFailedTest extends \PHPUnit\Framework\TestCase
 {
 	public function test_exception()
 	{

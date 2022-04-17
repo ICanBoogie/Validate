@@ -31,8 +31,8 @@ class NotEqualTest extends EqualTest
 	/**
 	 * @inheritdoc
 	 */
-	public function provide_test_invalid_values()
-	{
+	public function provide_test_invalid_values(): array
+    {
 		return parent::provide_test_valid_values();
 	}
 }

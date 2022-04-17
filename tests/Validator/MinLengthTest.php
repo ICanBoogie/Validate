@@ -28,8 +28,8 @@ class MinLengthTest extends ComparisonValidatorTestCase
 		];
 	}
 
-	public function provide_test_invalid_values()
-	{
+	public function provide_test_invalid_values(): array
+    {
 		return [
 			[ "abcd", 10 ],
 			[ "abcd", 5 ],

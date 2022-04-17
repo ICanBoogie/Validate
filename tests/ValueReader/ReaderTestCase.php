@@ -14,7 +14,7 @@ namespace ICanBoogie\Validate\ValueReader;
 /**
  * @small
  */
-abstract class ReaderTestCase extends \PHPUnit_Framework_TestCase
+abstract class ReaderTestCase extends \PHPUnit\Framework\TestCase
 {
 	const READER_CLASS = null;
 

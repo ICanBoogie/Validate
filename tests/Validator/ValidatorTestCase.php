@@ -17,7 +17,7 @@ use ICanBoogie\Validate\Validator;
 /**
  * @small
  */
-abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
+abstract class ValidatorTestCase extends \PHPUnit\Framework\TestCase
 {
 	const VALIDATOR_CLASS = "";
 
@@ -31,7 +31,7 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	 */
 	protected $context;
 
-	public function setUp()
+	protected function setUp(): void
 	{
 		$class = static::VALIDATOR_CLASS;
 		$this->validator = new $class;
@@ -80,7 +80,7 @@ abstract class ValidatorTestCase extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	abstract public function provide_test_invalid_values();
+	abstract public function provide_test_invalid_values(): array;
 }

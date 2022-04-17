@@ -18,16 +18,8 @@ use ICanBoogie\Validate\Reader;
  */
 abstract class AbstractAdapter implements Reader
 {
-	/**
-	 * @var mixed
-	 */
-	protected $source;
-
-	/**
-	 * @param mixed $source
-	 */
-	public function __construct($source)
-	{
-		$this->source = $source;
+	public function __construct(
+		protected readonly mixed $source
+	) {
 	}
 }

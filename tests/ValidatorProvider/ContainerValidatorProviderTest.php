@@ -15,7 +15,7 @@ use ICanBoogie\Validate\UndefinedValidator;
 use ICanBoogie\Validate\Validator\Required;
 use Psr\Container\ContainerInterface;
 
-class ContainerValidatorProviderTest extends \PHPUnit_Framework_TestCase
+class ContainerValidatorProviderTest extends \PHPUnit\Framework\TestCase
 {
 	public function test_should_throw_exception_if_service_not_defined()
 	{

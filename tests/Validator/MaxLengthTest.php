@@ -28,8 +28,8 @@ class MaxLengthTest extends ComparisonValidatorTestCase
 		];
 	}
 
-	public function provide_test_invalid_values()
-	{
+	public function provide_test_invalid_values(): array
+    {
 		return [
 			[ "abcd", 2 ],
 			[ "abcd", 3 ],

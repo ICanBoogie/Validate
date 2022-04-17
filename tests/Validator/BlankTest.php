@@ -29,8 +29,8 @@ class BlankTest extends ValidatorTestCase
 		];
 	}
 
-	public function provide_test_invalid_values()
-	{
+	public function provide_test_invalid_values(): array
+    {
 		return [
 			[ 'foobar' ],
 			[ 0 ],

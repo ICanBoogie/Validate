@@ -11,19 +11,20 @@
 
 namespace ICanBoogie\Validate\ValidatorProvider;
 
+use ICanBoogie\Validate\UndefinedValidator;
 use ICanBoogie\Validate\Validator;
 
 /**
  * @medium
  */
-class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
+class BuiltinValidatorProviderTest extends \PHPUnit\Framework\TestCase
 {
 	/**
 	 * @var BuiltinValidatorProvider
 	 */
 	private $provider;
 
-	public function setUp()
+	protected function setUp(): void
 	{
 		if (!$this->provider)
 		{
@@ -31,12 +32,10 @@ class BuiltinValidatorProviderTest extends \PHPUnit_Framework_TestCase
 		}
 	}
 
-	/**
-	 * @expectedException \ICanBoogie\Validate\UndefinedValidator
-	 */
-	public function test_should_throw_exception_if_validator_is_not_defined()
+	public function test_should_throw_exception_if_validator_is_not_defined(): void
 	{
 		$provider = $this->provider;
+		$this->expectException(UndefinedValidator::class);
 		$provider(uniqid());
 	}
 

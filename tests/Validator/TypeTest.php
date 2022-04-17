@@ -94,8 +94,8 @@ class TypeTest extends ValidatorTestCase
 	/**
 	 * @inheritdoc
 	 */
-	public function provide_test_invalid_values()
-	{
+	public function provide_test_invalid_values(): array
+    {
 		$object = new \stdClass();
 		$file = fopen(__FILE__, 'r');
 

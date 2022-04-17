@@ -45,8 +45,8 @@ class IdenticalTest extends ComparisonValidatorTestCase
 	/**
 	 * @inheritdoc
 	 */
-	public function provide_test_invalid_values()
-	{
+	public function provide_test_invalid_values(): array
+    {
 		return [
 			[ 1, 2, 'integer' ],
 			[ 2, '2', 'string' ],
