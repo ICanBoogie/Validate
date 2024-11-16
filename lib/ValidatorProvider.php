@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the ICanBoogie package.
- *
- * (c) Olivier Laviale <olivier.laviale@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace ICanBoogie\Validate;
 
 /**
@@ -16,14 +7,12 @@ namespace ICanBoogie\Validate;
  */
 interface ValidatorProvider
 {
-	/**
-	 * Returns a validator.
-	 *
-	 * @param string $class_or_alias The class or alias of the validator.
-	 *
-	 * @return Validator
-	 *
-	 * @throws UndefinedValidator if the validator is not defined.
-	 */
-	public function __invoke($class_or_alias);
+    /**
+     * Returns a validator.
+     *
+     * @param string|class-string<Validator> $class_or_alias The class or alias of the validator.
+     *
+     * @throws UndefinedValidator if the validator is not defined.
+     */
+    public function __invoke(string $class_or_alias): Validator;
 }

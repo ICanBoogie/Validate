@@ -1,10 +1,8 @@
 # Validate
 
 [![Release](https://img.shields.io/packagist/v/icanboogie/validate.svg)](https://packagist.org/packages/icanboogie/validate)
-[![Build Status](https://img.shields.io/travis/ICanBoogie/Validate.svg)](http://travis-ci.org/ICanBoogie/Validate)
-[![Code Quality](https://img.shields.io/scrutinizer/g/icanboogie/validate.svg)](https://scrutinizer-ci.com/g/ICanBoogie/Validate)
-[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Validate.svg)](https://coveralls.io/r/ICanBoogie/Validate)
-[![Packagist](https://img.shields.io/packagist/dt/icanboogie/validate.svg)](https://packagist.org/packages/icanboogie/validate)
+[![Code Coverage](https://coveralls.io/repos/github/ICanBoogie/Validate/badge.svg?branch=6.0)](https://coveralls.io/r/ICanBoogie/Validate?branch=6.0)
+[![Downloads](https://img.shields.io/packagist/dm/icanboogie/validate.svg)](https://packagist.org/packages/icanboogie/validate)
 
 The **icanboogie/validate** package offers a simple API to validate data.
 
@@ -100,6 +98,15 @@ array(1) {
 }
 string(36) "should be at least 3 characters long"
 ```
+
+
+
+#### Installation
+
+```shell
+composer require icanboogie/<name>
+```
+
 
 
 
@@ -454,63 +461,26 @@ $validation = new Validation($rules, $validator_provider_collection);
 
 
 
+## Continuous Integration
 
+The project is continuously tested by [GitHub actions](https://github.com/ICanBoogie/Validate/actions).
 
-## Installation
-
-The recommended way to install this package is through [Composer](http://getcomposer.org/):
-
-	$ composer require icanboogie/validate
-
-
-
-
-
-### Cloning the repository
-
-The package is [available on GitHub](https://github.com/ICanBoogie/validate), its repository can be
-cloned with the following command line:
-
-	$ git clone https://github.com/ICanBoogie/validate.git
+[![Tests](https://github.com/ICanBoogie/Validate/actions/workflows/test.yml/badge.svg?branch=6.0)](https://github.com/ICanBoogie/Validate/actions/workflows/test.yml)
+[![Static Analysis](https://github.com/ICanBoogie/Validate/actions/workflows/static-analysis.yml/badge.svg?branch=6.0)](https://github.com/ICanBoogie/Validate/actions/workflows/static-analysis.yml)
+[![Code Style](https://github.com/ICanBoogie/Validate/actions/workflows/code-style.yml/badge.svg?branch=6.0)](https://github.com/ICanBoogie/Validate/actions/workflows/code-style.yml)
 
 
 
+## Code of Conduct
 
-
-## Documentation
-
-The package is documented as part of the [ICanBoogie][] framework
-[documentation][]. You can generate the documentation for the package and its dependencies with
-the `make doc` command. The documentation is generated in the `build/docs` directory.
-[ApiGen](http://apigen.org/) is required. The directory can later be cleaned with the
-`make clean` command.
+This project adheres to a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in
+this project and its community, you're expected to uphold this code.
 
 
 
+## Contributing
 
-
-## Testing
-
-The test suite is ran with the `make test` command. [PHPUnit](https://phpunit.de/) and
-[Composer](http://getcomposer.org/) need to be globally available to run the suite. The command
-installs dependencies as required. The `make test-coverage` command runs test suite and also
-creates an HTML coverage report in `build/coverage`. The directory can later be cleaned with
-the `make clean` command.
-
-The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
-
-[![Build Status](https://img.shields.io/travis/ICanBoogie/Validate/master.svg)](https://travis-ci.org/ICanBoogie/Validate)
-[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Validate.svg)](https://coveralls.io/r/ICanBoogie/Validate)
-
-
-
-
-
-## License
-
-**icanboogie/validate** is licensed under the New BSD License - See the [LICENSE](LICENSE) file for details.
-
-
+See [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 
 

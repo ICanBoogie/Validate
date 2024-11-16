@@ -1,45 +1,22 @@
 <?php
 
-/*
- * This file is part of the ICanBoogie package.
- *
- * (c) Olivier Laviale <olivier.laviale@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace ICanBoogie\Validate\Validator;
 
-use ICanBoogie\Validate\Context;
-use ICanBoogie\Validate\Validator;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Small;
 
-/**
- * @small
- */
+#[Small]
 abstract class RangeValidatorTestCase extends ValidatorTestCase
 {
-	/**
-	 * @dataProvider provide_test_valid_values
-	 *
-	 * @param mixed $value
-	 * @param mixed $range
-	 * @param string|null $value_type
-	 */
-	public function test_valid_values($value, $range = null, $value_type = null)
-	{
-		parent::test_valid_values($value, $range, $value_type);
-	}
+    #[DataProvider('provide_test_valid_values')]
+    public function test_valid_values(mixed $value, mixed $params = null, ?string $value_type = null): void
+    {
+        parent::test_valid_values($value, $params, $value_type);
+    }
 
-	/**
-	 * @dataProvider provide_test_invalid_values
-	 *
-	 * @param mixed $value
-	 * @param mixed $range
-	 * @param string|null $value_type
-	 */
-	public function test_invalid_values($value, $range = null, $value_type = null)
-	{
-		parent::test_invalid_values($value, $range, $value_type);
-	}
+    #[DataProvider('provide_test_invalid_values')]
+    public function test_invalid_values(mixed $value, mixed $params = null, ?string $value_type = null): void
+    {
+        parent::test_invalid_values($value, $params, $value_type);
+    }
 }

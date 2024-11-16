@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the ICanBoogie package.
- *
- * (c) Olivier Laviale <olivier.laviale@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace ICanBoogie\Validate\Validator;
 
 /**
@@ -16,14 +7,14 @@ namespace ICanBoogie\Validate\Validator;
  */
 class Max extends ComparisonValidatorAbstract
 {
-	const ALIAS = 'max';
-	const DEFAULT_MESSAGE = "should be at most {reference}";
+    public const ALIAS = 'max';
+    public const DEFAULT_MESSAGE = "should be at most {reference}";
 
-	/**
-	 * @inheritdoc
-	 */
-	protected function compare($value, $reference)
-	{
-		return $value <= $reference;
-	}
+    /**
+     * @inheritdoc
+     */
+    protected function compare(mixed $value, mixed $reference): bool
+    {
+        return $value <= $reference;
+    }
 }

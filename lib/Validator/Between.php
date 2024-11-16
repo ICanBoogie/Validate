@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the ICanBoogie package.
- *
- * (c) Olivier Laviale <olivier.laviale@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace ICanBoogie\Validate\Validator;
 
 /**
@@ -16,14 +7,14 @@ namespace ICanBoogie\Validate\Validator;
  */
 class Between extends RangeValidatorAbstract
 {
-	const ALIAS = 'between';
-	const DEFAULT_MESSAGE = "should be between `{min}` and `{max}`";
+    public const ALIAS = 'between';
+    public const DEFAULT_MESSAGE = "should be between `{min}` and `{max}`";
 
-	/**
-	 * @inheritdoc
-	 */
-	protected function compare($value, $min, $max)
-	{
-		return $min <= $value && $value <= $max;
-	}
+    /**
+     * @inheritdoc
+     */
+    protected function compare(mixed $value, mixed $min, mixed $max): bool
+    {
+        return $min <= $value && $value <= $max;
+    }
 }

@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the ICanBoogie package.
- *
- * (c) Olivier Laviale <olivier.laviale@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace ICanBoogie\Validate\Validator;
 
 use ICanBoogie\Validate\Context;
@@ -16,50 +7,45 @@ use ICanBoogie\Validate\Context;
 /**
  * Validates that a value is a valid time zone.
  *
- * **Note:** This class validates _time zone_ such as "Europe/Paris" **NOT** _time zone offsets_
- * such as "+02:00".
+ * **Note**: This class validates _time zone_ such as "Europe/Paris" **NOT** _time zone offsets_ such as "+02:00".
  */
 class TimeZone extends ValidatorAbstract
 {
-	const ALIAS = 'timezone';
-	const DEFAULT_MESSAGE = "`{value}` is not a valid time zone, did you mean `{suggestion}`?";
+    public const ALIAS = 'timezone';
+    public const DEFAULT_MESSAGE = "`{value}` is not a valid time zone, did you mean `{suggestion}`?";
 
-	/**
-	 * @inheritdoc
-	 */
-	public function validate($value, Context $context)
-	{
-		$identifiers = timezone_identifiers_list();
+    /**
+     * @inheritdoc
+     */
+    public function validate(mixed $value, Context $context): bool
+    {
+        $identifiers = timezone_identifiers_list();
 
-		if (in_array($value, $identifiers))
-		{
-			return true;
-		}
+        if (in_array($value, $identifiers)) {
+            return true;
+        }
 
-		$context->message_args['suggestion'] = $this->find_best_match($value, $identifiers);
+        $context->message_args['suggestion'] = $this->find_best_match($value, $identifiers);
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * Find best possible match.
-	 *
-	 * @param string $value
-	 * @param array $identifiers
-	 *
-	 * @return string
-	 */
-	protected function find_best_match($value, array $identifiers)
-	{
-		$matches = array_fill_keys($identifiers, 0);
+    /**
+     * Find the best possible match.
+     *
+     * @param string[] $identifiers
+     */
+    private function find_best_match(string $value, array $identifiers): string
+    {
+        $matches = array_fill_keys($identifiers, 0);
 
-		foreach ($identifiers as $identifier)
-		{
-			similar_text($identifier, $value, $matches[$identifier]);
-		}
+        foreach ($identifiers as $identifier) {
+            similar_text($identifier, $value, $matches[$identifier]);
+        }
 
-		arsort($matches);
+        arsort($matches);
 
-		return key($matches);
-	}
+        /** @var string */
+        return key($matches);
+    }
 }

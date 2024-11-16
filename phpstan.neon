@@ -1,4 +1,8 @@
+# $schema: https://phpstan.olvlvl.com/schema.json
 parameters:
-  level: 1
+  level: 5
   paths:
     - lib
+  ignoreErrors:
+    - message: '#provide_.+ return type has no value type specified in iterable type array#'
+      reportUnmatched: false

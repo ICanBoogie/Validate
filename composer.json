@@ -1,50 +1,47 @@
 {
-	"name": "icanboogie/validate",
-	"type": "library",
-	"description": "Validate data against a set of rules",
-	"keywords": [
-		"validate",
-		"assert"
-	],
-	"homepage": "https://icanboogie.org/",
-	"license": "BSD-3-Clause",
-	"authors": [
-		{
-			"name": "Olivier Laviale",
-			"email": "olivier.laviale@gmail.com",
-			"homepage": "https://olvlvl.com/",
-			"role": "Developer"
-		}
-	],
-	"support": {
-		"issues": "https://github.com/ICanBoogie/validate/issues",
-		"source": "https://github.com/ICanBoogie/validate"
-	},
-	"config": {
-		"sort-packages": true,
-		"allow-plugins": {
-			"phpstan/extension-installer": true
-		}
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
-	"require": {
-		"php": ">=8.1"
-	},
-	"require-dev": {
-		"icanboogie/errors": "^6.0",
-		"phpstan/phpstan": "^1.5",
-		"phpunit/phpunit": "^9.5",
-		"psr/container": "^2.0"
-	},
-	"autoload": {
-		"psr-4": {
-			"ICanBoogie\\Validate\\": "lib/"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"ICanBoogie\\Validate\\": "tests/"
-		}
-	}
+  "name": "icanboogie/validate",
+  "type": "library",
+  "description": "Validate data against a set of rules",
+  "keywords": [
+    "validate",
+    "assert"
+  ],
+  "homepage": "https://icanboogie.org/",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Olivier Laviale",
+      "email": "olivier.laviale@gmail.com",
+      "homepage": "https://olvlvl.com/",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/ICanBoogie/validate/issues",
+    "source": "https://github.com/ICanBoogie/validate"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=8.2"
+  },
+  "require-dev": {
+    "icanboogie/errors": "^6.0",
+    "phpstan/phpstan": "^1.12",
+    "phpunit/phpunit": "^11.4",
+    "psr/container": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "ICanBoogie\\Validate\\": "lib/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ICanBoogie\\Validate\\": "tests/"
+    }
+  }
 }

@@ -1,108 +1,88 @@
 <?php
 
-/*
- * This file is part of the ICanBoogie package.
- *
- * (c) Olivier Laviale <olivier.laviale@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace ICanBoogie\Validate\Validator;
 
 use ICanBoogie\Validate\Context;
 use ICanBoogie\Validate\ParameterIsMissing;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Small;
+use PHPUnit\Framework\TestCase;
 
-/**
- * @small
- */
-class RangeValidatorAbstractTest extends \PHPUnit\Framework\TestCase
+#[Small]
+class RangeValidatorAbstractTest extends TestCase
 {
-	public function test_normalize_params()
-	{
-		$validator = $this
-			->getMockBuilder(RangeValidatorAbstract::class)
-			->getMockForAbstractClass();
+    private RangeValidatorAbstract $sut;
 
-		/* @var $validator RangeValidatorAbstract */
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-		$min = mt_rand(10, 20);
-		$max = mt_rand(30, 40);
+        $this->sut = new class () extends RangeValidatorAbstract {
+            protected function compare(mixed $value, mixed $min, mixed $max): bool
+            {
+                return false;
+            }
+        };
+    }
 
-		$this->assertSame([
+    public function test_normalize_params(): void
+    {
+        $min = mt_rand(10, 20);
+        $max = mt_rand(30, 40);
 
-			RangeValidatorAbstract::PARAM_MIN => $min,
-			RangeValidatorAbstract::PARAM_MAX => $max,
+        $this->assertSame([
 
-		], $validator->normalize_params([ $min, $max ]));
-	}
+            RangeValidatorAbstract::PARAM_MIN => $min,
+            RangeValidatorAbstract::PARAM_MAX => $max,
 
-	/**
-	 * @dataProvider provide_param
-	 *
-	 * @param array $params
-	 * @param string $missing
-	 */
-	public function test_should_throw_exception_on_missing_param(array $params, $missing)
-	{
-		$validator = $this
-			->getMockBuilder(RangeValidatorAbstract::class)
-			->getMockForAbstractClass();
+        ], $this->sut->normalize_params([ $min, $max ]));
+    }
 
-		/* @var $validator RangeValidatorAbstract */
+    #[DataProvider('provide_param')]
+    public function test_should_throw_exception_on_missing_param(array $params, string $missing): void
+    {
+        try {
+            $context = new Context();
+            $context->validator_params = $params;
+            $this->sut->validate(uniqid(), $context);
+        } catch (ParameterIsMissing $e) {
+            $this->assertStringEndsWith("::PARAM_$missing", $e->parameter);
 
-		try
-		{
-			$context = new Context;
-			$context->validator_params = $params;
-			$validator->validate(uniqid(), $context);
-		}
-		catch (ParameterIsMissing $e)
-		{
-			$this->assertStringEndsWith("::PARAM_$missing", $e->parameter);
+            return;
+        }
 
-			return;
-		}
+        $this->fail("Expected ParameterIsMissing");
+    }
 
-		$this->fail("Expected ParameterIsMissing");
-	}
+    public static function provide_param(): array
+    {
+        return [
 
-	public function provide_param()
-	{
-		return [
+            [ [ RangeValidatorAbstract::PARAM_MAX => 10 ], 'MIN' ],
+            [ [ RangeValidatorAbstract::PARAM_MIN => 10 ], 'MAX' ],
 
-			[ [ RangeValidatorAbstract::PARAM_MAX => 10 ], 'MIN' ],
-			[ [ RangeValidatorAbstract::PARAM_MIN => 10 ], 'MAX' ],
+        ];
+    }
 
-		];
-	}
+    public function test_message_args(): void
+    {
+        $context = new Context();
+        $min = mt_rand(10, 20);
+        $max = mt_rand(30, 40);
+        $context->validator_params = [
 
-	public function test_message_args()
-	{
-		$validator = $this
-			->getMockBuilder(RangeValidatorAbstract::class)
-			->getMockForAbstractClass();
+            RangeValidatorAbstract::PARAM_MIN => $min,
+            RangeValidatorAbstract::PARAM_MAX => $max,
 
-		/* @var $validator RangeValidatorAbstract */
+        ];
 
-		$context = new Context;
-		$min = mt_rand(10, 20);
-		$max = mt_rand(30, 40);
-		$context->validator_params = [
+        $this->sut->validate(mt_rand(50, 60), $context);
 
-			RangeValidatorAbstract::PARAM_MIN => $min,
-			RangeValidatorAbstract::PARAM_MAX => $max,
-
-		];
-
-		$validator->validate(mt_rand(50, 60), $context);
-
-		$this->assertArrayHasKey(RangeValidatorAbstract::MESSAGE_ARG_MIN, $context->message_args);
-		$this->assertArrayHasKey(RangeValidatorAbstract::MESSAGE_ARG_MAX, $context->message_args);
-		$this->assertArrayHasKey(RangeValidatorAbstract::MESSAGE_ARG_VALUE_TYPE, $context->message_args);
-		$this->assertSame($min, $context->message_args[RangeValidatorAbstract::MESSAGE_ARG_MIN]);
-		$this->assertSame($max, $context->message_args[RangeValidatorAbstract::MESSAGE_ARG_MAX]);
-		$this->assertSame('integer', $context->message_args[RangeValidatorAbstract::MESSAGE_ARG_VALUE_TYPE]);
-	}
+        $this->assertArrayHasKey(RangeValidatorAbstract::MESSAGE_ARG_MIN, $context->message_args);
+        $this->assertArrayHasKey(RangeValidatorAbstract::MESSAGE_ARG_MAX, $context->message_args);
+        $this->assertArrayHasKey(RangeValidatorAbstract::MESSAGE_ARG_VALUE_TYPE, $context->message_args);
+        $this->assertSame($min, $context->message_args[RangeValidatorAbstract::MESSAGE_ARG_MIN]);
+        $this->assertSame($max, $context->message_args[RangeValidatorAbstract::MESSAGE_ARG_MAX]);
+        $this->assertSame('integer', $context->message_args[RangeValidatorAbstract::MESSAGE_ARG_VALUE_TYPE]);
+    }
 }

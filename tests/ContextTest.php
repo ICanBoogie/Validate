@@ -3,59 +3,62 @@
 namespace ICanBoogie\Validate;
 
 use ICanBoogie\Validate\Reader\ArrayAdapter;
+use PHPUnit\Framework\Attributes\Small;
+use PHPUnit\Framework\TestCase;
 
-/**
- * @small
- */
-class ContextTest extends \PHPUnit\Framework\TestCase
+#[Small]
+class ContextTest extends TestCase
 {
-	public function test_value()
-	{
-		$name = uniqid();
-		$value = uniqid();
-		$context = new Context;
-		$context->reader = new ArrayAdapter([ $name => $value ]);
+    private Context $sut;
 
-		$this->assertSame($value, $context->value($name));
-	}
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-	public function test_param()
-	{
-		$name = uniqid();
-		$value = uniqid();
-		$context = new Context;
-		$context->validator_params = [ $name => $value ];
+        $this->sut = new Context();
+    }
 
-		$this->assertSame($value, $context->param($name));
-	}
+    public function test_value(): void
+    {
+        $name = uniqid();
+        $value = uniqid();
+        $this->sut->reader = new ArrayAdapter([ $name => $value ]);
 
-	public function test_param_undefined(): void
-	{
-		$context = new Context;
-		$this->expectException(ParameterIsMissing::class);
-		$context->param(uniqid());
-	}
+        $this->assertSame($value, $this->sut->value($name));
+    }
 
-	public function test_option(): void
-	{
-		$name = uniqid();
-		$value = uniqid();
-		$context = new Context;
-		$context->validator_params = [ $name => $value ];
+    public function test_param(): void
+    {
+        $name = uniqid();
+        $value = uniqid();
+        $this->sut->validator_params = [ $name => $value ];
 
-		$this->assertSame($value, $context->option($name));
-	}
+        $this->assertSame($value, $this->sut->param($name));
+    }
 
-	public function test_option_undefined()
-	{
-		$context = new Context;
-		$this->assertNull($context->option(uniqid()));
-	}
+    public function test_param_undefined(): void
+    {
+        $this->expectException(ParameterIsMissing::class);
+        $this->sut->param(uniqid());
+    }
 
-	public function test_option_undefined_with_default()
-	{
-		$default = uniqid();
-		$context = new Context;
-		$this->assertSame($default, $context->option(uniqid(), $default));
-	}
+    public function test_option(): void
+    {
+        $name = uniqid();
+        $value = uniqid();
+        $this->sut->validator_params = [ $name => $value ];
+
+        $this->assertSame($value, $this->sut->option($name));
+    }
+
+    public function test_option_undefined(): void
+    {
+        $this->assertNull($this->sut->option(uniqid()));
+    }
+
+    public function test_option_undefined_with_default(): void
+    {
+        $default = uniqid();
+        $this->assertSame($default, $this->sut->option(uniqid(), $default));
+    }
 }

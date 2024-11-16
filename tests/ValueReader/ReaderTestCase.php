@@ -1,37 +1,25 @@
 <?php
 
-/*
- * This file is part of the ICanBoogie package.
- *
- * (c) Olivier Laviale <olivier.laviale@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace ICanBoogie\Validate\ValueReader;
 
-/**
- * @small
- */
-abstract class ReaderTestCase extends \PHPUnit\Framework\TestCase
+use ICanBoogie\Validate\Reader;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Small;
+use PHPUnit\Framework\TestCase;
+
+#[Small]
+abstract class ReaderTestCase extends TestCase
 {
-	const READER_CLASS = null;
+    public const READER_CLASS = null;
 
-	/**
-	 * @dataProvider provide_test_read
-	 *
-	 * @param mixed $data
-	 * @param string $field
-	 * @param mixed $expected
-	 */
-	public function test_read($data, $field, $expected)
-	{
-		/* @var $reader \ICanBoogie\Validate\Reader */
-		$class = static::READER_CLASS;
-		$reader = new $class($data);
-		$this->assertSame($expected, $reader->read($field));
-	}
+    #[DataProvider('provide_test_read')]
+    public function test_read(mixed $data, string $field, mixed $expected): void
+    {
+        /* @var Reader $reader */
+        $class = static::READER_CLASS;
+        $reader = new $class($data);
+        $this->assertSame($expected, $reader->read($field));
+    }
 
-	abstract public function provide_test_read();
+    abstract public static function provide_test_read(): array;
 }

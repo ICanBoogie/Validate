@@ -1,349 +1,343 @@
 <?php
 
-/*
- * This file is part of the ICanBoogie package.
- *
- * (c) Olivier Laviale <olivier.laviale@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace ICanBoogie\Validate;
 
 use ICanBoogie\Validate\Reader\ArrayAdapter;
 use ICanBoogie\Validate\Validator\Email;
 use ICanBoogie\Validate\Validator\Required;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Large;
+use PHPUnit\Framework\TestCase;
 
-/**
- * @large
- */
-class ValidationTest extends \PHPUnit\Framework\TestCase
+#[Large]
+class ValidationTest extends TestCase
 {
-	public function test_should_not_validate_empty_value()
-	{
-		$attribute = uniqid();
-		$validation = new Validation([ $attribute => 'timezone' ]);
-		$errors = $validation->validate(new ArrayAdapter([ $attribute => ' ' ]));
+    public function test_should_not_validate_empty_value(): void
+    {
+        $attribute = uniqid();
+        $validation = new Validation([ $attribute => 'timezone' ]);
+        $errors = $validation->validate(new ArrayAdapter([ $attribute => ' ' ]));
 
-		$this->assertCount(0, $errors);
-	}
+        $this->assertCount(0, $errors);
+    }
 
-	public function test_should_validate_empty_value_if_required()
-	{
-		$attribute = uniqid();
-		$validation = new Validation([ $attribute => 'required|timezone' ]);
-		$errors = $validation->validate(new ArrayAdapter([ $attribute => ' ' ]));
+    public function test_should_validate_empty_value_if_required(): void
+    {
+        $attribute = uniqid();
+        $validation = new Validation([ $attribute => 'required|timezone' ]);
+        $errors = $validation->validate(new ArrayAdapter([ $attribute => ' ' ]));
 
-		$this->assertSame([
+        $this->assertSame([
 
-			$attribute => [ Required::DEFAULT_MESSAGE ]
+            $attribute => [ Required::DEFAULT_MESSAGE ]
 
-		], $this->stringify_errors($errors));
-	}
+        ], $this->stringify_errors($errors));
+    }
 
-	public function test_if()
-	{
-		$email = uniqid();
+    public function test_if(): void
+    {
+        $email = uniqid();
 
-		$validation = new Validation([
+        $validation = new Validation([
 
-			'email' => [
+            'email' => [
 
-				Email::class => [
+                Email::class => [
 
-					Email::OPTION_IF => function(Context $context) use ($email) {
+                    Email::OPTION_IF => function (Context $context) use ($email) {
+                        $this->assertEquals('email', $context->attribute);
+                        $this->assertEquals($email, $context->value);
 
-						$this->assertEquals('email', $context->attribute);
-						$this->assertEquals($email, $context->value);
+                        return true;
+                    }
 
-						return true;
+                ]
 
-					}
+            ]
 
-				]
+        ]);
 
-			]
+        $errors = $validation->validate(new ArrayAdapter([
 
-		]);
+            'email' => $email
 
-		$errors = $validation->validate(new ArrayAdapter([
+        ]));
 
-			'email' => $email
+        $this->assertArrayHasKey('email', $errors);
+    }
 
-		]));
+    public function test_not_if(): void
+    {
+        $validation = new Validation([
 
-		$this->assertArrayHasKey('email', $errors);
-	}
+            'email' => [
 
-	public function test_not_if()
-	{
-		$validation = new Validation([
+                Email::class => [
 
-			'email' => [
+                    Email::OPTION_IF => function () {
+                        return false;
+                    }
 
-				Email::class => [
+                ]
 
-					Email::OPTION_IF => function() { return false; }
+            ]
 
-				]
+        ]);
 
-			]
+        $errors = $validation->validate(new ArrayAdapter([
 
-		]);
+            'email' => 'person'
 
-		$errors = $validation->validate(new ArrayAdapter([
+        ]));
 
-			'email' => 'person'
+        $this->assertArrayNotHasKey('email', $errors);
+    }
 
-		]));
+    public function test_unless(): void
+    {
+        $email = uniqid();
 
-		$this->assertArrayNotHasKey('email', $errors);
-	}
+        $validation = new Validation([
 
-	public function test_unless()
-	{
-		$email = uniqid();
+            'email' => [
 
-		$validation = new Validation([
+                Email::class => [
 
-			'email' => [
+                    Email::OPTION_UNLESS => function (Context $context) use ($email) {
+                        $this->assertEquals('email', $context->attribute);
+                        $this->assertEquals($email, $context->value);
 
-				Email::class => [
+                        return false;
+                    }
 
-					Email::OPTION_UNLESS => function(Context $context) use ($email) {
+                ]
 
-						$this->assertEquals('email', $context->attribute);
-						$this->assertEquals($email, $context->value);
+            ]
 
-						return false;
+        ]);
 
-					}
+        $errors = $validation->validate(new ArrayAdapter([
 
-				]
+            'email' => $email
 
-			]
+        ]));
 
-		]);
+        $this->assertArrayHasKey('email', $errors);
+    }
 
-		$errors = $validation->validate(new ArrayAdapter([
+    public function test_not_unless(): void
+    {
+        $validation = new Validation([
 
-			'email' => $email
+            'email' => [
 
-		]));
+                Email::class => [
 
-		$this->assertArrayHasKey('email', $errors);
-	}
+                    Email::OPTION_UNLESS => function () {
+                        return true;
+                    }
 
-	public function test_not_unless()
-	{
-		$validation = new Validation([
+                ]
 
-			'email' => [
+            ]
 
-				Email::class => [
+        ]);
 
-					Email::OPTION_UNLESS => function() { return true; }
+        $errors = $validation->validate(new ArrayAdapter([
 
-				]
+            'email' => 'person'
 
-			]
+        ]));
 
-		]);
+        $this->assertArrayNotHasKey('email', $errors);
+    }
 
-		$errors = $validation->validate(new ArrayAdapter([
+    public function test_required(): void
+    {
+        $validation = new Validation([
 
-			'email' => 'person'
+            'email' => [
 
-		]));
+                Required::class => [],
+                Email::class => [],
 
-		$this->assertArrayNotHasKey('email', $errors);
-	}
+            ]
 
-	public function test_required()
-	{
-		$validation = new Validation([
+        ]);
 
-			'email' => [
+        $errors = $validation->validate(new ArrayAdapter([]));
 
-				Required::class => [],
-				Email::class => [],
+        $this->assertEquals([
 
-			]
+            'email' => [ Required::DEFAULT_MESSAGE ]
 
-		]);
+        ], $this->stringify_errors($errors));
+    }
 
-		$errors = $validation->validate(new ArrayAdapter([]));
+    public function test_custom_message(): void
+    {
+        $validation = new Validation([
 
-		$this->assertEquals([
+            'email' => [
 
-			'email' => [ Required::DEFAULT_MESSAGE ]
+                Email::class => [
 
-		], $this->stringify_errors($errors));
-	}
+                    Email::OPTION_MESSAGE => "{value} is not a valid email address."
 
-	public function test_custom_message()
-	{
-		$validation = new Validation([
+                ]
 
-			'email' => [
+            ]
 
-				Email::class => [
+        ]);
 
-					Email::OPTION_MESSAGE => "{value} is not a valid email address."
+        $errors = $validation->validate(new ArrayAdapter([
 
-				]
+            'email' => 'person'
 
-			]
+        ]));
 
-		]);
+        $this->assertEquals([
 
-		$errors = $validation->validate(new ArrayAdapter([
+            'email' => [ "person is not a valid email address." ]
 
-			'email' => 'person'
+        ], $this->stringify_errors($errors));
+    }
 
-		]));
+    /**
+     * @param mixed[] $params
+     */
+    #[DataProvider('provide_test_message')]
+    public function test_message(string $class, array $params, mixed $value, string $expected): void
+    {
+        $attribute = 'A' . uniqid();
+        $validation = new Validation([ $attribute => [ $class => $params ] ]);
+        $errors = $validation->validate(new ArrayAdapter([ $attribute => $value ]));
+        $this->assertArrayHasKey($attribute, $errors);
+        $message = $errors[$attribute][0];
+        $this->assertArrayHasKey(Validator::MESSAGE_ARG_ATTRIBUTE, $message->args);
+        $this->assertArrayHasKey(Validator::MESSAGE_ARG_VALUE, $message->args);
+        $this->assertArrayHasKey(Validator::MESSAGE_ARG_VALIDATOR, $message->args);
+        $this->assertSame($attribute, $message->args[Validator::MESSAGE_ARG_ATTRIBUTE]);
+        $this->assertSame($value, $message->args[Validator::MESSAGE_ARG_VALUE]);
+        $this->assertSame($class, $message->args[Validator::MESSAGE_ARG_VALIDATOR]);
+        $this->assertSame($expected, (string)$message);
+    }
 
-		$this->assertEquals([
+    public static function provide_test_message(): array
+    {
+        return [
 
-			'email' => [ "person is not a valid email address." ]
+            [ Validator\Between::class, [ 1, 3 ], 4, "should be between `1` and `3`" ],
+            [ Validator\BetweenLength::class, [ 3, 10 ], "ab", "should be between 3 and 10 characters long" ],
+            [ Validator\Blank::class, [], 'B' . uniqid(), Validator\Blank::DEFAULT_MESSAGE ],
+            [ Validator\Boolean::class, [], "abc", Validator\Boolean::DEFAULT_MESSAGE ],
+            [ Validator\Email::class, [], 'person', "`person` is not a valid email address" ],
+            [ Validator\Equal::class, [ 3 ], 4, "should equal 3" ],
+            [ Validator\Identical::class, [ 3 ], 4, "should be identical to (integer) `3`" ],
+            [ Validator\IsFalse::class, [], true, Validator\IsFalse::DEFAULT_MESSAGE ],
+            [ Validator\IsNull::class, [], 'I' . uniqid(), Validator\IsNull::DEFAULT_MESSAGE ],
+            [ Validator\IsTrue::class, [], false, Validator\IsTrue::DEFAULT_MESSAGE ],
+            [ Validator\JSON::class, [], 12, "should be a valid JSON string" ],
+            [ Validator\Max::class, [ 10 ], 12, "should be at most 10" ],
+            [ Validator\MaxLength::class, [ 3 ], "abcd", "should be at most 3 characters long" ],
+            [ Validator\Min::class, [ 10 ], 8, "should be at least 10" ],
+            [ Validator\MinLength::class, [ 3 ], "ab", "should be at least 3 characters long" ],
+            [ Validator\NotBetween::class, [ 1, 3 ], 2, "should not be between `1` and `3`" ],
+            [ Validator\NotBetweenLength::class, [ 3, 10 ], "abcd", "should not be between 3 and 10 characters long" ],
+            [ Validator\NotBlank::class, [], false, Validator\NotBlank::DEFAULT_MESSAGE ],
+            [ Validator\NotEqual::class, [ 3 ], 3, "should not equal 3" ],
+            [ Validator\NotIdentical::class, [ 3 ], 3, "should not be identical to (integer) `3`" ],
+            [ Validator\Regex::class, [ '/^\d+$/' ], "abcd", "`abcd` does not match pattern" ],
+            [ Validator\Required::class, [], null, Validator\Required::DEFAULT_MESSAGE ],
+            [
+                Validator\TimeZone::class,
+                [],
+                'Europe/Pas',
+                "`Europe/Pas` is not a valid time zone, did you mean `Europe/Paris`?"
+            ],
+            [ Validator\Type::class, [ 'integer' ], "abc", "should be of type integer" ],
+            [ Validator\URL::class, [], 'icanboogie.org', "`icanboogie.org` is not a valid URL" ],
 
-		], $this->stringify_errors($errors));
-	}
+        ];
+    }
 
-	/**
-	 * @dataProvider provide_test_message
-	 *
-	 * @param string $class
-	 * @param array $params
-	 * @param mixed $value
-	 * @param string $expected
-	 */
-	public function test_message($class, $params, $value, $expected)
-	{
-		$attribute = uniqid();
-		$validation = new Validation([ $attribute => [ $class => $params ]]);
-		$errors = $validation->validate(new ArrayAdapter([ $attribute => $value ]));
-		$this->assertArrayHasKey($attribute, $errors);
-		$message = $errors[$attribute][0];
-		$this->assertArrayHasKey(Validator::MESSAGE_ARG_ATTRIBUTE, $message->args);
-		$this->assertArrayHasKey(Validator::MESSAGE_ARG_VALUE, $message->args);
-		$this->assertArrayHasKey(Validator::MESSAGE_ARG_VALIDATOR, $message->args);
-		$this->assertSame($attribute, $message->args[Validator::MESSAGE_ARG_ATTRIBUTE]);
-		$this->assertSame($value, $message->args[Validator::MESSAGE_ARG_VALUE]);
-		$this->assertSame($class, $message->args[Validator::MESSAGE_ARG_VALIDATOR]);
-		$this->assertSame($expected, (string) $message);
-	}
+    public function test_encoded_validators(): void
+    {
+        $validation = new Validation([
 
-	public function provide_test_message()
-	{
-		return [
+            'name' => 'required|min-length:3',
+            'email' => 'required|email!|max-length:3',
+            'password' => 'required|min-length:6',
+            'consent' => 'required'
 
-			[ Validator\Between::class,          [ 1, 3 ], 4, "should be between `1` and `3`" ],
-			[ Validator\BetweenLength::class,    [ 3, 10 ], "ab", "should be between 3 and 10 characters long" ],
-			[ Validator\Blank::class,            [], uniqid(), Validator\Blank::DEFAULT_MESSAGE ],
-			[ Validator\Boolean::class,          [], "abc", Validator\Boolean::DEFAULT_MESSAGE ],
-			[ Validator\Email::class,            [], 'person', "`person` is not a valid email address" ],
-			[ Validator\Equal::class,            [ 3 ], 4, "should equal 3" ],
-			[ Validator\Identical::class,        [ 3 ], 4, "should be identical to (integer) `3`" ],
-			[ Validator\IsFalse::class,          [], true, Validator\IsFalse::DEFAULT_MESSAGE ],
-			[ Validator\IsNull::class,           [], uniqid(), Validator\IsNull::DEFAULT_MESSAGE ],
-			[ Validator\IsTrue::class,           [], false, Validator\IsTrue::DEFAULT_MESSAGE ],
-			[ Validator\JSON::class,             [], 12, "should be a valid JSON string" ],
-			[ Validator\Max::class,              [ 10 ], 12, "should be at most 10" ],
-			[ Validator\MaxLength::class,        [ 3 ], "abcd", "should be at most 3 characters long" ],
-			[ Validator\Min::class,              [ 10 ], 8, "should be at least 10" ],
-			[ Validator\MinLength::class,        [ 3 ], "ab", "should be at least 3 characters long" ],
-			[ Validator\NotBetween::class,       [ 1, 3 ], 2, "should not be between `1` and `3`" ],
-			[ Validator\NotBetweenLength::class, [ 3, 10 ], "abcd", "should not be between 3 and 10 characters long" ],
-			[ Validator\NotBlank::class,         [], false, Validator\NotBlank::DEFAULT_MESSAGE ],
-			[ Validator\NotEqual::class,         [ 3 ], 3, "should not equal 3" ],
-			[ Validator\NotIdentical::class,     [ 3 ], 3, "should not be identical to (integer) `3`" ],
-			[ Validator\Regex::class,            [ '/^\d+$/' ], "abcd", "`abcd` does not match pattern" ],
-			[ Validator\Required::class,         [], null, Validator\Required::DEFAULT_MESSAGE ],
-			[ Validator\TimeZone::class,         [], 'Europe/Pas', "`Europe/Pas` is not a valid time zone, did you mean `Europe/Paris`?" ],
-			[ Validator\Type::class,             [ 'integer' ], "abc", "should be of type integer" ],
-			[ Validator\URL::class,              [], 'icanboogie.org', "`icanboogie.org` is not a valid URL" ],
+        ]);
 
-		];
-	}
+        $errors = $validation->validate(new ArrayAdapter([
 
-	public function test_encoded_validators()
-	{
-		$validation = new Validation([
+            'name' => "Ol",
+            'email' => "olivier",
+            'password' => "123"
 
-			'name' => 'required|min-length:3',
-			'email' => 'required|email!|max-length:3',
-			'password' => 'required|min-length:6',
-			'consent' => 'required'
+        ]));
 
-		]);
+        $this->assertSame([
 
-		$errors = $validation->validate(new ArrayAdapter([
+            'name' => [ "should be at least 3 characters long" ],
+            'email' => [ "`olivier` is not a valid email address" ],
+            'password' => [ "should be at least 6 characters long" ],
+            'consent' => [ "is required" ]
 
-			'name' => "Ol",
-			'email' => "olivier",
-			'password' => "123"
+        ], $this->stringify_errors($errors));
+    }
 
-		]));
+    public function test_assert_no_error(): void
+    {
+        $validation = new Validation([
 
-		$this->assertSame([
+            'email' => 'required|email'
 
-			'name' => [ "should be at least 3 characters long" ],
-			'email' => [ "`olivier` is not a valid email address" ],
-			'password' => [ "should be at least 6 characters long" ],
-			'consent' => [ "is required" ]
+        ]);
 
-		], $this->stringify_errors($errors));
-	}
+        $validation->assert(new ArrayAdapter([ 'email' => 'person@domain.tld' ]));
 
-	public function test_assert_no_error(): void
-	{
-		$validation = new Validation([
+        $this->assertTrue(true);
+    }
 
-			'email' => 'required|email'
+    public function test_assert(): void
+    {
+        $validation = new Validation([
 
-		]);
+            'email' => 'required|email'
 
-		$validation->assert(new ArrayAdapter([ 'email' => 'person@domain.tld' ]));
-	}
+        ]);
 
-	public function test_assert(): void
-	{
-		$validation = new Validation([
+        $this->expectException(ValidationFailed::class);
+        $validation->assert(new ArrayAdapter([]));
+    }
 
-			'email' => 'required|email'
+    /**
+     * @param ValidationErrors|array<string, Message[]> $errors
+     *
+     * @return array<string, string[]>
+     */
+    private function stringify_errors(ValidationErrors|array $errors): array
+    {
+        if (count($errors) == 0) {
+            return [];
+        }
 
-		]);
+        assert($errors instanceof ValidationErrors);
 
-		$this->expectException(ValidationFailed::class);
-		$validation->assert(new ArrayAdapter([]));
-	}
+        #
+        # HHVM's array_walk_recursive() doesn't work with ArrayObject :(
+        #
 
-	/**
-	 * @param ValidationErrors|array $errors
-	 *
-	 * @return ValidationErrors|array
-	 */
-	private function stringify_errors($errors)
-	{
-		if (!$errors)
-		{
-			return [];
-		}
+        $errors = $errors->to_array();
 
-		#
-		# HHVM's array_walk_recursive() doesn't work with ArrayObject :(
-		#
+        array_walk_recursive($errors, function (Message &$message) {
+            $message = (string)$message;
+        });
 
-		$errors = $errors->to_array();
-
-		array_walk_recursive($errors, function(Message &$message) {
-
-			$message = (string) $message;
-
-		});
-
-		return $errors;
-	}
+        return $errors;
+    }
 }

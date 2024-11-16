@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the ICanBoogie package.
- *
- * (c) Olivier Laviale <olivier.laviale@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace ICanBoogie\Validate\Validator;
 
 use ICanBoogie\Validate\Context;
@@ -18,86 +9,98 @@ use ICanBoogie\Validate\Context;
  */
 class Type extends ValidatorAbstract
 {
-	const ALIAS = 'type';
-	const DEFAULT_MESSAGE = "should be of type {type}";
+    public const ALIAS = 'type';
+    public const DEFAULT_MESSAGE = "should be of type {type}";
 
-	const PARAM_TYPE = 'type';
+    public const PARAM_TYPE = 'type';
 
-	/**
-	 * Mapping for `is_*` and `ctype_*` functions.
-	 *
-	 * @var array
-	 */
-	static private $mapping = [
+    /**
+     * Mapping for `is_*` and `ctype_*` functions.
+     */
+    private const MAPPING = [
 
-		'is' => [ 'array', 'bool', 'double', 'float', 'int', 'integer', 'long',
-			'null', 'numeric', 'object', 'real', 'resource', 'scalar', 'string' ],
+        'is' => [
+            'array',
+            'bool',
+            'double',
+            'float',
+            'int',
+            'integer',
+            'long',
+            'null',
+            'numeric',
+            'object',
+            'real',
+            'resource',
+            'scalar',
+            'string',
+        ],
 
-		'ctype' => [ 'alnum', 'alpha', 'cntrl', 'digit', 'graph', 'lower',
-			'print', 'punct', 'space', 'upper', 'xdigit' ]
+        'ctype' => [
+            'alnum',
+            'alpha',
+            'cntrl',
+            'digit',
+            'graph',
+            'lower',
+            'print',
+            'punct',
+            'space',
+            'upper',
+            'xdigit',
+        ],
 
-	];
+    ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function validate($value, Context $context)
-	{
-		$context->message_args[self::PARAM_TYPE] = $type = $context->param(self::PARAM_TYPE);
-		$callable = $this->resolve_callable($this->normalize_type($type));
+    /**
+     * @inheritdoc
+     */
+    public function validate(mixed $value, Context $context): bool
+    {
+        $context->message_args[self::PARAM_TYPE] = $type = $context->param(self::PARAM_TYPE);
+        $callable = $this->resolve_callable($this->normalize_type($type));
 
-		if ($callable)
-		{
-			return $callable($value);
-		}
+        if ($callable) {
+            return $callable($value);
+        }
 
-		return $value instanceof $type;
-	}
+        return $value instanceof $type;
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	protected function get_params_mapping()
-	{
-		return [ self::PARAM_TYPE ];
-	}
+    /**
+     * @inheritdoc
+     */
+    protected function get_params_mapping(): array
+    {
+        return [ self::PARAM_TYPE ];
+    }
 
-	/**
-	 * Normalizes type.
-	 *
-	 * @param string $type
-	 *
-	 * @return string
-	 */
-	protected function normalize_type($type)
-	{
-		$type = strtolower($type);
+    /**
+     * Normalizes type.
+     */
+    protected function normalize_type(string $type): string
+    {
+        $type = strtolower($type);
 
-		if ($type == 'boolean')
-		{
-			$type = 'bool';
-		}
+        if ($type == 'boolean') {
+            $type = 'bool';
+        }
 
-		return $type;
-	}
+        return $type;
+    }
 
-	/**
-	 * Resolves callable to validate type.
-	 *
-	 * @param string $type
-	 *
-	 * @return string|null
-	 */
-	protected function resolve_callable($type)
-	{
-		foreach (self::$mapping as $prefix => $types)
-		{
-			if (in_array($type, $types))
-			{
-				return "{$prefix}_{$type}";
-			}
-		}
+    /**
+     * Resolves callable to validate type.
+     */
+    protected function resolve_callable(string $type): ?callable
+    {
+        foreach (self::MAPPING as $prefix => $types) {
+            if (in_array($type, $types)) {
+                /** @var callable */
+                return "{$prefix}_$type";
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

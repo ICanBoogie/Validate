@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the ICanBoogie package.
- *
- * (c) Olivier Laviale <olivier.laviale@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace ICanBoogie\Validate\Validator;
 
 /**
@@ -16,14 +7,14 @@ namespace ICanBoogie\Validate\Validator;
  */
 class NotBetweenLength extends BetweenLength
 {
-	const ALIAS = 'not-between-length';
-	const DEFAULT_MESSAGE = "should not be between {min} and {max} characters long";
+    public const ALIAS = 'not-between-length';
+    public const DEFAULT_MESSAGE = "should not be between {min} and {max} characters long";
 
-	/**
-	 * @inheritdoc
-	 */
-	protected function compare($value, $min, $max)
-	{
-		return !parent::compare($value, $min, $max);
-	}
+    /**
+     * @inheritdoc
+     */
+    protected function compare(mixed $value, mixed $min, mixed $max): bool
+    {
+        return !parent::compare($value, $min, $max);
+    }
 }

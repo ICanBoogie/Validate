@@ -1,78 +1,62 @@
 <?php
 
-/*
- * This file is part of the ICanBoogie package.
- *
- * (c) Olivier Laviale <olivier.laviale@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace ICanBoogie\Validate;
 
+use ArrayObject;
 use ICanBoogie\ErrorCollection;
 
 /**
  * Representation of validation errors.
  *
- * @method Message[] offsetGet($index)
+ * @extends ArrayObject<string, Message[]>
  */
-class ValidationErrors extends \ArrayObject
+final class ValidationErrors extends ArrayObject
 {
-	/**
-	 * Creates a new instance with the specified errors.
-	 *
-	 * @param array $errors
-	 *
-	 * @return static
-	 */
-	static public function from(array $errors)
-	{
-		return new static($errors);
-	}
+    /**
+     * Creates a new instance with the specified errors.
+     *
+     * @param array<string, Message[]> $errors
+     */
+    public static function from(array $errors): self
+    {
+        return new self($errors);
+    }
 
-	/**
-	 * Returns a copy of the instance.
-	 *
-	 * @return array
-	 */
-	public function to_array()
-	{
-		return $this->getArrayCopy();
-	}
+    /**
+     * Returns a copy of the instance.
+     *
+     * @return array<string, Message[]>
+     */
+    public function to_array(): array
+    {
+        return $this->getArrayCopy();
+    }
 
-	/**
-	 * Returns an error collection instance.
-	 *
-	 * @return ErrorCollection
-	 */
-	public function to_error_collection()
-	{
-		$collection = new ErrorCollection;
+    /**
+     * Returns validation errors as an {@see ErrorCollection}.
+     */
+    public function to_error_collection(): ErrorCollection
+    {
+        $collection = new ErrorCollection();
 
-		/* @var $messages Message[] */
+        foreach ($this as $attribute => $messages) {
+            foreach ($messages as $message) {
+                $collection->add($attribute, $message->format, $message->args);
+            }
+        }
 
-		foreach ($this as $attribute => $messages)
-		{
-			foreach ($messages as $message)
-			{
-				$collection->add($attribute, $message->format, $message->args);
-			}
-		}
+        return $collection;
+    }
 
-		return $collection;
-	}
+    /**
+     * Clears the instance.
+     *
+     * @return $this
+     */
+    public function clear(): self
+    {
+        $this->exchangeArray([]);
 
-	/**
-	 * Clears the instance.
-	 *
-	 * @return $this
-	 */
-	public function clear()
-	{
-		$this->exchangeArray([]);
-
-		return $this;
-	}
+        return $this;
+    }
 }
